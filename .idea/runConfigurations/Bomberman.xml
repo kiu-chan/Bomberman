@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Bomberman" type="Application" factoryName="Application" activateToolWindowBeforeRun="false">
+    <option name="MAIN_CLASS_NAME" value="uet.oop.bomberman.BombermanGame" />
+    <option name="VM_PARAMETERS" value="--module-path &quot;C:\openjfx-19_windows-x64_bin-sdk\javafx-sdk-19\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

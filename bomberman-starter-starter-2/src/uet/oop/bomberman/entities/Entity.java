@@ -13,6 +13,7 @@ public abstract class Entity {
 
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
+    protected boolean remove;
 
     protected Image img;
 
@@ -27,4 +28,34 @@ public abstract class Entity {
         gc.drawImage(img, x, y);
     }
     public abstract void update();
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getXTile() {
+        return (x)/32;
+    }
+    public int getYTile() {
+        return (y)/32;
+    }
+
+    public boolean isRemove() {
+        return remove;
+    }
+
+    public void setRemove(boolean remove) {
+        this.remove = remove;
+    }
 }

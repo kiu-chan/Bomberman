@@ -17,20 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BombermanGame extends Application {
-<<<<<<< HEAD
-<<<<<<< HEAD
     
-    public static final int WIDTH = 31;
-    public static final int HEIGHT = 13;
-=======
-=======
->>>>>>> 1902e367cfdb355682181a0be2bec75f3380eb61
+    public static final int WIDTH = 25;
+    public static final int HEIGHT = 20;
 
-    // hello
-    public static final int WIDTH = 20;
-    public static final int HEIGHT = 15;
->>>>>>> 1902e367cfdb355682181a0be2bec75f3380eb61
-    
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
@@ -69,8 +59,11 @@ public class BombermanGame extends Application {
 
         createMap();
 
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage());
+        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(),1);
+        Entity bomberman2 = new Bomber(5, 5, Sprite.player_up.getFxImage(),1);
+        bomberman2.update();
         entities.add(bomberman);
+        entities.add(bomberman2);
     }
 
     public void createMap() {

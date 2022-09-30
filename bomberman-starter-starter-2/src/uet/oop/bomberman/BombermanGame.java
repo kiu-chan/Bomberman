@@ -18,10 +18,13 @@ import java.util.List;
 
 public class BombermanGame extends Application {
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 =======
+=======
+>>>>>>> 1902e367cfdb355682181a0be2bec75f3380eb61
 
     // hello
     public static final int WIDTH = 20;

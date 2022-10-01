@@ -61,6 +61,7 @@ public class BombermanGame extends Application {
 
         Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(),1);
         Entity bomberman2 = new Bomber(5, 5, Sprite.player_up.getFxImage(),1);
+        getBomberControl.getControl(scene);
         bomberman2.update();
         entities.add(bomberman);
         entities.add(bomberman2);

@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import uet.oop.bomberman.getBomberControl;
 
 public class Bomber extends MoveEntity {
     protected int bomberSpeed = 1;
@@ -14,13 +15,26 @@ public class Bomber extends MoveEntity {
 
     @Override
     public void update() {
-        this.moveDown();
-        this.moveRight();
+        this.moveBomber();
     }
 
     @Override
     public boolean canMove(int way) {
         return true;
+    }
+    public void moveBomber() {
+        if (getBomberControl.bomberLeft) {
+            this.moveLeft();
+        }
+        if (getBomberControl.bomberRight) {
+            this.moveRight();
+        }
+        if (getBomberControl.bomberUp) {
+            this.moveUp();
+        }
+        if (getBomberControl.bomberDown) {
+            this.moveDown();
+        }
     }
 
     @Override

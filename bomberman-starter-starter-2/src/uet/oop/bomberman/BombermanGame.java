@@ -32,7 +32,7 @@ public class BombermanGame extends Application {
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
     private Images map = new Images("/map/Map_set.png", 7, 1);
-    private Images player = new Images("/map/player.png", 3, 5);
+    private Images player = new Images("/map/Player1.png", 3, 3);
     private int[][] tileMap = new int[100][100];
 
     public static void main(String[] args) {
@@ -64,14 +64,12 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
+        player.loadImage();
+        Entity bomberman = new Bomber(1, 1, player.getList().get(0).getFxImage(), 1);
+        entities.add(bomberman);
         map.loadImage();
         createMap("bomberman-starter-starter-2/res/map/Tile_map.txt");
 
-        player.loadImage();
-        Entity bomberman = new Bomber(1, 1, player.list.get(0).getFxImage(), 1);
-        getBomberControl.getControl(scene);
-        bomberman.update();
-        entities.add(bomberman);
         /*entities.add(bomberman);
         entities.add(bomberman2);*/
     }
@@ -114,7 +112,7 @@ public class BombermanGame extends Application {
 
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
-                Entity object = new Collide(i, j, map.list.get(tileMap[i][j]).getFxImage());
+                Entity object = new Collide(i, j, map.getList().get(tileMap[i][j]).getFxImage());
                 stillObjects.add(object);
             }
         }

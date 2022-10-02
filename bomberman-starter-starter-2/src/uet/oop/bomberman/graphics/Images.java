@@ -19,7 +19,7 @@ public class Images {
     }
 
     SpriteSheet sheet;
-    public static List<Sprite> list = new ArrayList<>();
+    private List<Sprite> list = new ArrayList<>();
     public void loadImage() {
         int k = 0;
         for (int i = 0; i < this.y; i++) {
@@ -27,5 +27,9 @@ public class Images {
                 list.add(new Sprite(Sprite.DEFAULT_SIZE, j, i, new SpriteSheet(path, Math.max(this.x, this.y) * Sprite.DEFAULT_SIZE), 16, 16));
             }
         }
+    }
+
+    public List<Sprite> getList() {
+        return list;
     }
 }

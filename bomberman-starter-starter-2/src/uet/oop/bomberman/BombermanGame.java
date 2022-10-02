@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Images;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.getBomberControl;
 
 import java.io.*;
 import java.nio.file.ReadOnlyFileSystemException;
@@ -67,6 +68,7 @@ public class BombermanGame extends Application {
         player.loadImage();
         Entity bomberman = new Bomber(1, 1, player.getList().get(0).getFxImage(), 1);
         entities.add(bomberman);
+        getBomberControl.getControl(scene);
         map.loadImage();
         createMap("bomberman-starter-starter-2/res/map/Tile_map.txt");
 

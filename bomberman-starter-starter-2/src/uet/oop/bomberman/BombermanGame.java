@@ -32,8 +32,8 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    private Images map = new Images("/map/Map_set.png", 7, 1);
-    public static Images player = new Images("/map/player1.png", 3, 5);
+    private Images map = new Images("/Map/Map_set.png", 7, 1);
+    public static Images player = new Images("/Player/Player2.png", 3, 5);
     private int[][] tileMap = new int[100][100];
 
     public static void main(String[] args) {
@@ -66,14 +66,11 @@ public class BombermanGame extends Application {
         };
         timer.start();
         player.loadImage();
-        Entity bomberman = new Bomber(1, 1, player.getList().get(0).getFxImage(), 1);
+        Entity bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 1);
         entities.add(bomberman);
         getBomberControl.getControl(scene);
         map.loadImage();
-        createMap("bomberman-starter-starter-2/res/map/Tile_map.txt");
-
-        /*entities.add(bomberman);
-        entities.add(bomberman2);*/
+        createMap("bomberman-starter-starter-2/res/TileMap/Map1.txt");
     }
 
     public void createMap(String path) {

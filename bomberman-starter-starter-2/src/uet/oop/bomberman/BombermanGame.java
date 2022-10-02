@@ -6,26 +6,34 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Grass;
-import uet.oop.bomberman.entities.Wall;
+import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.graphics.Images;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.io.*;
+import java.nio.file.ReadOnlyFileSystemException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.Scanner;
+import java.util.logging.Level;
 
 public class BombermanGame extends Application {
     
-    public static final int WIDTH = 25;
-    public static final int HEIGHT = 20;
+    public static final int WIDTH = 31;
+    public static final int HEIGHT = 13;
 
     private GraphicsContext gc;
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-
+    private Images map = new Images("/map/Map_set.png", 7, 1);
+    private Images player = new Images("/map/player.png", 3, 5);
+    private int[][] tileMap = new int[100][100];
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -56,27 +64,57 @@ public class BombermanGame extends Application {
             }
         };
         timer.start();
+        map.loadImage();
+        createMap("bomberman-starter-starter-2/res/map/Tile_map.txt");
 
-        createMap();
-
-        Entity bomberman = new Bomber(1, 1, Sprite.player_right.getFxImage(),1);
-        Entity bomberman2 = new Bomber(5, 5, Sprite.player_up.getFxImage(),1);
+        player.loadImage();
+        Entity bomberman = new Bomber(1, 1, player.list.get(0).getFxImage(), 1);
         getBomberControl.getControl(scene);
-        bomberman2.update();
+        bomberman.update();
         entities.add(bomberman);
-        entities.add(bomberman2);
+        /*entities.add(bomberman);
+        entities.add(bomberman2);*/
     }
 
-    public void createMap() {
+    public void createMap(String path) {
+        try {
+            File file = new File(path);
+            FileReader fileReader = new FileReader(file);
+
+            BufferedReader reader = new BufferedReader(fileReader);
+
+            for (int i = 0; i < HEIGHT; i++) {
+                String s;
+                s = reader.readLine();
+                int left = 0;
+                int j = 0;
+                while (left < s.length()) {
+                    int right = left;
+                    while (right < s.length() && s.charAt(right) != ' ') {
+                        right++;
+                    }
+                    tileMap[j][i] = Integer.parseInt(s.substring(left, right));
+                    j++;
+                    left = right + 1;
+                }
+            }
+
+            /*for (int i = 0; i < HEIGHT ; i ++) {
+                for (int j = 0; j  < WIDTH; j++) {
+                    System.out.print(tileMap[i][j] + " ");
+                }
+                System.out.println();
+            }*/
+
+            reader.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
-                Entity object;
-                if (j == 0 || j == HEIGHT - 1 || i == 0 || i == WIDTH - 1) {
-                    object = new Wall(i, j, Sprite.wall.getFxImage());
-                }
-                else {
-                    object = new Grass(i, j, Sprite.grass.getFxImage());
-                }
+                Entity object = new Collide(i, j, map.list.get(tileMap[i][j]).getFxImage());
                 stillObjects.add(object);
             }
         }

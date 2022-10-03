@@ -1,6 +1,7 @@
 package uet.oop.bomberman.graphics;
 
 import javafx.scene.Scene;
+import uet.oop.bomberman.entities.Balloom;
 import uet.oop.bomberman.entities.Collide;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
@@ -24,7 +25,6 @@ public class Images {
     Images image;
     private List<Sprite> list = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    private List<Entity> entities = new ArrayList<>();
     public Images(String path, int x, int y) {
         this.path = path;
         this.x = x;
@@ -93,8 +93,10 @@ public class Images {
     public void createEntity() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                Entity object = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
-                stillObjects.add(object);
+                if (map[i][j] != 0) {
+                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
             }
         }
     }

@@ -24,6 +24,7 @@ public class Images {
     Images image;
     private List<Sprite> list = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
+    private List<Entity> entities = new ArrayList<>();
     public Images(String path, int x, int y) {
         this.path = path;
         this.x = x;
@@ -83,6 +84,17 @@ public class Images {
     public void createMap() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
+                Entity object;
+                /*if ()
+                = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
+                stillObjects.add(object);*/
+            }
+        }
+    }
+
+    public void createEntity() {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 Entity object = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
                 stillObjects.add(object);
             }
@@ -99,5 +111,9 @@ public class Images {
 
     public int[][] getMap() {
         return map;
+    }
+
+    public void setMap(int i, int j, int value) {
+        this.map[i][j] = value;
     }
 }

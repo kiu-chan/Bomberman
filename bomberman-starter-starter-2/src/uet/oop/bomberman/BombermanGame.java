@@ -34,7 +34,7 @@ public class BombermanGame extends Application {
     private List<Entity> stillObjects = new ArrayList<>();
     private Images map = new Images("/Images/Map_set.png", 7, 1);
     public static Images player = new Images("/Player/Player2.png", 3, 5);
-    private int[][] tileMap = new int[100][100];
+    public static Images monster1 = new Images("Images/monster.png", 8, 9);
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -70,52 +70,15 @@ public class BombermanGame extends Application {
         entities.add(bomberman);
         getBomberControl.getControl(scene);
         map.loadImage();
-        createMap("bomberman-starter-starter-2/res/TileMap/Map1.txt");
+        map.readMap("bomberman-starter-starter-2/res/TileMap/Map1.txt", map, WIDTH, HEIGHT);
+        map.createMap();
+        stillObjects.addAll(map.getStillObjects());
+        /*monster1.loadImage();
+        monster1.createMap("bomberman-starter-starter-2/res/TileMap/Tile_monster.txt", monster1, WIDTH, HEIGHT );
+        entities.addAll(monster1.loadImage());*/
     }
 
-    public void createMap(String path) {
-        try {
-            File file = new File(path);
-            FileReader fileReader = new FileReader(file);
 
-            BufferedReader reader = new BufferedReader(fileReader);
-
-            for (int i = 0; i < HEIGHT; i++) {
-                String s;
-                s = reader.readLine();
-                int left = 0;
-                int j = 0;
-                while (left < s.length()) {
-                    int right = left;
-                    while (right < s.length() && s.charAt(right) != ' ') {
-                        right++;
-                    }
-                    tileMap[j][i] = Integer.parseInt(s.substring(left, right));
-                    j++;
-                    left = right + 1;
-                }
-            }
-
-            /*for (int i = 0; i < HEIGHT ; i ++) {
-                for (int j = 0; j  < WIDTH; j++) {
-                    System.out.print(tileMap[i][j] + " ");
-                }
-                System.out.println();
-            }*/
-
-            reader.close();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                Entity object = new Collide(i, j, map.getList().get(tileMap[i][j]).getFxImage());
-                stillObjects.add(object);
-            }
-        }
-    }
 
     public void update() {
         entities.forEach(Entity::update);

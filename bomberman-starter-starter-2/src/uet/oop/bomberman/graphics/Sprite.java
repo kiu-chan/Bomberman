@@ -20,6 +20,13 @@ public class Sprite {
 	protected int _realHeight;
 	private SpriteSheet _sheet;
 
+	/**
+	 * Định vị trên ảnh
+	 */
+	public static final int monster1 = 0;
+	public static final int monster2 = 7;
+	public static final int monster3 = 14;
+
 	public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite wall = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.alltiles, 16, 16);

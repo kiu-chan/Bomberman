@@ -32,7 +32,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    private Images map = new Images("/Map/Map_set.png", 7, 1);
+    private Images map = new Images("/Images/Map_set.png", 7, 1);
     public static Images player = new Images("/Player/Player2.png", 3, 5);
     private int[][] tileMap = new int[100][100];
 

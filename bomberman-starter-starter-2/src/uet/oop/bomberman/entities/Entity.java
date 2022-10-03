@@ -34,6 +34,12 @@ public abstract class Entity {
         this.y = yUnit * Sprite.SCALED_SIZE;
         this.img = img;
     }
+    public boolean getRemove() {
+        return this.remove;
+    }
+    protected void setRemove() {
+        this.remove = true;
+    }
 
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);

@@ -30,14 +30,21 @@ public class Bomber extends MoveEntity {
     public void update() {
         this.moveBomber();
         this.addBomb();
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).update();
+            if (bombs.get(i).getRemove()) {
+                bombs.remove(i);
+            }
+        }
     }
-    public void addBomb() {
-        if (bombs.size() < maxBomb && getBomberControl.bomberSpace == true) {
-            Bomb newBom = new Bomb(this.getX() / 32,this.getY() / 32, Sprite.balloom_left3.getFxImage());
+    private void addBomb() {
+        if (getBomberControl.bomberSpace == true) {
+            int xBomber = this.getX()/32;
+            int yBomber = this.getY()/32;
+            Bomb newBom = new Bomb(xBomber, yBomber, Sprite.balloom_left3.getFxImage());
             bombs.add(newBom);
         }
     }
-
     @Override
     public boolean canMove(int way) {
         return true;

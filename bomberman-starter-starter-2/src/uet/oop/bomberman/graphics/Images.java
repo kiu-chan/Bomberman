@@ -84,10 +84,8 @@ public class Images {
     public void createMap() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                Entity object;
-                /*if ()
-                = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
-                stillObjects.add(object);*/
+                Entity object = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
+                stillObjects.add(object);
             }
         }
     }

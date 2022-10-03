@@ -11,6 +11,7 @@ public class getBomberControl {
     public static boolean bomberRight = false;
     public static boolean bomberUp = false;
     public static boolean bomberDown = false;
+    public static boolean bomberSpace = false;
 
     public static void getControl(Scene scene) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -32,6 +33,10 @@ public class getBomberControl {
                     break;
                     case DOWN: {
                         bomberDown = true;
+                    }
+                    break;
+                    case SPACE: {
+                        bomberSpace = true;
                     }
                     break;
                     default:
@@ -57,6 +62,10 @@ public class getBomberControl {
                     break;
                     case DOWN: {
                         bomberDown = false;
+                    }
+                    break;
+                    case SPACE: {
+                        bomberSpace = false;
                     }
                     break;
                     default:

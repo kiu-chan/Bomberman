@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities;
-
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -10,14 +11,16 @@ import uet.oop.bomberman.getBomberControl;
 import uet.oop.bomberman.graphics.Images;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
-
+import uet.oop.bomberman.entities.Bomb.Bomb;
 public class Bomber extends MoveEntity {
-    private final int maxAnimation = 4;
+    private final int maxAnimation = 8;
     protected int bomberSpeed = 1;
     private int cntLeft = 1;
     private int cntRight = 1;
     private int cntUp = 1;
     private int cntDown = 1;
+    private int maxBomb = 4;
+    private List<Bomb> bombs = new ArrayList<>();
 
     public Bomber(int x, int y, Image img, int speed) {
         super( x, y, img,speed);
@@ -26,6 +29,13 @@ public class Bomber extends MoveEntity {
     @Override
     public void update() {
         this.moveBomber();
+        this.addBomb();
+    }
+    public void addBomb() {
+        if (bombs.size() < maxBomb && getBomberControl.bomberSpace == true) {
+            Bomb newBom = new Bomb(this.getX(),this.getY(),Sprite.balloom_left3.getFxImage());
+            bombs.add(newBom);
+        }
     }
 
     @Override
@@ -100,5 +110,8 @@ public class Bomber extends MoveEntity {
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);
+        for (int i = 0; i < bombs.size(); i++) {
+            bombs.get(i).render(gc);
+        }
     }
 }

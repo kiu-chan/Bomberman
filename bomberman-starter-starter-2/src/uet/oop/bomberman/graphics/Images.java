@@ -80,7 +80,9 @@ public class Images {
         }
 
     }
-
+    public int convert2Dto1D(int row, int column) {
+        return height * column + row;
+    }
     public void createMap() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -113,7 +115,9 @@ public class Images {
         return map;
     }
 
+
     public void setMap(int i, int j, int value) {
         this.map[i][j] = value;
     }
 }
+//1 tuong 2 gach 0 la co

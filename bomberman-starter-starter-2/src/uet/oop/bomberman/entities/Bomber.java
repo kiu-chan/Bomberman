@@ -33,6 +33,7 @@ public class Bomber extends MoveEntity {
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
             if (bombs.get(i).getRemove()) {
+                System.out.println("xoa bom" + bombs.get(i).getX()+"-"+bombs.get(i).getY());
                 bombs.remove(i);
             }
         }
@@ -45,8 +46,42 @@ public class Bomber extends MoveEntity {
             bombs.add(newBom);
         }
     }
+    /*
+    1: di len --
+    2:di xuong--
+    3:sang trai ----
+    -4:sang phai
+     */
     @Override
     public boolean canMove(int way) {
+        int k = BombermanGame.map.convert2Dto1D(this.x/32,this.y/32);
+        if (way == 1) {
+            if (BombermanGame.map.getMap()[this.x/32][this.y/32-1] != 0 &&
+                    this.checkCollision(BombermanGame.map.getStillObjects().get(k-1))) {
+                System.out.println("va cham tren roi");
+                return false;
+            }
+            else
+                return true;
+        }
+        if (way == 2) {
+            if (BombermanGame.map.getMap()[this.x/32][this.y/32+1] != 0  )
+                return false;
+            else
+                return true;
+        }
+        if (way == 3) {
+            if (BombermanGame.map.getMap()[this.x/32-1][this.y/32] != 0  )
+                return false;
+            else
+                return true;
+        }
+        if (way == 4) {
+            if (BombermanGame.map.getMap()[this.x/32+1][this.y/32] != 0  )
+                return false;
+            else
+                return true;
+        }
         return true;
     }
     public void moveBomber() {
@@ -62,6 +97,7 @@ public class Bomber extends MoveEntity {
         if (getBomberControl.bomberDown) {
             this.moveDown();
         }
+
     }
 
     @Override

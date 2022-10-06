@@ -26,6 +26,17 @@ public abstract class MoveEntity extends Entity {
     public abstract void moveLeft();
     public abstract void moveRight();
     public abstract boolean canMove(int way);
+    public boolean checkCollision(Entity entity) {
+        if (this.x <= entity.x + 32 && this.x >= entity.x) {
+            if (this.y <= entity.y + 32 && this.x >= entity.y) return true;
+            if (this.y + 32 <= entity.y + 32 && this.y +32 >= entity.y) return true;
+        }
+        if (this.x +32 <= entity.x + 32 && this.x +32 >= entity.x) {
+            if (this.y <= entity.y + 32 && this.x >= entity.y) return true;
+            if (this.y + 32 <= entity.y + 32 && this.y +32 >= entity.y) return true;
+        }
+        return false;
+    }
     /*
     1: di len --
     2:di xuong--

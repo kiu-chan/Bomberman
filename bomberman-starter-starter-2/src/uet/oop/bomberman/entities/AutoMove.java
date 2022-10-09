@@ -1,7 +1,13 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.MoveEntity;
+import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.BombermanGame;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AutoMove extends MoveEntity {
     private boolean up = false;
@@ -10,12 +16,19 @@ public class AutoMove extends MoveEntity {
     private boolean right = false;
 
     private int speed;
-    private int start =5;
+    private int start = 5;
+
+    private int count = 0;
+    private int time = 40;
+    private int swapImg = 0;
 
     private long timeNow = 0;
     private long timeAgo = 0;
 
     public static final long timeWay = 1000;
+
+    private int startImg;
+    private int checkView = 1;
 
     public static enum move {
         UP(0), DOWN(1), LEFT(2), RIGHT(3), STOP(4);
@@ -26,14 +39,28 @@ public class AutoMove extends MoveEntity {
         }
     }
 
+    public static enum view {
+        LEFT(-1), RIGHT(1), DIED(0);
 
-    public AutoMove(int x, int y, Image img, int speed) {
+        private final int value;
+        view(int value) {
+            this.value = value;
+        }
+    }
+
+    public AutoMove(int x, int y, Image img, int speed, int startImg) {
         super( x, y, img,speed);
         this.speed = speed;
+        this.startImg = startImg;
     }
+
 
     @Override
     public boolean canMove(int way) {
+        if (count < time)
+            count++;
+        else
+            count = 0;
         timeNow = System.currentTimeMillis();
         if (timeAgo == 0) {
             timeAgo = System.currentTimeMillis();
@@ -57,12 +84,29 @@ public class AutoMove extends MoveEntity {
         }
         if (way == move.LEFT.value) {
             moveLeft();
+            checkView = view.LEFT.value;
         }
         if (way == move.RIGHT.value) {
             moveRight();
+            checkView = view.RIGHT.value;
         }
+        if (way == move.STOP.value) {
+            moveStop();
+        }
+        moveIMG();
     }
 
+    public void moveIMG() {
+        int diff = time / 2;
+        if (count % time > diff)
+            swapImg++;
+        if (swapImg >= 2)
+            swapImg = 0;
+        if (checkView == view.LEFT.value)
+            img = BombermanGame.monster.getList().get(swapImg + startImg).getFxImage();
+        else
+            img = BombermanGame.monster.getList().get(swapImg + startImg + 4).getFxImage();
+    }
     @Override
     public void moveUp() {
         y -= speed;
@@ -81,6 +125,10 @@ public class AutoMove extends MoveEntity {
     @Override
     public void moveRight() {
         x += speed;
+    }
+
+    public void moveStop() {
+
     }
 
     @Override

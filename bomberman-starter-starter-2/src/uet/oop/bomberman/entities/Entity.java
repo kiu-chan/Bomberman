@@ -41,6 +41,7 @@ public abstract class Entity {
         this.remove = true;
     }
 
+
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }

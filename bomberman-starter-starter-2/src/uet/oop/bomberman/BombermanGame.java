@@ -36,6 +36,8 @@ public class BombermanGame extends Application {
     public static Images player = new Images("/Player/Player2.png", 3, 5);
     public static Images monster1 = new Images("/Images/monster.png", 9, 8);
 
+    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map1.txt";
+    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster.txt";
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -70,11 +72,11 @@ public class BombermanGame extends Application {
         entities.add(bomberman);
         getBomberControl.getControl(scene);
         map.loadImage();
-        map.readMap("bomberman-starter-starter-2/res/TileMap/Map1.txt", map, WIDTH, HEIGHT);
+        map.readMap(Map, map, WIDTH, HEIGHT);
         map.createMap();
         stillObjects.addAll(map.getStillObjects());
         monster1.loadImage();
-        monster1.readMap("bomberman-starter-starter-2/res/TileMap/Tile_monster.txt", monster1, WIDTH, HEIGHT );
+        monster1.readMap(mapMonster, monster1, WIDTH, HEIGHT );
         monster1.createEntity();
         entities.addAll(monster1.getStillObjects());
     }

@@ -13,7 +13,7 @@ public class Bomb extends Entity {
     private boolean isExplotion = false;
     private boolean remove = false;
     private int radius;
-    private int timeToExplode = 100;
+    private int timeToExplode = 80;
     private int timeAfterExplode = 30;
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
@@ -21,8 +21,8 @@ public class Bomb extends Entity {
     @Override
     public void render(GraphicsContext gc) {
         if (remove == false && isExplotion == false) {
-            img = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2,
-                    100-(timeToExplode)/2, 100).getFxImage();
+            img = Sprite.movingSprite(Sprite.bomb_2, Sprite.bomb_1, Sprite.bomb,
+                    80-(timeToExplode)/2, 80).getFxImage();
             super.render(gc);
         } else if (isExplotion) {
             img = Sprite.movingSprite(Sprite.bomb_exploded1, Sprite.bomb_exploded2,
@@ -34,13 +34,11 @@ public class Bomb extends Entity {
         if (remove != true) {
             if (timeToExplode > 0) {
                 timeToExplode--;
-                System.out.println(timeToExplode+"time to explo");
             }
             else {
                 isExplotion = true;
                 if (timeAfterExplode > 0) {
                     timeAfterExplode--;
-                    System.out.println(timeAfterExplode+"time after explo");
                 } else {
                     setRemove();
                 }

@@ -3,6 +3,7 @@ package uet.oop.bomberman.graphics;
 import javafx.scene.Scene;
 import uet.oop.bomberman.entities.Enemy.Balloom;
 import uet.oop.bomberman.entities.Collide;
+import uet.oop.bomberman.entities.Enemy.Oneal;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
@@ -95,7 +96,39 @@ public class Images {
     public void createEntity() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (map[i][j] != 0) {
+                /*if (map[i][j] == 1) {
+                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
+                if (map[i][j] == 2) {
+                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
+                if (map[i][j] == 3) {
+                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
+                if (map[i][j] == 4) {
+                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
+                if (map[i][j] == 5) {
+                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
+                if (map[i][j] == 6) {
+                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
+                if (map[i][j] == 7) {
+                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }*/
+                if (map[i][j] == 8) {
+                    Entity object = new Oneal(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
+                if (map[i][j] == 9) {
                     Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
                 }

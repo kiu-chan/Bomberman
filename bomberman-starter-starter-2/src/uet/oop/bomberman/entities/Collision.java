@@ -116,6 +116,5 @@ public class Collision {
             return false;
         }
         return false;
-
     }
 }

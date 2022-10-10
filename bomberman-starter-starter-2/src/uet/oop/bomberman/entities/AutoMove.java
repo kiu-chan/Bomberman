@@ -18,14 +18,15 @@ public class AutoMove extends MoveEntity {
     private int speed;
     private int start = 5;
 
-    private int count = 0;
-    private int time = 40;
+    private long imageTimeAgo = 0;
+    private long imageTimeNow = 0;
+    private long timeImg = 300;
     private int swapImg = 0;
 
     private long timeNow = 0;
     private long timeAgo = 0;
 
-    public static final long timeWay = 1000;
+    public static final long timeWay = 500;
 
     private int startImg;
     private int checkView = 1;
@@ -59,10 +60,6 @@ public class AutoMove extends MoveEntity {
 
     @Override
     public boolean canMove(int way) {
-        if (count < time)
-            count++;
-        else
-            count = 0;
         timeNow = System.currentTimeMillis();
         if (timeAgo == 0) {
             timeAgo = System.currentTimeMillis();
@@ -108,9 +105,11 @@ public class AutoMove extends MoveEntity {
     }
 
     public void moveIMG() {
-        int diff = time / 2;
-        if (count % time > diff)
+        imageTimeNow = System.currentTimeMillis();
+        if (imageTimeNow - imageTimeAgo > timeImg) {
             swapImg++;
+            imageTimeAgo = System.currentTimeMillis();
+        }
         if (swapImg >= 2)
             swapImg = 0;
         if (checkView == view.LEFT.value)

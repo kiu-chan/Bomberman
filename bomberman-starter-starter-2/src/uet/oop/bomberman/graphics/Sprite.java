@@ -23,15 +23,15 @@ public class Sprite {
 	/**
 	 * Định vị trên ảnh
 	 */
-	public static final int monster1 = 0;
-	public static final int monster2 = 7;
-	public static final int monster3 = 14;
-	public static final int monster4 = 21;
-	public static final int monster5 = 28;
-	public static final int monster6 = 35;
-	public static final int monster7 = 45;
-	public static final int oneal = 52;
-	public static final int balloom = 59;
+	public static final int minvoRotate = 0;	// 1
+	public static final int redMinvoRotate = 7;	//2
+	public static final int kondoria = 14;		//3
+	public static final int minvo = 21;			//4
+	public static final int ghost = 28;			//5
+	public static final int mob = 35;			//6
+	public static final int doll = 45;			//7
+	public static final int oneal = 52;			//8
+	public static final int balloom = 59;		//9
 
 	public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.alltiles, 16, 16);

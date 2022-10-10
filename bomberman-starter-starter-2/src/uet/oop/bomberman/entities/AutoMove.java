@@ -30,6 +30,8 @@ public class AutoMove extends MoveEntity {
     private int startImg;
     private int checkView = 1;
 
+    private Collision collision = new Collision();
+
     public static enum move {
         UP(0), DOWN(1), LEFT(2), RIGHT(3), STOP(4);
 
@@ -77,22 +79,31 @@ public class AutoMove extends MoveEntity {
 
     public void direction(int way) {
         if (way == move.UP.value) {
-            moveUp();
+            if (!collision.CheckMapCollision(x, y - speed, BombermanGame.map.getMap()))
+                moveUp();
         }
+
         if (way == move.DOWN.value) {
-            moveDown();
+            if (!collision.CheckMapCollision(x, y + speed, BombermanGame.map.getMap()))
+                moveDown();
         }
+
         if (way == move.LEFT.value) {
-            moveLeft();
+            if (!collision.CheckMapCollision(x - speed, y, BombermanGame.map.getMap()))
+                moveLeft();
             checkView = view.LEFT.value;
         }
+
         if (way == move.RIGHT.value) {
-            moveRight();
+            if (!collision.CheckMapCollision(x + speed, y, BombermanGame.map.getMap()))
+                moveRight();
             checkView = view.RIGHT.value;
         }
+
         if (way == move.STOP.value) {
             moveStop();
         }
+
         moveIMG();
     }
 

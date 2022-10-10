@@ -97,7 +97,6 @@ public class Bomber extends MoveEntity {
         if (getBomberControl.bomberDown) {
             this.moveDown();
         }
-
     }
 
     @Override

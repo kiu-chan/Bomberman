@@ -26,6 +26,12 @@ public class Sprite {
 	public static final int monster1 = 0;
 	public static final int monster2 = 7;
 	public static final int monster3 = 14;
+	public static final int monster4 = 21;
+	public static final int monster5 = 28;
+	public static final int monster6 = 35;
+	public static final int monster7 = 45;
+	public static final int oneal = 52;
+	public static final int balloom = 59;
 
 	public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.alltiles, 16, 16);

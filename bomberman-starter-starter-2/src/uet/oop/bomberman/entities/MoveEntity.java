@@ -27,13 +27,30 @@ public abstract class MoveEntity extends Entity {
     public abstract void moveRight();
     public abstract boolean canMove(int way);
     public boolean checkCollision(Entity entity) {
-        if (this.x <= entity.x + 32 && this.x >= entity.x) {
-            if (this.y <= entity.y + 32 && this.x >= entity.y) return true;
-            if (this.y + 32 <= entity.y + 32 && this.y +32 >= entity.y) return true;
+        if (this.x <= entity.getX() + 32 && this.x >= entity.getX()) {
+            if (this.y <= entity.getY() + 32 && this.y >= entity.getY())
+            {
+                System.out.println("goc tren trai:toa do chinh>>x:" + this.getX() +"-y:"+this.y);
+                System.out.println("toa do entity>>x:" + entity.getX()+"-y:"+entity.getY());
+                return true;
+            }
+            if (this.y + 32 <= entity.y + 32 && this.y +32 >= entity.y) {
+                System.out.println("goc duoi trai:toa do chinh>>x:" + this.getX() +"-y:"+this.y);
+                System.out.println("toa do entity>>x:" + entity.getX()+"-y:"+entity.getY());
+                return true;
+            }
         }
         if (this.x +32 <= entity.x + 32 && this.x +32 >= entity.x) {
-            if (this.y <= entity.y + 32 && this.x >= entity.y) return true;
-            if (this.y + 32 <= entity.y + 32 && this.y +32 >= entity.y) return true;
+            if (this.y <= entity.y + 32 && this.x >= entity.y) {
+                System.out.println("goc tren phai:toa do chinh>>x:" + this.getX() +"-y:"+this.y);
+                System.out.println("toa do entity>>x:" + entity.getX()+"-y:"+entity.getY());
+                return true;
+            }
+            if (this.y + 32 <= entity.y + 32 && this.y +32 >= entity.y) {
+                System.out.println("goc duoi phai:toa do chinh>>x:" + this.getX() +"-y:"+this.y);
+                System.out.println("toa do entity>>x:" + entity.getX()+"-y:"+entity.getY());
+                return true;
+            }
         }
         return false;
     }

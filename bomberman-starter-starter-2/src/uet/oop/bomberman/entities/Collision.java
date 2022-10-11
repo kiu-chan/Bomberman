@@ -101,7 +101,7 @@ public class Collision {
         int right_a = (x1 + Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE;
         int top_a = (y1 + 1) / Sprite.SCALED_SIZE;
         int bottom_a = (y1 + Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE;
-        System.out.println(left_a + " " + top_a);
+       // System.out.println(left_a + " " + top_a);
 
         try {
             if (map[left_a][top_a] != 0)

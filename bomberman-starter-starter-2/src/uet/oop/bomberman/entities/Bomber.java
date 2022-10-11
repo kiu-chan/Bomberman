@@ -13,7 +13,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.entities.Bomb.Bomb;
 public class Bomber extends MoveEntity {
-    private final int maxAnimation = 8;
+    private final int maxAnimation = 20;
     protected int bomberSpeed = 1;
     private int cntLeft = 1;
     private int cntRight = 1;
@@ -58,26 +58,28 @@ public class Bomber extends MoveEntity {
         if (way == 1) {
             if (BombermanGame.map.getMap()[this.x/32][this.y/32-1] != 0 &&
                     this.checkCollision(BombermanGame.map.getStillObjects().get(k-1))) {
-                System.out.println("va cham tren roi");
                 return false;
             }
             else
                 return true;
         }
         if (way == 2) {
-            if (BombermanGame.map.getMap()[this.x/32][this.y/32+1] != 0  )
+            if (BombermanGame.map.getMap()[this.x/32][this.y/32+1] != 0 &&
+                    this.checkCollision(BombermanGame.map.getStillObjects().get(k+1)) )
                 return false;
             else
                 return true;
         }
         if (way == 3) {
-            if (BombermanGame.map.getMap()[this.x/32-1][this.y/32] != 0  )
+            if (BombermanGame.map.getMap()[this.x/32-1][this.y/32] != 0 &&
+                    this.checkCollision(BombermanGame.map.getStillObjects().get(k-13)) )
                 return false;
             else
                 return true;
         }
         if (way == 4) {
-            if (BombermanGame.map.getMap()[this.x/32+1][this.y/32] != 0  )
+            if (BombermanGame.map.getMap()[this.x/32+1][this.y/32] != 0  &&
+                    this.checkCollision(BombermanGame.map.getStillObjects().get(k+13)))
                 return false;
             else
                 return true;
@@ -86,15 +88,27 @@ public class Bomber extends MoveEntity {
     }
     public void moveBomber() {
         if (getBomberControl.bomberLeft) {
+            getBomberControl.bomberDown = false;
+            getBomberControl.bomberRight = false;
+            getBomberControl.bomberUp = false;
             this.moveLeft();
         }
         if (getBomberControl.bomberRight) {
+            getBomberControl.bomberDown = false;
+            getBomberControl.bomberLeft = false;
+            getBomberControl.bomberUp = false;
             this.moveRight();
         }
         if (getBomberControl.bomberUp) {
+            getBomberControl.bomberDown = false;
+            getBomberControl.bomberRight = false;
+            getBomberControl.bomberLeft = false;
             this.moveUp();
         }
         if (getBomberControl.bomberDown) {
+            getBomberControl.bomberLeft = false;
+            getBomberControl.bomberRight = false;
+            getBomberControl.bomberUp = false;
             this.moveDown();
         }
     }
@@ -111,6 +125,10 @@ public class Bomber extends MoveEntity {
                 BombermanGame.player.getList().get(2),cntUp,maxAnimation).getFxImage();
         if (canMove(1)) {
             y -= bomberSpeed;
+            if (this.y/32 < 1) {
+                System.out.println("vao tuong tren");
+                this.setY(32);
+            }
         }
     }
     public void moveDown() {
@@ -123,6 +141,10 @@ public class Bomber extends MoveEntity {
                 BombermanGame.player.getList().get(8),cntDown,maxAnimation).getFxImage();
         if (canMove(2)) {
             y += bomberSpeed;
+            if (this.y/32 > 10) {
+                System.out.println("vao tuong duoi");
+                this.setY(32*11);
+            }
         }
     }
     public void moveLeft() {
@@ -135,6 +157,10 @@ public class Bomber extends MoveEntity {
                 BombermanGame.player.getList().get(11),cntLeft,maxAnimation).getFxImage();
         if (canMove(3)) {
             x -= bomberSpeed;
+            if (this.x/32 < 1) {
+                System.out.println("vao tuong trai");
+                this.setX(32);
+            }
         }
     }
     public void moveRight() {
@@ -147,6 +173,10 @@ public class Bomber extends MoveEntity {
                 BombermanGame.player.getList().get(5),cntRight,maxAnimation).getFxImage();
         if (canMove(4)) {
             x += bomberSpeed;
+            if (this.x/32 > 28) {
+                System.out.println("vao tuong phai");
+                this.setX(32*29);
+            }
         }
     }
     @Override

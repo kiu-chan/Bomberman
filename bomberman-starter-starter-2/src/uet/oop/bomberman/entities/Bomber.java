@@ -179,6 +179,14 @@ public class Bomber extends MoveEntity {
             }
         }
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);

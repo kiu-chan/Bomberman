@@ -35,9 +35,10 @@ public class BombermanGame extends Application {
     public static Images map = new Images("/Images/Map_set.png", 7, 1);
     public static Images player = new Images("/Player/Player2.png", 3, 5);
     public static Images monster = new Images("/Images/monster.png", 9, 8);
+    public static Entity bomberman;
 
     public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map1.txt";
-    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster.txt";
+    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster1.txt";
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -68,7 +69,7 @@ public class BombermanGame extends Application {
         };
         timer.start();
         player.loadImage();
-        Entity bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 1);
+        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 1);
         entities.add(bomberman);
         getBomberControl.getControl(scene);
         map.loadImage();

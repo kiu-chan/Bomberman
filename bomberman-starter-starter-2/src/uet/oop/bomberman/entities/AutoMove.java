@@ -31,7 +31,12 @@ public class AutoMove extends MoveEntity {
     private int startImg;
     private int checkView = 1;
 
+    private int player_x;
+    private int player_y;
+    public static final double RANGE = 2 * Sprite.SCALED_SIZE;
     private Collision collision = new Collision();
+
+    Bomber bomber;
 
     public static enum move {
         UP(0), DOWN(1), LEFT(2), RIGHT(3), STOP(4);
@@ -139,6 +144,19 @@ public class AutoMove extends MoveEntity {
 
     public void moveStop() {
 
+    }
+
+    public boolean checkPlayer() {
+        player_x = BombermanGame.bomberman.getX();
+        player_y = BombermanGame.bomberman.getY();
+        int distance_x = Math.abs(x - player_x);
+        int distance_y = Math.abs(y - player_y);
+        double distance = Math.sqrt((distance_x * distance_x) + (distance_y * distance_y));
+        if (distance <= RANGE) {
+            System.out.println("true");
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package uet.oop.bomberman.entities.Enemy;
 
 import uet.oop.bomberman.entities.AutoMove;
+import uet.oop.bomberman.graphics.Sprite;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,6 @@ public class Balloom extends AutoMove {
     @Override
     public void update() {
         int way = random.nextInt(5);
-        canMove(5);
-        checkPlayer();
+        canMove(7);
     }
 }

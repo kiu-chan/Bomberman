@@ -1,8 +1,9 @@
 package uet.oop.bomberman.entities.Enemy;
 
-import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.AutoMove;
 import uet.oop.bomberman.graphics.Sprite;
+
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;

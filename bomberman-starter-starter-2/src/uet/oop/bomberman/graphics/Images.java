@@ -1,19 +1,15 @@
 package uet.oop.bomberman.graphics;
 
-import javafx.scene.Scene;
 import uet.oop.bomberman.entities.Enemy.Balloom;
 import uet.oop.bomberman.entities.Collide;
 import uet.oop.bomberman.entities.Enemy.Oneal;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.graphics.SpriteSheet;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Images {
     private String path;

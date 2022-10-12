@@ -1,8 +1,6 @@
 package uet.oop.bomberman;
+
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.graphics.Sprite;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 

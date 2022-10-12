@@ -1,20 +1,19 @@
 package uet.oop.bomberman.entities;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.getBomberControl;
-import uet.oop.bomberman.graphics.Images;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.graphics.SpriteSheet;
 import uet.oop.bomberman.entities.Bomb.Bomb;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bomber extends MoveEntity {
     private final int maxAnimation = 20;
-    protected int bomberSpeed = 1;
+    protected int bomberSpeed= 1;
     private int cntLeft = 1;
     private int cntRight = 1;
     private int cntUp = 1;

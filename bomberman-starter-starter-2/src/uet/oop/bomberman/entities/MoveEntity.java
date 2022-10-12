@@ -1,13 +1,6 @@
 package uet.oop.bomberman.entities;
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.graphics.Sprite;
 
-import java.awt.*;
-import java.nio.channels.spi.SelectorProvider;
-import java.util.ArrayList;
-import java.util.HashSet;
+import javafx.scene.image.Image;
 
 public abstract class MoveEntity extends Entity {
     protected int speed;
@@ -61,3 +54,4 @@ public abstract class MoveEntity extends Entity {
     -4:sang phai
      */
 }
+

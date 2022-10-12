@@ -1,27 +1,19 @@
 package uet.oop.bomberman;
 
+import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.graphics.Images;
+import uet.oop.bomberman.graphics.Sprite;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import uet.oop.bomberman.entities.*;
-import uet.oop.bomberman.graphics.Images;
-import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.getBomberControl;
 
-import java.io.*;
-import java.nio.file.ReadOnlyFileSystemException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.Scanner;
-import java.util.logging.Level;
 
 public class BombermanGame extends Application {
     

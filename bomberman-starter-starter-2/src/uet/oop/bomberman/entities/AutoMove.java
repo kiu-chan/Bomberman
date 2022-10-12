@@ -1,13 +1,12 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.MoveEntity;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.BombermanGame;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.image.Image;
+
+import java.util.Random;
+
 
 public class AutoMove extends MoveEntity {
     private boolean up = false;
@@ -33,7 +32,8 @@ public class AutoMove extends MoveEntity {
 
     private int player_x;
     private int player_y;
-    public static final double RANGE = 2 * Sprite.SCALED_SIZE;
+    private int check_direction = 0;
+    public static final double RANGE = 3 * Sprite.SCALED_SIZE;
     private Collision collision = new Collision();
 
     Bomber bomber;
@@ -52,6 +52,15 @@ public class AutoMove extends MoveEntity {
 
         private final int value;
         view(int value) {
+            this.value = value;
+        }
+    }
+
+    public static enum direction {
+        LEFT(1) , LEFT_UP(2), UP(3), UP_RIGHT(4), RIGHT(5), RIGHT_DOWN(6), DOWN(7), DOWN_LEFT(8);
+
+        private final int value;
+        direction(int value) {
             this.value = value;
         }
     }
@@ -75,7 +84,14 @@ public class AutoMove extends MoveEntity {
             start = way;
             return true;
         }
-        direction(start);
+
+        if(!checkPlayer()) {
+            check_direction = 0;
+            direction(start);
+        }
+        else {
+            SimpleMoveToPlayer();
+        }
         return false;
     }
 
@@ -109,6 +125,14 @@ public class AutoMove extends MoveEntity {
         moveIMG();
     }
 
+
+
+    public void SimpleMoveToPlayer() {
+        Random random = new Random();
+        checkDirection();
+        moveIMG();
+    }
+
     public void moveIMG() {
         imageTimeNow = System.currentTimeMillis();
         if (imageTimeNow - imageTimeAgo > timeImg) {
@@ -122,6 +146,7 @@ public class AutoMove extends MoveEntity {
         else
             img = BombermanGame.monster.getList().get(swapImg + startImg + 4).getFxImage();
     }
+
     @Override
     public void moveUp() {
         y -= speed;
@@ -151,12 +176,65 @@ public class AutoMove extends MoveEntity {
         player_y = BombermanGame.bomberman.getY();
         int distance_x = Math.abs(x - player_x);
         int distance_y = Math.abs(y - player_y);
+
         double distance = Math.sqrt((distance_x * distance_x) + (distance_y * distance_y));
         if (distance <= RANGE) {
-            System.out.println("true");
+            checkDirection();
             return true;
         }
+        check_direction = 0;
         return false;
+    }
+
+    public void checkDirection() {
+        //bên trái
+        if (x > player_x + Sprite.DEFAULT_SIZE) {
+            //trên
+            if (y > player_y + Sprite.SCALED_SIZE) {
+                check_direction = direction.LEFT_UP.value;
+            }
+
+            //trái
+            if (y <= player_y + Sprite.SCALED_SIZE && y + Sprite.SCALED_SIZE >= player_y) {
+                check_direction = direction.LEFT.value;
+            }
+
+            //dưới
+            if (y + Sprite.SCALED_SIZE < player_y) {
+                check_direction = direction.DOWN_LEFT.value;
+            }
+        }
+
+        //trùng tọa độ x
+        if (x <= player_x + Sprite.DEFAULT_SIZE && x + Sprite.DEFAULT_SIZE >= player_x) {
+            //trên
+            if (y > player_y + Sprite.DEFAULT_SIZE) {
+                check_direction = direction.UP.value;
+            }
+
+            //dưới
+            if (y < player_y) {
+                check_direction = direction.DOWN.value;
+            }
+        }
+
+        //bên phải
+        if (x + Sprite.DEFAULT_SIZE < player_x) {
+            //trên
+            if (y > player_y + Sprite.SCALED_SIZE) {
+                check_direction = direction.UP_RIGHT.value;
+            }
+
+            //phải
+            if (y <= player_y + Sprite.SCALED_SIZE && y + Sprite.SCALED_SIZE >= player_y) {
+                check_direction = direction.RIGHT.value;
+            }
+
+            //dưới
+            if (y + Sprite.SCALED_SIZE < player_y) {
+                check_direction = direction.RIGHT_DOWN.value;
+            }
+        }
     }
 
     @Override

@@ -2,9 +2,6 @@ package uet.oop.bomberman.graphics;
 
 import javafx.scene.image.*;
 
-import java.awt.image.BufferedImage;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
 /**
  * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game)
  */
@@ -23,7 +20,7 @@ public class Sprite {
 	/**
 	 * Định vị trên ảnh
 	 */
-	public static final int minvoRotate = 0;	// 1
+	public static final int minvoRotate = 0;	//1
 	public static final int redMinvoRotate = 7;	//2
 	public static final int kondoria = 14;		//3
 	public static final int minvo = 21;			//4

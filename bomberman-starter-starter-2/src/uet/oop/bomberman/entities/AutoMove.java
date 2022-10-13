@@ -90,7 +90,7 @@ public class AutoMove extends MoveEntity {
             direction(start);
         }
         else {
-            SimpleMoveToPlayer();
+            direction(SimpleMoveToPlayer());
         }
         return false;
     }
@@ -126,11 +126,89 @@ public class AutoMove extends MoveEntity {
     }
 
 
-
-    public void SimpleMoveToPlayer() {
+    public int SimpleMoveToPlayer() {
         Random random = new Random();
+        int way = 5;
         checkDirection();
-        moveIMG();
+
+        //player bên trái
+        if (check_direction == direction.LEFT.value) {
+            way = move.LEFT.value;
+            if (y > player_y) {
+                way = move.UP.value;
+            }
+            if (y < player_y) {
+                way = move.DOWN.value;
+            }
+        }
+
+        //player góc trên bên trái
+        if (check_direction == direction.LEFT_UP.value) {
+            if (!collision.CheckMapCollision(x - speed, y, BombermanGame.map.getMap())) {
+                way = move.LEFT.value;
+            } else if (!collision.CheckMapCollision(x, y - speed, BombermanGame.map.getMap())) {
+                way = move.UP.value;
+            }
+        }
+
+        //player bên trên
+        if (check_direction == direction.UP.value) {
+            way = move.UP.value;
+            if (x > player_x) {
+                way = move.LEFT.value;
+            }
+        }
+
+        //player góc trên bên phải
+        if (check_direction == direction.UP_RIGHT.value) {
+            if (!collision.CheckMapCollision(x + speed, y, BombermanGame.map.getMap())) {
+                way = move.RIGHT.value;
+            } else if (!collision.CheckMapCollision(x, y - speed, BombermanGame.map.getMap())) {
+                way = move.UP.value;
+            }
+        }
+
+        //player bên phải
+        if(check_direction == direction.RIGHT.value) {
+            way = move.RIGHT.value;
+            if (y > player_y) {
+                way = move.UP.value;
+            }
+            if (y < player_y) {
+                way = move.DOWN.value;
+            }
+        }
+
+        //player góc dưới bên phải
+        if (check_direction == direction.RIGHT_DOWN.value) {
+            if (!collision.CheckMapCollision(x + speed, y, BombermanGame.map.getMap())) {
+                way = move.RIGHT.value;
+            } else if (!collision.CheckMapCollision(x, y + speed, BombermanGame.map.getMap())) {
+                way = move.DOWN.value;
+            }
+        }
+
+        //player bên dưới
+        if (check_direction == direction.DOWN.value) {
+            way = move.DOWN.value;System.out.println(1);
+            if (x < player_x) {
+                way = move.RIGHT.value;
+            }
+            if (x > player_x) {
+                way = move.LEFT.value;
+            }
+        }
+
+        //player góc dưới bên trái
+        if (check_direction ==direction.DOWN_LEFT.value) {
+            if (!collision.CheckMapCollision(x - speed, y, BombermanGame.map.getMap())) {
+                way = move.LEFT.value;
+            } else if (!collision.CheckMapCollision(x, y + speed, BombermanGame.map.getMap())) {
+                way = move.DOWN.value;
+            }
+        }
+
+        return way;
     }
 
     public void moveIMG() {
@@ -236,6 +314,11 @@ public class AutoMove extends MoveEntity {
             }
         }
     }
+
+    /*public int[][] mapToPlayer() {
+        int a[][];
+        return a;
+    }*/
 
     @Override
     public void update() {

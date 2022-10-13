@@ -32,7 +32,7 @@ public class Bomber extends MoveEntity {
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
             if (bombs.get(i).getRemove()) {
-                System.out.println("xoa bom" + bombs.get(i).getX()+"-"+bombs.get(i).getY());
+                //System.out.println("xoa bom" + bombs.get(i).getX()+"-"+bombs.get(i).getY());
                 bombs.remove(i);
             }
         }
@@ -125,7 +125,7 @@ public class Bomber extends MoveEntity {
         if (canMove(1)) {
             y -= bomberSpeed;
             if (this.y/32 < 1) {
-                System.out.println("vao tuong tren");
+                //System.out.println("vao tuong tren");
                 this.setY(32);
             }
         }
@@ -141,7 +141,7 @@ public class Bomber extends MoveEntity {
         if (canMove(2)) {
             y += bomberSpeed;
             if (this.y/32 > 10) {
-                System.out.println("vao tuong duoi");
+                //System.out.println("vao tuong duoi");
                 this.setY(32*11);
             }
         }
@@ -157,7 +157,7 @@ public class Bomber extends MoveEntity {
         if (canMove(3)) {
             x -= bomberSpeed;
             if (this.x/32 < 1) {
-                System.out.println("vao tuong trai");
+                //System.out.println("vao tuong trai");
                 this.setX(32);
             }
         }
@@ -173,7 +173,7 @@ public class Bomber extends MoveEntity {
         if (canMove(4)) {
             x += bomberSpeed;
             if (this.x/32 > 28) {
-                System.out.println("vao tuong phai");
+                //System.out.println("vao tuong phai");
                 this.setX(32*29);
             }
         }

@@ -97,23 +97,23 @@ public class AutoMove extends MoveEntity {
 
     public void direction(int way) {
         if (way == move.UP.value) {
-            if (!collision.CheckMapCollision(x, y - speed, BombermanGame.map.getMap()))
+            if (!collision.CheckMapCollision(x, y - speed, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap()))
                 moveUp();
         }
 
         if (way == move.DOWN.value) {
-            if (!collision.CheckMapCollision(x, y + speed, BombermanGame.map.getMap()))
+            if (!collision.CheckMapCollision(x, y + speed, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap()))
                 moveDown();
         }
 
         if (way == move.LEFT.value) {
-            if (!collision.CheckMapCollision(x - speed, y, BombermanGame.map.getMap()))
+            if (!collision.CheckMapCollision(x - speed, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap()))
                 moveLeft();
             checkView = view.LEFT.value;
         }
 
         if (way == move.RIGHT.value) {
-            if (!collision.CheckMapCollision(x + speed, y, BombermanGame.map.getMap()))
+            if (!collision.CheckMapCollision(x + speed, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap()))
                 moveRight();
             checkView = view.RIGHT.value;
         }
@@ -144,9 +144,9 @@ public class AutoMove extends MoveEntity {
 
         //player góc trên bên trái
         if (check_direction == direction.LEFT_UP.value) {
-            if (!collision.CheckMapCollision(x - speed, y, BombermanGame.map.getMap())) {
+            if (!collision.CheckMapCollision(x - speed, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap())) {
                 way = move.LEFT.value;
-            } else if (!collision.CheckMapCollision(x, y - speed, BombermanGame.map.getMap())) {
+            } else if (!collision.CheckMapCollision(x, y - speed, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap())) {
                 way = move.UP.value;
             }
         }
@@ -161,9 +161,9 @@ public class AutoMove extends MoveEntity {
 
         //player góc trên bên phải
         if (check_direction == direction.UP_RIGHT.value) {
-            if (!collision.CheckMapCollision(x + speed, y, BombermanGame.map.getMap())) {
+            if (!collision.CheckMapCollision(x + speed, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap())) {
                 way = move.RIGHT.value;
-            } else if (!collision.CheckMapCollision(x, y - speed, BombermanGame.map.getMap())) {
+            } else if (!collision.CheckMapCollision(x, y - speed, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap())) {
                 way = move.UP.value;
             }
         }
@@ -181,9 +181,9 @@ public class AutoMove extends MoveEntity {
 
         //player góc dưới bên phải
         if (check_direction == direction.RIGHT_DOWN.value) {
-            if (!collision.CheckMapCollision(x + speed, y, BombermanGame.map.getMap())) {
+            if (!collision.CheckMapCollision(x + speed, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap())) {
                 way = move.RIGHT.value;
-            } else if (!collision.CheckMapCollision(x, y + speed, BombermanGame.map.getMap())) {
+            } else if (!collision.CheckMapCollision(x, y + speed, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap())) {
                 way = move.DOWN.value;
             }
         }
@@ -201,9 +201,9 @@ public class AutoMove extends MoveEntity {
 
         //player góc dưới bên trái
         if (check_direction ==direction.DOWN_LEFT.value) {
-            if (!collision.CheckMapCollision(x - speed, y, BombermanGame.map.getMap())) {
+            if (!collision.CheckMapCollision(x - speed, y, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap())) {
                 way = move.LEFT.value;
-            } else if (!collision.CheckMapCollision(x, y + speed, BombermanGame.map.getMap())) {
+            } else if (!collision.CheckMapCollision(x, y + speed, Sprite.SCALED_SIZE, Sprite.SCALED_SIZE, BombermanGame.map.getMap())) {
                 way = move.DOWN.value;
             }
         }

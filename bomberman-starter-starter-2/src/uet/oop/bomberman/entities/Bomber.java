@@ -20,6 +20,7 @@ public class Bomber extends MoveEntity {
     private int cntDown = 1;
     private int maxBomb = 4;
     private List<Bomb> bombs = new ArrayList<>();
+    private Collision collision = new Collision();
 
     public Bomber(int x, int y, Image img, int speed) {
         super( x, y, img,speed);
@@ -45,44 +46,45 @@ public class Bomber extends MoveEntity {
             bombs.add(newBom);
         }
     }
+
     /*
     1: di len --
     2:di xuong--
     3:sang trai ----
     -4:sang phai
      */
+    public static enum move {
+        UP(1), DOWN(2), LEFT(3), RIGHT(4);
+
+        private final int value;
+        move(int value) {
+            this.value = value;
+        }
+    }
+
     @Override
     public boolean canMove(int way) {
-        int k = BombermanGame.map.convert2Dto1D(this.x/32,this.y/32);
-        if (way == 1) {
-            if (BombermanGame.map.getMap()[this.x/32][this.y/32-1] != 0 &&
-                    this.checkCollision(BombermanGame.map.getStillObjects().get(k-1))) {
-                return false;
-            }
-            else
-                return true;
+        //chênh lệch chiều rộng
+        setW(Sprite.SCALED_SIZE - 7);
+        //chênh lệch chiều cao
+        setH(Sprite.SCALED_SIZE - 4);
+
+        if (way == move.UP.value) {
+            return !collision.CheckMapCollision(x, y - speed, w, h, BombermanGame.map.getMap());
         }
-        if (way == 2) {
-            if (BombermanGame.map.getMap()[this.x/32][this.y/32+1] != 0 &&
-                    this.checkCollision(BombermanGame.map.getStillObjects().get(k+1)) )
-                return false;
-            else
-                return true;
+
+        if (way == move.DOWN.value) {
+            return !collision.CheckMapCollision(x, y + speed, w, h, BombermanGame.map.getMap());
         }
-        if (way == 3) {
-            if (BombermanGame.map.getMap()[this.x/32-1][this.y/32] != 0 &&
-                    this.checkCollision(BombermanGame.map.getStillObjects().get(k-13)) )
-                return false;
-            else
-                return true;
+
+        if (way == move.LEFT.value) {
+            return !collision.CheckMapCollision(x - speed, y, w, h, BombermanGame.map.getMap());
         }
-        if (way == 4) {
-            if (BombermanGame.map.getMap()[this.x/32+1][this.y/32] != 0  &&
-                    this.checkCollision(BombermanGame.map.getStillObjects().get(k+13)))
-                return false;
-            else
-                return true;
+
+        if (way == move.RIGHT.value) {
+            return !collision.CheckMapCollision(x + speed, y, w, h, BombermanGame.map.getMap());
         }
+
         return true;
     }
     public void moveBomber() {
@@ -165,14 +167,14 @@ public class Bomber extends MoveEntity {
     public void moveRight() {
         cntDown = 1;
         cntLeft = 1;
-        cntUp =1;
-        if (cntRight < maxAnimation) cntRight +=1;
+        cntUp = 1;
+        if (cntRight < maxAnimation) cntRight += 1;
         else cntRight = 1;
         img = Sprite.movingSprite(BombermanGame.player.getList().get(3),BombermanGame.player.getList().get(4),
                 BombermanGame.player.getList().get(5),cntRight,maxAnimation).getFxImage();
         if (canMove(4)) {
             x += bomberSpeed;
-            if (this.x/32 > 28) {
+            if (this.x / 32 > 28) {
                 //System.out.println("vao tuong phai");
                 this.setX(32*29);
             }

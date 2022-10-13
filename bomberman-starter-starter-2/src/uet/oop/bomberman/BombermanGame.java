@@ -29,8 +29,8 @@ public class BombermanGame extends Application {
     public static Images monster = new Images("/Images/monster.png", 9, 8);
     public static Entity bomberman;
 
-    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map1.txt";
-    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster1.txt";
+    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map.txt";
+    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster.txt";
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }

@@ -95,12 +95,12 @@ public class Collision {
         return false;
     }
 
-    public boolean CheckMapCollision(int x1, int y1, int[][] map)
+    public boolean CheckMapCollision(int x1, int y1, int w1, int h1, int[][] map)
     {
         int left_a = (x1 + 1) / Sprite.SCALED_SIZE;
-        int right_a = (x1 + Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE;
+        int right_a = (x1 + w1 - 1) / Sprite.SCALED_SIZE;
         int top_a = (y1 + 1) / Sprite.SCALED_SIZE;
-        int bottom_a = (y1 + Sprite.SCALED_SIZE - 1) / Sprite.SCALED_SIZE;
+        int bottom_a = (y1 + h1 - 1) / Sprite.SCALED_SIZE;
        // System.out.println(left_a + " " + top_a);
 
         try {

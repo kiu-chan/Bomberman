@@ -132,6 +132,10 @@ public class Images {
         }
     }
 
+    public void setRealImg(int i, int width, int height) {
+        //list.set
+    }
+
     public List<Sprite> getList() {
         return list;
     }

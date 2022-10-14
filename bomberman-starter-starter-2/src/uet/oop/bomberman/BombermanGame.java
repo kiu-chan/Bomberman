@@ -24,14 +24,21 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
-    public static Images map = new Images("/Images/Map_set.png", 7, 1);
+    private List<Entity> listItem = new ArrayList<>();
+    private List<Entity> listPadding = new ArrayList<>();
+    public static Images map = new Images("/Images/Map_set1.png", 7, 1);
     public static Images player = new Images("/Player/Player2.png", 3, 5);
     public static Images monster = new Images("/Images/monster.png", 9, 8);
+    public static Images item = new Images("/Images/item.png", 4, 4);
+    //lớp đệm của map như cỏ
+    public static Images padding = new Images("/Images/Padding.png", 1, 1);
+
     public static Entity bomberman;
 
-    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map1.txt";
-    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster1.txt";
-    public static final String mapItem = "";
+    public static final String Padding = "";
+    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map.txt";
+    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster.txt";
+    public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_Item.txt";
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -66,12 +73,23 @@ public class BombermanGame extends Application {
         bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 1);
         entities.add(bomberman);
         getBomberControl.getControl(scene);
+
+        padding.loadImage();
+        padding.createPadding(padding, WIDTH, HEIGHT);
+        listPadding.addAll(padding.getStillObjects()); //tạm thời lấy mỗi cỏ
+
         map.loadImage();
         map.readMap(Map, map, WIDTH, HEIGHT);
         map.createMap();
         stillObjects.addAll(map.getStillObjects());
+
+        item.loadImage();
+        item.readMap(mapItem, item, WIDTH, HEIGHT);
+        item.createItem();
+        listItem.addAll(item.getStillObjects());
+
         monster.loadImage();
-        monster.readMap(mapMonster, monster, WIDTH, HEIGHT );
+        monster.readMap(mapMonster, monster, WIDTH, HEIGHT);
         monster.createEntity();
         entities.addAll(monster.getStillObjects());
     }
@@ -84,6 +102,8 @@ public class BombermanGame extends Application {
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        listPadding.forEach(g -> g.render(gc));
+        listItem.forEach(g -> g.render(gc));
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
     }

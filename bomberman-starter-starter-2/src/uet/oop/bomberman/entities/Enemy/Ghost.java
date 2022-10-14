@@ -4,8 +4,6 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.AutoMove;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Ghost extends AutoMove {

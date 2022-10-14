@@ -9,11 +9,6 @@ import java.util.Random;
 
 
 public class AutoMove extends MoveEntity {
-    private boolean up = false;
-    private boolean down = false;
-    private boolean left = false;
-    private boolean right = false;
-
     private int speed;
     private int start = 5;
 
@@ -367,10 +362,6 @@ public class AutoMove extends MoveEntity {
         }
     }
 
-    /*public int[][] mapToPlayer() {
-        int a[][];
-        return a;
-    }*/
 
     @Override
     public void update() {

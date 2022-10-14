@@ -5,6 +5,7 @@ import uet.oop.bomberman.entities.Collide;
 import uet.oop.bomberman.entities.Enemy.Ghost;
 import uet.oop.bomberman.entities.Enemy.Oneal;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.Item;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -81,11 +82,34 @@ public class Images {
     public int convert2Dto1D(int row, int column) {
         return height * column + row;
     }
+
+    public void createPadding(Images image, int width, int height) {
+        this.image = image;
+        this.width = width;
+        this.height = height;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                stillObjects.add(new Collide(i, j, image.getList().get(0).getFxImage()));
+            }
+        }
+    }
+
     public void createMap() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Entity object = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
                 stillObjects.add(object);
+            }
+        }
+    }
+
+    public void createItem() {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (map[i][j] == 1) {System.out.println(11);
+                    Entity object = new Item(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
             }
         }
     }

@@ -22,6 +22,6 @@ public class Oneal extends AutoMove {
     @Override
     public void update() {
         int way = random.nextInt(5);
-        canMove(way);
+        moveOneal(way);
     }
 }

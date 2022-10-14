@@ -71,6 +71,21 @@ public class AutoMove extends MoveEntity {
         this.startImg = startImg;
     }
 
+    public void moveOneal(int way) {
+        canMove(way);
+        if(checkPlayer()) {
+            direction(SimpleMoveToPlayer());
+        }
+        else {
+            check_direction = 0;
+            direction(start);
+        }
+    }
+
+    public void moveBalloom(int way) {
+        canMove(way);
+        direction(start);
+    }
 
     @Override
     public boolean canMove(int way) {
@@ -85,13 +100,13 @@ public class AutoMove extends MoveEntity {
             return true;
         }
 
-        if(!checkPlayer()) {
+        /*if(!checkPlayer()) {
             check_direction = 0;
             direction(start);
         }
         else {
             direction(SimpleMoveToPlayer());
-        }
+        }*/
         return false;
     }
 

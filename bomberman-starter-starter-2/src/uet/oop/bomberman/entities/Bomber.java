@@ -67,7 +67,7 @@ public class Bomber extends MoveEntity {
         //chênh lệch chiều rộng
         setW(Sprite.SCALED_SIZE - 7);
         //chênh lệch chiều cao
-        setH(Sprite.SCALED_SIZE - 4);
+        setH(Sprite.SCALED_SIZE - 6);
 
         if (way == move.UP.value) {
             return !collision.CheckMapCollision(x, y - speed, w, h, BombermanGame.map.getMap());

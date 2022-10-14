@@ -13,7 +13,6 @@ public class Balloom extends AutoMove {
     protected int speed = 10;
     Random random = new Random();
 
-    private List<Sprite> list = new ArrayList<>();
 
     public Balloom(int x, int y, Image img) {
         super( x, y, img, 1, Sprite.balloom);

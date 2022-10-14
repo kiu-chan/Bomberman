@@ -87,6 +87,16 @@ public class AutoMove extends MoveEntity {
         direction(start);
     }
 
+    public void moveGhost(int way) {
+        canMove(way);
+        if(checkPlayer()) {
+            move(SimpleMoveToPlayer());
+        }
+        else {
+            check_direction = 0;
+            move(start);
+        }
+    }
     @Override
     public boolean canMove(int way) {
         timeNow = System.currentTimeMillis();
@@ -108,6 +118,33 @@ public class AutoMove extends MoveEntity {
             direction(SimpleMoveToPlayer());
         }*/
         return false;
+    }
+
+    //di chuyển không va chạm
+    public void move(int way) {
+        if (way == move.UP.value) {
+            moveUp();
+        }
+
+        if (way == move.DOWN.value) {
+            moveDown();
+        }
+
+        if (way == move.LEFT.value) {
+            moveLeft();
+            checkView = view.LEFT.value;
+        }
+
+        if (way == move.RIGHT.value) {
+            moveRight();
+            checkView = view.RIGHT.value;
+        }
+
+        if (way == move.STOP.value) {
+            moveStop();
+        }
+
+        moveIMG();
     }
 
     public void direction(int way) {

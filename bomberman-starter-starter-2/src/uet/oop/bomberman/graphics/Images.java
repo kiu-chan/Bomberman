@@ -2,6 +2,7 @@ package uet.oop.bomberman.graphics;
 
 import uet.oop.bomberman.entities.Enemy.Balloom;
 import uet.oop.bomberman.entities.Collide;
+import uet.oop.bomberman.entities.Enemy.Ghost;
 import uet.oop.bomberman.entities.Enemy.Oneal;
 import uet.oop.bomberman.entities.Entity;
 
@@ -107,12 +108,12 @@ public class Images {
                 if (map[i][j] == 4) {
                     Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
-                }
+                }*/
                 if (map[i][j] == 5) {
-                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                    Entity object = new Ghost(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
                 }
-                if (map[i][j] == 6) {
+                /*if (map[i][j] == 6) {
                     Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
                 }

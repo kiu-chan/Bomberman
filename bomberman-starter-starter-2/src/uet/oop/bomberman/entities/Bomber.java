@@ -19,6 +19,7 @@ public class Bomber extends MoveEntity {
     private int cntUp = 1;
     private int cntDown = 1;
     private int maxBomb = 4;
+    public static int bombRadius = 1;
     private List<Bomb> bombs = new ArrayList<>();
     private Collision collision = new Collision();
 
@@ -40,8 +41,8 @@ public class Bomber extends MoveEntity {
     }
     private void addBomb() {
         if (getBomberControl.bomberSpace == true) {
-            int xBomber = this.getX()/32;
-            int yBomber = this.getY()/32;
+            int xBomber = (this.getX()+10)/ 32;
+            int yBomber = (this.getY()+10)/ 32;
             Bomb newBom = new Bomb(xBomber, yBomber, Sprite.balloom_left3.getFxImage());
             bombs.add(newBom);
         }

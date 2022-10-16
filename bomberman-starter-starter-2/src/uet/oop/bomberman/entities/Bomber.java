@@ -25,6 +25,11 @@ public class Bomber extends MoveEntity {
 
     public Bomber(int x, int y, Image img, int speed) {
         super( x, y, img,speed);
+        //chênh lệch chiều rộng
+        setW(Sprite.SCALED_SIZE - 7);
+        //chênh lệch chiều cao
+        setH(Sprite.SCALED_SIZE - 6);
+
     }
 
     @Override
@@ -65,11 +70,6 @@ public class Bomber extends MoveEntity {
 
     @Override
     public boolean canMove(int way) {
-        //chênh lệch chiều rộng
-        setW(Sprite.SCALED_SIZE - 7);
-        //chênh lệch chiều cao
-        setH(Sprite.SCALED_SIZE - 6);
-
         if (way == move.UP.value) {
             return !collision.CheckMapCollision(x, y - speed, w, h, BombermanGame.map.getMap());
         }

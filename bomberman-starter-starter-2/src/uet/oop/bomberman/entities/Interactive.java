@@ -1,6 +1,8 @@
 package uet.oop.bomberman.entities;
 
 
+import uet.oop.bomberman.BombermanGame;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +12,11 @@ public class Interactive {
     public List<Entity> remoteItem(Entity a, List<Entity> list) {
         try {
             for (int i = 0; i < list.size(); i++) {
-                if(collision.CheckCollision(a.x, a.y, list.get(i).x, list.get(i).y)) {
-                    list.remove(i);
-                    //System.out.println(a.x + " " +  a.y + " " + list.get(i).x + " " + list.get(i).y);
+                if(collision.CheckCollision(a, list.get(i))) {
+                    if (!collision.CheckMapCollision(list.get(i).x, list.get(i).y, list.get(i).w, list.get(i).h, BombermanGame.map.getMap())) {
+                        System.out.println(a.x + " " +  a.y + " " + list.get(i).x + " " + list.get(i).y);
+                        list.remove(i);
+                    }
                 }
             }
         } catch (Exception e) {

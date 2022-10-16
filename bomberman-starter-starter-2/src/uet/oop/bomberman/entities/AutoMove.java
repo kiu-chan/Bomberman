@@ -237,7 +237,7 @@ public class AutoMove extends MoveEntity {
 
         //player bên dưới
         if (check_direction == direction.DOWN.value) {
-            way = move.DOWN.value;System.out.println(1);
+            way = move.DOWN.value;//System.out.println(1);
             if (x < player_x) {
                 way = move.RIGHT.value;
             }

@@ -42,6 +42,8 @@ public abstract class Entity {
     public Entity( int xUnit, int yUnit, Image img) {
         this.x = xUnit * Sprite.SCALED_SIZE;
         this.y = yUnit * Sprite.SCALED_SIZE;
+        this.w = Sprite.SCALED_SIZE;
+        this.h = Sprite.SCALED_SIZE;
         this.img = img;
     }
     public boolean getRemove() {

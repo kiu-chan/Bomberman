@@ -8,17 +8,17 @@ public class Collision {
 
     }
 
-    public boolean CheckCollision(int x1, int y1, int x2, int y2)
+    public boolean CheckCollision(Entity a, Entity b)
     {
-        int left_a = x1;
-        int right_a = x1 + Sprite.SCALED_SIZE;
-        int top_a = y1;
-        int bottom_a = y1 + Sprite.SCALED_SIZE;
+        int left_a = a.x;
+        int right_a = a.x + a.w;
+        int top_a = a.y;
+        int bottom_a = a.y + a.h;
 
-        int left_b = x2;
-        int right_b = x2 + Sprite.SCALED_SIZE;
-        int top_b = y2;
-        int bottom_b = y2 + Sprite.SCALED_SIZE;
+        int left_b = b.x;
+        int right_b = b.x + b.w;
+        int top_b = b.y;
+        int bottom_b = b.y + b.h;
 
         // Case 1: size object 1 < size object 2
         if (left_a > left_b && left_a < right_b)

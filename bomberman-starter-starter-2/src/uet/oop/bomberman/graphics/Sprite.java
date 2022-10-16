@@ -30,6 +30,24 @@ public class Sprite {
 	public static final int oneal = 52;			//8
 	public static final int balloom = 59;		//9
 
+	/**
+	 * Định vị trên ảnh item
+	 */
+	public static final int powerup_wallpass = 1;
+	public static final int item2 = 2;
+	public static final int item3 = 3;
+	public static final int item4 = 4;
+	public static final int item5 = 5;
+	public static final int item6 = 6;
+	public static final int item7 = 7;
+	public static final int item8 = 8;
+	public static final int item9 = 9;
+	public static final int item10 = 10;
+	public static final int item11 = 11;
+	public static final int item12 = 12;
+	public static final int item13 = 13;
+	public static final int item14 = 14;
+
 	public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite wall = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.alltiles, 16, 16);
@@ -182,14 +200,14 @@ public class Sprite {
 	| Powerups
 	|--------------------------------------------------------------------------
 	 */
-	public static Sprite powerup_bombs = new Sprite(DEFAULT_SIZE, 0, 10, SpriteSheet.alltiles, 16, 16);
+	/*public static Sprite powerup_bombs = new Sprite(DEFAULT_SIZE, 0, 10, SpriteSheet.alltiles, 16, 16);
 	public static Sprite powerup_flames = new Sprite(DEFAULT_SIZE, 1, 10, SpriteSheet.alltiles, 16, 16);
 	public static Sprite powerup_speed = new Sprite(DEFAULT_SIZE, 2, 10, SpriteSheet.alltiles, 16, 16);
 	public static Sprite powerup_wallpass = new Sprite(DEFAULT_SIZE, 3, 10, SpriteSheet.alltiles, 16, 16);
 	public static Sprite powerup_detonator = new Sprite(DEFAULT_SIZE, 4, 10, SpriteSheet.alltiles, 16, 16);
 	public static Sprite powerup_bombpass = new Sprite(DEFAULT_SIZE, 5, 10, SpriteSheet.alltiles, 16, 16);
 	public static Sprite powerup_flamepass = new Sprite(DEFAULT_SIZE, 6, 10, SpriteSheet.alltiles, 16, 16);
-
+*/
 
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {

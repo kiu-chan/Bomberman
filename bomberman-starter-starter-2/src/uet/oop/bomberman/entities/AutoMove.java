@@ -117,20 +117,20 @@ public class AutoMove extends MoveEntity {
 
     //di chuyển không va chạm
     public void move(int way) {
-        if (way == move.UP.value) {
+        if (way == move.UP.value && y - speed >= 0) {
             moveUp();
         }
 
-        if (way == move.DOWN.value) {
+        if (way == move.DOWN.value && y + speed <= Sprite.SCALED_SIZE * (BombermanGame.HEIGHT - 1)) {
             moveDown();
         }
 
-        if (way == move.LEFT.value) {
+        if (way == move.LEFT.value && x - speed >= 0) {
             moveLeft();
             checkView = view.LEFT.value;
         }
 
-        if (way == move.RIGHT.value) {
+        if (way == move.RIGHT.value && x + speed <= Sprite.SCALED_SIZE * (BombermanGame.WIDTH - 1)) {
             moveRight();
             checkView = view.RIGHT.value;
         }

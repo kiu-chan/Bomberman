@@ -22,6 +22,8 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
+
+    private Interactive interactive = new Interactive();
     private List<Entity> entities = new ArrayList<>();
     private List<Entity> stillObjects = new ArrayList<>();
     private List<Entity> listItem = new ArrayList<>();
@@ -36,8 +38,8 @@ public class BombermanGame extends Application {
     public static Entity bomberman;
 
     public static final String Padding = "";
-    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map.txt";
-    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster.txt";
+    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map1.txt";
+    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster1.txt";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_Item.txt";
 
     public static void main(String[] args) {
@@ -68,7 +70,9 @@ public class BombermanGame extends Application {
                 update();
             }
         };
+
         timer.start();
+
         player.loadImage();
         bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 1);
         entities.add(bomberman);
@@ -98,6 +102,7 @@ public class BombermanGame extends Application {
 
     public void update() {
         entities.forEach(Entity::update);
+        listItem = interactive.remoteItem(bomberman, listItem);
     }
 
     public void render() {

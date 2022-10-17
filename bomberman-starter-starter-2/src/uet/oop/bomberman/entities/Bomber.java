@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Bomber extends MoveEntity {
     private final int maxAnimation = 20;
-    protected int bomberSpeed= 1;
+    protected int bomberSpeed = 1;
     private int cntLeft = 1;
     private int cntRight = 1;
     private int cntUp = 1;
@@ -199,6 +199,10 @@ public class Bomber extends MoveEntity {
                 this.setX(32*29);
             }
         }
+    }
+
+    public void setBomberSpeed(int speed) {
+        this.bomberSpeed += speed;
     }
 
     public int getX() {

@@ -28,6 +28,8 @@ public class BombermanGame extends Application {
     private List<Entity> stillObjects = new ArrayList<>();
     private List<Entity> listItem = new ArrayList<>();
     private List<Entity> listPadding = new ArrayList<>();
+    //tập hợp các thực thể
+    private List<Entity> list = new ArrayList<>();
     public static Images map = new Images("/Images/Map_set1.png", 7, 1);
     public static Images player = new Images("/Player/Player2.png", 3, 5);
     public static Images monster = new Images("/Images/monster.png", 9, 8);
@@ -35,7 +37,7 @@ public class BombermanGame extends Application {
     //lớp đệm của map như cỏ
     public static Images padding = new Images("/Images/Padding.png", 1, 1);
 
-    public static Entity bomberman;
+    public static Bomber bomberman;
 
     public static final String Padding = "";
     public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map1.txt";
@@ -81,28 +83,31 @@ public class BombermanGame extends Application {
         padding.loadImage();
         padding.createPadding(padding, WIDTH, HEIGHT);
         listPadding.addAll(padding.getStillObjects()); //tạm thời lấy mỗi cỏ
+        list.addAll(listPadding);
 
         map.loadImage();
         map.readMap(Map, map, WIDTH, HEIGHT);
         map.createMap();
         stillObjects.addAll(map.getStillObjects());
+        list.addAll(stillObjects);
 
         item.loadImage();
         item.readMap(mapItem, item, WIDTH, HEIGHT);
         item.createItem();
         listItem.addAll(item.getStillObjects());
+        list.addAll(listItem);
 
         monster.loadImage();
         monster.readMap(mapMonster, monster, WIDTH, HEIGHT);
         monster.createEntity();
         entities.addAll(monster.getStillObjects());
+        list.addAll(entities);
     }
-
-
 
     public void update() {
         entities.forEach(Entity::update);
         listItem = interactive.remoteItem(bomberman, listItem);
+        list = interactive.screen(list);
     }
 
     public void render() {

@@ -19,6 +19,15 @@ public class Bomber extends MoveEntity {
     private int cntUp = 1;
     private int cntDown = 1;
     private int maxBomb = 4;
+    public int act = 0;
+    public enum status {
+        STOP(0), LEFT(1), RIGHT(2), UP(3), DOWN(4);
+
+        private final int value;
+        status(int value) {
+            this.value = value;
+        }
+    }
     public static int bombRadius = 1;
     private List<Bomb> bombs = new ArrayList<>();
     private Collision collision = new Collision();
@@ -89,28 +98,33 @@ public class Bomber extends MoveEntity {
         return true;
     }
     public void moveBomber() {
+        act = status.STOP.value;;
         if (getBomberControl.bomberLeft) {
             getBomberControl.bomberDown = false;
             getBomberControl.bomberRight = false;
             getBomberControl.bomberUp = false;
+            act = status.LEFT.value;
             this.moveLeft();
         }
         if (getBomberControl.bomberRight) {
             getBomberControl.bomberDown = false;
             getBomberControl.bomberLeft = false;
             getBomberControl.bomberUp = false;
+            act = status.RIGHT.value;
             this.moveRight();
         }
         if (getBomberControl.bomberUp) {
             getBomberControl.bomberDown = false;
             getBomberControl.bomberRight = false;
             getBomberControl.bomberLeft = false;
+            act = status.UP.value;
             this.moveUp();
         }
         if (getBomberControl.bomberDown) {
             getBomberControl.bomberLeft = false;
             getBomberControl.bomberRight = false;
             getBomberControl.bomberUp = false;
+            act = status.DOWN.value;
             this.moveDown();
         }
     }

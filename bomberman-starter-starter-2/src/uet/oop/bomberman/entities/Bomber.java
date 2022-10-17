@@ -20,6 +20,8 @@ public class Bomber extends MoveEntity {
     private int cntDown = 1;
     private int maxBomb = 4;
     public int act = 0;
+    //di chuyển sau khi lấy được item
+    public int moveItem = 0;
     public enum status {
         STOP(0), LEFT(1), RIGHT(2), UP(3), DOWN(4);
 
@@ -79,6 +81,9 @@ public class Bomber extends MoveEntity {
 
     @Override
     public boolean canMove(int way) {
+        if (moveItem == 1) {
+            return true;
+        }
         if (way == move.UP.value) {
             return !collision.CheckMapCollision(x, y - speed, w, h, BombermanGame.map.getMap());
         }
@@ -202,6 +207,9 @@ public class Bomber extends MoveEntity {
 
     public int getY() {
         return y;
+    }
+    public void setMoveItem(int item) {
+        this.moveItem = item;
     }
     @Override
     public void render(GraphicsContext gc) {

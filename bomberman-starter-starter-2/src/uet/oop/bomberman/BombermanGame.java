@@ -107,7 +107,8 @@ public class BombermanGame extends Application {
     public void update() {
         entities.forEach(Entity::update);
         listItem = interactive.remoteItem(bomberman, listItem);
-        list = interactive.screen(list);
+        //list = interactive.screen(list);
+        interactive.itemHandling();
     }
 
     public void render() {

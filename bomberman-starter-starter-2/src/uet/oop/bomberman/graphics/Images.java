@@ -107,7 +107,7 @@ public class Images {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (map[i][j] == 1) {
-                    Entity object = new Item(i, j, image.getList().get(map[i][j]).getFxImage());
+                    Entity object = new Item(i, j, image.getList().get(map[i][j] - 1).getFxImage());
                     stillObjects.add(object);
                 }
             }

@@ -7,21 +7,24 @@ import java.util.Random;
 
 public class Item extends Entity {
     public static final long ITEM_TIME_LIMIT = 10000;
+    public final int order;
     private int item;
     private long start = -1;
+    private boolean end = false;
 
     private boolean powerup_wallpass = false;
 
-    public Item(int x, int y, Image img) {
+    public Item(int x, int y, Image img, int order) {
         super(x, y, img);
+        this.order = order;
     }
 
     public void setStart(long start) {
         this.start = start;
     }
 
-    public void item(int num) {
-        if (num == 1) {
+    public void item() {
+        if (order == 0) {
             powerup_wallpass = true;
             powerupWallpass(System.currentTimeMillis());
         }
@@ -41,6 +44,8 @@ public class Item extends Entity {
         if (endTime - start >= ITEM_TIME_LIMIT) {
             powerup_wallpass = false;
             start = -1;
+            end = true;
+            BombermanGame.bomberman.setMoveItem(0);
         }
 
         if (powerup_wallpass) {
@@ -51,6 +56,10 @@ public class Item extends Entity {
 
     public void powerupBombpass() {
 
+    }
+
+    public boolean getEnd() {
+        return this.end;
     }
     @Override
     public void update() {

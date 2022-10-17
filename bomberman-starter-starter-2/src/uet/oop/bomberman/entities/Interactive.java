@@ -30,8 +30,11 @@ public class Interactive {
     }
 
     public void itemHandling() {
-        for (Item item : listItem)
-            item.item(1);
+        for (int i = 0; i < listItem.size(); i++) {
+            listItem.get(i).item();
+            if (listItem.get(i).getEnd())
+                listItem.remove(i);
+        }
     }
 
     public List<Entity> screen(List<Entity> list) {

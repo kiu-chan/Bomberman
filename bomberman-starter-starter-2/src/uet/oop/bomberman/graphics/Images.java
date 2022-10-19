@@ -106,8 +106,8 @@ public class Images {
     public void createItem() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (map[i][j] == 1) {
-                    Entity object = new Item(i, j, image.getList().get(map[i][j]).getFxImage());
+                if (map[i][j] != 0) {
+                    Entity object = new Item(i, j, image.getList().get(map[i][j] - 1).getFxImage(), map[i][j] - 1);
                     stillObjects.add(object);
                 }
             }

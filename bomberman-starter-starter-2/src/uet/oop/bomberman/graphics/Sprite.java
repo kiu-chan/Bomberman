@@ -33,20 +33,20 @@ public class Sprite {
 	/**
 	 * Định vị trên ảnh item
 	 */
-	public static final int powerup_wallpass = 1;
-	public static final int powerup_bombpass = 2;
-	public static final int powerup_detonator = 3;
-	public static final int powerup_speed = 4;
-	public static final int powerup_flamepass = 5;
-	public static final int random_item = 6;
-	public static final int powerup_bombs = 7;
-	public static final int powerup_flames = 8;
-	public static final int item9 = 9;
-	public static final int item10 = 10;
-	public static final int item11 = 11;
-	public static final int item12 = 12;
-	public static final int item13 = 13;
-	public static final int item14 = 14;
+	public static final int powerup_wallpass = 0;
+	public static final int powerup_bombpass = 1;
+	public static final int powerup_detonator = 2;
+	public static final int powerup_speed = 3;
+	public static final int powerup_flamepass = 4;
+	public static final int random_item = 5;
+	public static final int powerup_bombs = 6;
+	public static final int powerup_flames = 7;
+	public static final int item9 = 8;
+	public static final int item10 = 9;
+	public static final int item11 = 10;
+	public static final int item12 = 11;
+	public static final int item13 = 12;
+	public static final int item14 = 13;
 
 	public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.alltiles, 16, 16);

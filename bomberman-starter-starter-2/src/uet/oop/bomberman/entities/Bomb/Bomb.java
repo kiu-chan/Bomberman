@@ -149,7 +149,6 @@ public class Bomb extends Entity {
                 for(int i = 0; i < explotionList.size(); i++) {
                     explotionList.get(i).update(timeAfterExplode);
                 }
-               // this.makeExplotion();
                 }
                 isExplotion = true;
                 if (timeAfterExplode > 0) {

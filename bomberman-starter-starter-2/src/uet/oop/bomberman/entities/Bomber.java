@@ -37,6 +37,7 @@ public class Bomber extends MoveEntity {
 
     public Bomber(int x, int y, Image img, int speed) {
         super( x, y, img,speed);
+        System.out.println("toa do x:"+ x + "toa do y:" + y);
         //chênh lệch chiều rộng
         setW(Sprite.SCALED_SIZE - 7);
         //chênh lệch chiều cao

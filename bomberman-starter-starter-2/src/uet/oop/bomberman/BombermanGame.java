@@ -35,7 +35,7 @@ public class BombermanGame extends Application {
     //lớp đệm của map như cỏ
     public static Images padding = new Images("/Images/Padding.png", 1, 1);
 
-    public static Entity bomberman;
+    public static Bomber bomberman;
 
     public static final String Padding = "";
     public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map.txt";

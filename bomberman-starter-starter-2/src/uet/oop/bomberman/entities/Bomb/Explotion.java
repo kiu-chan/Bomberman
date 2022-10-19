@@ -60,23 +60,23 @@ public class Explotion extends Entity {
     public void update(int timeAfter) {
         if (this.way == 3) {
                 img = isLast ?
-                        Sprite.movingSprite(Sprite.explosion_horizontal_left_last,Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, 60 - timeAfter, 30).getFxImage():
-                        Sprite.movingSprite(Sprite.explosion_horizontal,Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, 60 - timeAfter, 80).getFxImage();
+                        Sprite.movingSprite(Sprite.explosion_horizontal_left_last,Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, 60 - timeAfter, 80).getFxImage():
+                        Sprite.movingSprite(Sprite.explosion_horizontal,Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, 60-(timeAfter), 80).getFxImage();
             }
         if (this.way == 4) {
                 img = isLast ?
-                        Sprite.movingSprite(Sprite.explosion_horizontal_right_last,Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, 60 - timeAfter, 30).getFxImage():
-                        Sprite.movingSprite(Sprite.explosion_horizontal,Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, 60 - timeAfter, 30).getFxImage();
+                        Sprite.movingSprite(Sprite.explosion_horizontal_right_last,Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, 60 - timeAfter, 80).getFxImage():
+                        Sprite.movingSprite(Sprite.explosion_horizontal,Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, 60 - timeAfter, 80).getFxImage();
             }
         if (this.way == 1) {
                 img = isLast ?
-                        Sprite.movingSprite(Sprite.explosion_vertical_top_last,Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2, 60 - timeAfter, 30).getFxImage():
-                        Sprite.movingSprite(Sprite.explosion_vertical,Sprite.explosion_vertical1, Sprite.explosion_vertical2, 60 - timeAfter, 30).getFxImage();
+                        Sprite.movingSprite(Sprite.explosion_vertical_top_last,Sprite.explosion_vertical_top_last1, Sprite.explosion_vertical_top_last2, 60 - timeAfter, 80).getFxImage():
+                        Sprite.movingSprite(Sprite.explosion_vertical,Sprite.explosion_vertical1, Sprite.explosion_vertical2, 60 - timeAfter, 80).getFxImage();
             }
         if (this.way == 2) {
                 img = isLast ?
-                        Sprite.movingSprite(Sprite.explosion_vertical_down_last,Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, 60 - timeAfter, 30).getFxImage():
-                        Sprite.movingSprite(Sprite.explosion_vertical,Sprite.explosion_vertical1, Sprite.explosion_vertical2, 60 - timeAfter, 30).getFxImage();
+                        Sprite.movingSprite(Sprite.explosion_vertical_down_last,Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, 60 - timeAfter, 80).getFxImage():
+                        Sprite.movingSprite(Sprite.explosion_vertical,Sprite.explosion_vertical1, Sprite.explosion_vertical2, 60 - timeAfter, 80).getFxImage();
         }
     }
 

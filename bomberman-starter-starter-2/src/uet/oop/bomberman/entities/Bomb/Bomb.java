@@ -73,15 +73,20 @@ public class Bomb extends Entity {
             case 4 : {
                 int toadoX = this.x / 32 + 1;
                 int toadoY = this.y / 32;
-                while (cnt < radiusBomb) {
-                    if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 0) {
+                while (cnt < radiusBomb && BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 0) {
+                   /* if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 0) {
                         cnt++;
-                    } else if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 1)
+                    } else */
+                    if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 1)
                         return cnt;
                     else if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 2) {
-                       // BombermanGame.map.setMap(toadoX+cnt, toadoY, 0);
-                        return cnt;
+                     //   BombermanGame.map.setMap(toadoX+cnt, toadoY, 0);
+                        break;
                     }
+                }
+                if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 2) {
+                    BombermanGame.map.setMap(toadoX+cnt, toadoY, 0);
+                    return cnt;
                 }
             }
             break;
@@ -144,22 +149,20 @@ public class Bomb extends Entity {
         if (remove != true) {
             if (timeToExplode > 0) {
                 timeToExplode--;
-            }
-            else {
-                for(int i = 0; i < explotionList.size(); i++) {
+            } else {
+                for (int i = 0; i < explotionList.size(); i++) {
                     explotionList.get(i).update(timeAfterExplode);
-                }
                 }
                 isExplotion = true;
                 if (timeAfterExplode > 0) {
                     timeAfterExplode--;
                 } else {
-                    for(int i = 0; i < explotionList.size(); i++) {
-                        System.out.println("co the phai");
+                    for (int i = 0; i < explotionList.size(); i++) {
                         explotionList.get(i).setRemove();
                     }
                     setRemove();
                 }
             }
         }
+    }
 }

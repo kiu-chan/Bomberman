@@ -49,8 +49,11 @@ public abstract class Entity {
     public boolean getRemove() {
         return this.remove;
     }
-    protected void setRemove() {
+    public void setRemove() {
         this.remove = true;
+    }
+    protected void setImg(Image img) {
+        this.img = img;
     }
 
 

@@ -38,7 +38,7 @@ public class BombermanGame extends Application {
     public static Entity bomberman;
 
     public static final String Padding = "";
-    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map1.txt";
+    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map.txt";
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster1.txt";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
 
@@ -70,11 +70,11 @@ public class BombermanGame extends Application {
                 update();
             }
         };
-
+        if (!Bomber.isDead) {
         timer.start();
 
         player.loadImage();
-        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 1);
+        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
         entities.add(bomberman);
         getBomberControl.getControl(scene);
 
@@ -96,6 +96,7 @@ public class BombermanGame extends Application {
         monster.readMap(mapMonster, monster, WIDTH, HEIGHT);
         monster.createEntity();
         entities.addAll(monster.getStillObjects());
+        }
     }
 
 

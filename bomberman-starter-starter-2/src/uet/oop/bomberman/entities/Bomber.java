@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomber extends MoveEntity {
+    public static boolean isDead = false;
     private final int maxAnimation = 20;
     protected int bomberSpeed= 1;
     private int cntLeft = 1;
@@ -45,11 +46,12 @@ public class Bomber extends MoveEntity {
         }
     }
     private void addBomb() {
-        if (getBomberControl.bomberSpace == true) {
-            int xBomber = (this.getX()+10)/ 32;
-            int yBomber = (this.getY()+10)/ 32;
-            Bomb newBom = new Bomb(xBomber, yBomber, Sprite.balloom_left3.getFxImage());
+        if (getBomberControl.bomberSpace == true && bombs.size() < maxBomb) {
+            int xBomber = (this.getX()+10) / 32;
+            int yBomber = (this.getY()+10) / 32;
+            Bomb newBom = new Bomb(xBomber, yBomber, Sprite.bomb.getFxImage());
             bombs.add(newBom);
+            newBom.makeExplotion();
         }
     }
 
@@ -75,15 +77,15 @@ public class Bomber extends MoveEntity {
         }
 
         if (way == move.DOWN.value) {
-            return !collision.CheckMapCollision(x, y + speed, w, h, BombermanGame.map.getMap());
+             return !collision.CheckMapCollision(x, y + speed, w, h, BombermanGame.map.getMap());
         }
 
         if (way == move.LEFT.value) {
-            return !collision.CheckMapCollision(x - speed, y, w, h, BombermanGame.map.getMap());
+             return !collision.CheckMapCollision(x - speed, y, w, h, BombermanGame.map.getMap());
         }
 
         if (way == move.RIGHT.value) {
-            return !collision.CheckMapCollision(x + speed, y, w, h, BombermanGame.map.getMap());
+             return !collision.CheckMapCollision(x + speed, y, w, h, BombermanGame.map.getMap());
         }
 
         return true;

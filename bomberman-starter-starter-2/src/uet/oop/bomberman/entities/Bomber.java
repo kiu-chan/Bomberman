@@ -58,11 +58,13 @@ public class Bomber extends MoveEntity {
         }
     }
     private void addBomb() {
-        if (getBomberControl.bomberSpace == true && bombs.size() < maxBomb) {
-            int xBomber = (this.getX()+10) / 32;
-            int yBomber = (this.getY()+10) / 32;
+        if (getBomberControl.bomberSpace == true ) {
+            int xBomber = (this.getX() + 10) / 32;
+            int yBomber = (this.getY() + 10) / 32;
             Bomb newBom = new Bomb(xBomber, yBomber, Sprite.bomb.getFxImage());
-            bombs.add(newBom);
+            if (newBom.isHaveBomb(bombs) == false) {
+                bombs.add(newBom);
+            }
             newBom.makeExplotion();
         }
     }

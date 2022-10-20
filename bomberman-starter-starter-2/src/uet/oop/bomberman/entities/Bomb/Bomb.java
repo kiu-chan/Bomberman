@@ -21,35 +21,46 @@ public class Bomb extends Entity {
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
     }
+    public boolean isHaveBomb(List <Bomb> bombList) {
+
+        for(int i = 0; i < bombList.size(); i++) {
+            if (this.x == bombList.get(i).getX() && this.y == bombList.get(i).getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public int getRealRadius(int way) {
         int cnt = 0;
+        int tmp = 0;
         switch (way) {
             case 1 : {
                 int toadoX = this.x / 32;
                 int toadoY = this.y / 32 -1;
-                while (cnt < radiusBomb) {
-                    if (BombermanGame.map.getMap()[toadoX][toadoY - cnt] == 0) {
+                while (cnt < radiusBomb ) {
+                    if (BombermanGame.map.getMap()[toadoX][toadoY - cnt] == 0
+                            && BombermanGame.map.getMap()[toadoX][toadoY - cnt + 1] != 2) {
                         cnt++;
                     } else if (BombermanGame.map.getMap()[toadoX][toadoY - cnt] == 1)
                         return cnt;
                     else if (BombermanGame.map.getMap()[toadoX][toadoY - cnt] == 2) {
-                     //   BombermanGame.map.setMap(toadoX, toadoY - cnt, 0);
                         return cnt;
                     }
                 }
+
             }
             break;
             case 2 : {
                 int toadoX = this.x / 32;
                 int toadoY = this.y / 32 + 1;
-                while (cnt < radiusBomb) {
-                    if (BombermanGame.map.getMap()[toadoX][toadoY + cnt] == 0) {
+                while ( cnt < radiusBomb) {
+                    if (BombermanGame.map.getMap()[toadoX][toadoY + cnt] == 0 &&
+                            BombermanGame.map.getMap()[toadoX][toadoY + cnt - 1] != 2) {
                         cnt++;
                     } else if (BombermanGame.map.getMap()[toadoX][toadoY + cnt] == 1)
                         return cnt;
                     else if (BombermanGame.map.getMap()[toadoX][toadoY + cnt] == 2) {
-                    //    BombermanGame.map.setMap(toadoX, toadoY + cnt, 0);
                         return cnt;
                     }
                 }
@@ -64,7 +75,6 @@ public class Bomb extends Entity {
                     } else if (BombermanGame.map.getMap()[toadoX - cnt][toadoY] == 1)
                         return cnt;
                     else if (BombermanGame.map.getMap()[toadoX - cnt][toadoY] == 2) {
-                      //  BombermanGame.map.setMap(toadoX-cnt, toadoY, 0);
                         return cnt;
                     }
                 }
@@ -73,20 +83,14 @@ public class Bomb extends Entity {
             case 4 : {
                 int toadoX = this.x / 32 + 1;
                 int toadoY = this.y / 32;
-                while (cnt < radiusBomb && BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 0) {
-                   /* if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 0) {
+                while (cnt < radiusBomb) {
+                    if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 0) {
                         cnt++;
-                    } else */
-                    if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 1)
+                    } else if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 1)
                         return cnt;
                     else if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 2) {
-                     //   BombermanGame.map.setMap(toadoX+cnt, toadoY, 0);
-                        break;
+                        return cnt;
                     }
-                }
-                if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 2) {
-                    BombermanGame.map.setMap(toadoX+cnt, toadoY, 0);
-                    return cnt;
                 }
             }
             break;
@@ -95,6 +99,8 @@ public class Bomb extends Entity {
         return cnt;
     }
     public void makeExplotion() {
+        int toadoX = this.x / 32;
+        int toadoY = this.y / 32;
         for (int i = 1; i <= 4; i++) {
             if (i == 1) {
                 for (int j = 1; j <= this.getRealRadius(i); j++) {
@@ -103,21 +109,34 @@ public class Bomb extends Entity {
                     else
                         explotionList.add(new Explotion(this.x, this.y -32*j, i, false ));
                 }
+                if (BombermanGame.map.getMap()[toadoX][toadoY - this.getRealRadius(i) - 1] == 2
+                        && this.getRealRadius(i) < radiusBomb) {
+                    BombermanGame.map.setMap(toadoX, toadoY - this.getRealRadius(i) - 1, 0);
+                }
             }
             if (i == 2) {
                 for (int j = 1; j <= this.getRealRadius(i); j++) {
-                    if (j == this.getRealRadius(i))
-                        explotionList.add(new Explotion(this.x, this.y + 32*j, i, true));
-                    else
-                        explotionList.add(new Explotion(this.x, this.y + 32*j, i, false ));
+                    if  (j == this.getRealRadius(i)) {
+                        explotionList.add(new Explotion(this.x, this.y + 32 * j, i, true));
+                    } else {
+                        explotionList.add(new Explotion(this.x, this.y + 32 * j, i, false));
+                    }
+                }
+                if (BombermanGame.map.getMap()[toadoX][toadoY + this.getRealRadius(i) + 1] == 2
+                        && this.getRealRadius(i) < radiusBomb) {
+                    BombermanGame.map.setMap(toadoX, toadoY + this.getRealRadius(i) + 1, 0);
                 }
             }
             if (i == 3) {
                 for (int j = 1; j <= this.getRealRadius(i); j++) {
                     if (j == this.getRealRadius(i))
-                        explotionList.add(new Explotion(this.x - 32*j, this.y, i, true));
+                        explotionList.add(new Explotion(this.x - 32*j, this.y, i, false));
                     else
-                        explotionList.add(new Explotion(this.x - 32*j, this.y , i, false ));
+                        explotionList.add(new Explotion(this.x - 32*j, this.y , i, true ));
+                }
+                if (BombermanGame.map.getMap()[toadoX - this.getRealRadius(i) - 1][toadoY] == 2
+                        && this.getRealRadius(i) < radiusBomb) {
+                    BombermanGame.map.setMap(toadoX - 1 - this.getRealRadius(i), toadoY, 0);
                 }
             }
             if (i == 4) {
@@ -126,6 +145,10 @@ public class Bomb extends Entity {
                         explotionList.add(new Explotion(this.x+32*j, this.y , i, true));
                     else
                         explotionList.add(new Explotion(this.x+32*j, this.y, i, false ));
+                }
+                if (BombermanGame.map.getMap()[toadoX + this.getRealRadius(i) + 1][toadoY] == 2
+                        && this.getRealRadius(i) < radiusBomb) {
+                    BombermanGame.map.setMap(toadoX + this.getRealRadius(i) + 1, toadoY, 0);
                 }
             }
         }

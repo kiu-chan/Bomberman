@@ -34,6 +34,7 @@ public class getBomberControl {
                     }
                     break;
                     case SPACE: {
+                        System.out.println("da an space");
                         bomberSpace = true;
                     }
                     break;

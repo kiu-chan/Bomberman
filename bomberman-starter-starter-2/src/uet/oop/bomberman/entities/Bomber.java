@@ -19,7 +19,7 @@ public class Bomber extends MoveEntity {
     private int cntRight = 1;
     private int cntUp = 1;
     private int cntDown = 1;
-    private int maxBomb = 4;
+    private int maxBomb = 2;
     public int act = 0;
     //di chuyển sau khi lấy được item
     public int moveItem = 0;
@@ -58,7 +58,7 @@ public class Bomber extends MoveEntity {
         }
     }
     private void addBomb() {
-        if (getBomberControl.bomberSpace == true ) {
+        if (getBomberControl.bomberSpace == true && bombs.size() < maxBomb ) {
             int xBomber = (this.getX() + 10) / 32;
             int yBomber = (this.getY() + 10) / 32;
             Bomb newBom = new Bomb(xBomber, yBomber, Sprite.bomb.getFxImage());

@@ -30,6 +30,10 @@ public class Explotion extends Entity {
     3:sang trai ----
     4:sang phai
      */
+    public Explotion(int x, int y) {
+        super(x,y,Sprite.brick_exploded.getFxImage());
+        this.way = 0;
+    }
 
     public Explotion(int x, int y, int way,boolean isLast) {
         super(x,y,null);
@@ -57,6 +61,7 @@ public class Explotion extends Entity {
             img = Sprite.explosion_horizontal_right_last2.getFxImage();
         }
     }
+
     public void update(int timeAfter) {
         if (this.way == 3) {
                 img = isLast ?
@@ -77,6 +82,9 @@ public class Explotion extends Entity {
             img = isLast ?
                  Sprite.movingSprite(Sprite.explosion_vertical_down_last,Sprite.explosion_vertical_down_last1, Sprite.explosion_vertical_down_last2, 60 - timeAfter, 80).getFxImage():
                  Sprite.movingSprite(Sprite.explosion_vertical,Sprite.explosion_vertical1, Sprite.explosion_vertical2, 60 - timeAfter, 80).getFxImage();
+        }
+        if (this.way == 0) {
+            img = Sprite.movingSprite(Sprite.brick_exploded,Sprite.brick_exploded1,Sprite.brick_exploded2,60 - timeAfter, 80).getFxImage();
         }
     }
 

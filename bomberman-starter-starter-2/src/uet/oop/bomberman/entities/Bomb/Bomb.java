@@ -8,16 +8,17 @@ import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.entities.Bomber;
-
+import uet.oop.bomberman.entities.Collide;
 import java.util.ArrayList;
 import java.util.List;
 public class Bomb extends Entity {
     private boolean isExplotion = false;
     private boolean remove = false;
-    public static int radiusBomb = 5;
+    public static int radiusBomb = 2;
     private int timeToExplode = 80;
     private int timeAfterExplode = 60;
     private List<Explotion> explotionList = new ArrayList<>();
+
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
     }
@@ -103,6 +104,7 @@ public class Bomb extends Entity {
         int toadoY = this.y / 32;
         for (int i = 1; i <= 4; i++) {
             if (i == 1) {
+                int r = this.getRealRadius(i);
                 for (int j = 1; j <= this.getRealRadius(i); j++) {
                     if (j == this.getRealRadius(i))
                         explotionList.add(new Explotion(this.x, this.y -32*j, i, true));
@@ -112,9 +114,12 @@ public class Bomb extends Entity {
                 if (BombermanGame.map.getMap()[toadoX][toadoY - this.getRealRadius(i) - 1] == 2
                         && this.getRealRadius(i) < radiusBomb) {
                     BombermanGame.map.setMap(toadoX, toadoY - this.getRealRadius(i) - 1, 0);
+                    explotionList.add(new Explotion(this.x/32, this.y /32 -r -1));
+                    BombermanGame.stillObjects.set(this.x/32 * 13 + this.y /32 -r -1,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
                 }
             }
             if (i == 2) {
+                int r = this.getRealRadius(i);
                 for (int j = 1; j <= this.getRealRadius(i); j++) {
                     if  (j == this.getRealRadius(i)) {
                         explotionList.add(new Explotion(this.x, this.y + 32 * j, i, true));
@@ -125,9 +130,12 @@ public class Bomb extends Entity {
                 if (BombermanGame.map.getMap()[toadoX][toadoY + this.getRealRadius(i) + 1] == 2
                         && this.getRealRadius(i) < radiusBomb) {
                     BombermanGame.map.setMap(toadoX, toadoY + this.getRealRadius(i) + 1, 0);
+                    explotionList.add(new Explotion(this.x/32,this.y /32 + r +1));
+                    BombermanGame.stillObjects.set(this.x/32 * 13 + this.y /32 + r +1,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
                 }
             }
             if (i == 3) {
+                int r = this.getRealRadius(i);
                 for (int j = 1; j <= this.getRealRadius(i); j++) {
                     if (j == this.getRealRadius(i))
                         explotionList.add(new Explotion(this.x - 32*j, this.y, i, false));
@@ -137,9 +145,12 @@ public class Bomb extends Entity {
                 if (BombermanGame.map.getMap()[toadoX - this.getRealRadius(i) - 1][toadoY] == 2
                         && this.getRealRadius(i) < radiusBomb) {
                     BombermanGame.map.setMap(toadoX - 1 - this.getRealRadius(i), toadoY, 0);
+                    explotionList.add(new Explotion(this.x/32 - r -1, this.y/32));
+                    BombermanGame.stillObjects.set((toadoX -r -1) * 13 + this.y /32,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
                 }
             }
             if (i == 4) {
+                int r = this.getRealRadius(i);
                 for (int j = 1; j <= this.getRealRadius(i); j++) {
                     if (j == this.getRealRadius(i))
                         explotionList.add(new Explotion(this.x+32*j, this.y , i, true));
@@ -149,6 +160,8 @@ public class Bomb extends Entity {
                 if (BombermanGame.map.getMap()[toadoX + this.getRealRadius(i) + 1][toadoY] == 2
                         && this.getRealRadius(i) < radiusBomb) {
                     BombermanGame.map.setMap(toadoX + this.getRealRadius(i) + 1, toadoY, 0);
+                    explotionList.add(new Explotion(this.x/32 + r +1, this.y/32));
+                    BombermanGame.stillObjects.set((toadoX + r + 1) * 13 + this.y /32,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
                 }
             }
         }

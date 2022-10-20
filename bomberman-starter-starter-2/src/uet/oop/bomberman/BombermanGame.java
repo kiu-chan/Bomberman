@@ -25,7 +25,7 @@ public class BombermanGame extends Application {
 
     private Interactive interactive = new Interactive();
     private List<Entity> entities = new ArrayList<>();
-    private List<Entity> stillObjects = new ArrayList<>();
+    public static List<Entity> stillObjects = new ArrayList<>();
     private List<Entity> listItem = new ArrayList<>();
     private List<Entity> listPadding = new ArrayList<>();
     public static Images map = new Images("/Images/Map_set1.png", 7, 1);

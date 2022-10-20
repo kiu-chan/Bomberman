@@ -77,7 +77,6 @@ public class Images {
         catch (Exception e) {
             e.printStackTrace();System.out.println(1);
         }
-
     }
     public int convert2Dto1D(int row, int column) {
         return height * column + row;

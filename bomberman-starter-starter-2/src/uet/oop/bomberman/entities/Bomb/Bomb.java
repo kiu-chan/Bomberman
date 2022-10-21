@@ -18,6 +18,7 @@ public class Bomb extends Entity {
     private int timeToExplode = 80;
     private int timeAfterExplode = 60;
     private List<Explotion> explotionList = new ArrayList<>();
+    private List<Explotion> wallExplotionList = new ArrayList<>();
 
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
@@ -31,7 +32,34 @@ public class Bomb extends Entity {
         }
         return false;
     }
-
+    public boolean checkWall(int way) {
+        int toadoX = this.x / 32;
+        int toadoY = this.y / 32;
+        int r = this.getRealRadius(way);
+        if (way == 1) {
+            if (BombermanGame.map.getMap()[toadoX][toadoY - r - 1] == 2
+                    && r < radiusBomb) {
+                return true;
+            }
+        }
+        if (way == 2) {
+            if (BombermanGame.map.getMap()[toadoX][toadoY + r + 1] == 2
+                    && r < radiusBomb) {
+                return true;
+            }
+        }
+        if (way == 3) {
+            if (BombermanGame.map.getMap()[toadoX - r - 1][toadoY] == 2
+                    && r < radiusBomb)
+                return true;
+        }
+        if (way == 4) {
+            if (BombermanGame.map.getMap()[toadoX + r + 1][toadoY] == 2
+                    && r < radiusBomb)
+                return true;
+        }
+        return false;
+    }
     public int getRealRadius(int way) {
         int cnt = 0;
         int tmp = 0;
@@ -99,70 +127,83 @@ public class Bomb extends Entity {
         }
         return cnt;
     }
-    public void makeExplotion() {
+    public void makeExplotion(int way) {
         int toadoX = this.x / 32;
         int toadoY = this.y / 32;
-        for (int i = 1; i <= 4; i++) {
-            if (i == 1) {
-                int r = this.getRealRadius(i);
-                for (int j = 1; j <= this.getRealRadius(i); j++) {
-                    if (j == this.getRealRadius(i))
-                        explotionList.add(new Explotion(this.x, this.y -32*j, i, true));
+        int r = this.getRealRadius(way);
+            if (way == 1) {
+                for (int j = 1; j <= r; j++) {
+                    if (j == r)
+                        explotionList.add(new Explotion(this.x, this.y -32*j, way, true));
                     else
-                        explotionList.add(new Explotion(this.x, this.y -32*j, i, false ));
+                        explotionList.add(new Explotion(this.x, this.y -32*j, way, false ));
                 }
-                if (BombermanGame.map.getMap()[toadoX][toadoY - this.getRealRadius(i) - 1] == 2
-                        && this.getRealRadius(i) < radiusBomb) {
-                    BombermanGame.map.setMap(toadoX, toadoY - this.getRealRadius(i) - 1, 0);
-                    explotionList.add(new Explotion(this.x/32, this.y /32 -r -1));
-                    BombermanGame.stillObjects.set(this.x/32 * 13 + this.y /32 -r -1,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+                if (BombermanGame.map.getMap()[toadoX][toadoY - r - 1] == 2
+                        && r < radiusBomb) {
+                    explotionList.add(new Explotion(toadoX, toadoY - r - 1));
+                    return;
                 }
             }
-            if (i == 2) {
-                int r = this.getRealRadius(i);
-                for (int j = 1; j <= this.getRealRadius(i); j++) {
-                    if  (j == this.getRealRadius(i)) {
-                        explotionList.add(new Explotion(this.x, this.y + 32 * j, i, true));
+            if (way == 2) {
+                for (int j = 1; j <= r; j++) {
+                    if  (j == r) {
+                        explotionList.add(new Explotion(this.x, this.y + 32 * j, way, true));
                     } else {
-                        explotionList.add(new Explotion(this.x, this.y + 32 * j, i, false));
+                        explotionList.add(new Explotion(this.x, this.y + 32 * j, way, false));
                     }
                 }
-                if (BombermanGame.map.getMap()[toadoX][toadoY + this.getRealRadius(i) + 1] == 2
-                        && this.getRealRadius(i) < radiusBomb) {
-                    BombermanGame.map.setMap(toadoX, toadoY + this.getRealRadius(i) + 1, 0);
-                    explotionList.add(new Explotion(this.x/32,this.y /32 + r +1));
-                    BombermanGame.stillObjects.set(this.x/32 * 13 + this.y /32 + r +1,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+                if (BombermanGame.map.getMap()[toadoX][toadoY + r + 1] == 2
+                        && r < radiusBomb) {
+                    explotionList.add(new Explotion(toadoX,toadoY + r + 1));
+                    return;
                 }
             }
-            if (i == 3) {
-                int r = this.getRealRadius(i);
-                for (int j = 1; j <= this.getRealRadius(i); j++) {
-                    if (j == this.getRealRadius(i))
-                        explotionList.add(new Explotion(this.x - 32*j, this.y, i, false));
+            if (way == 3) {
+                for (int j = 1; j <= r; j++) {
+                    if (j == r)
+                        explotionList.add(new Explotion(this.x - 32*j, this.y, way, false));
                     else
-                        explotionList.add(new Explotion(this.x - 32*j, this.y , i, true ));
+                        explotionList.add(new Explotion(this.x - 32*j, this.y , way, true ));
                 }
-                if (BombermanGame.map.getMap()[toadoX - this.getRealRadius(i) - 1][toadoY] == 2
-                        && this.getRealRadius(i) < radiusBomb) {
-                    BombermanGame.map.setMap(toadoX - 1 - this.getRealRadius(i), toadoY, 0);
-                    explotionList.add(new Explotion(this.x/32 - r -1, this.y/32));
-                    BombermanGame.stillObjects.set((toadoX -r -1) * 13 + this.y /32,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+                if (BombermanGame.map.getMap()[toadoX - r - 1][toadoY] == 2
+                        && r < radiusBomb) {
+                    explotionList.add(new Explotion(toadoX - r -1, toadoY));
+                    return;
                 }
             }
-            if (i == 4) {
-                int r = this.getRealRadius(i);
-                for (int j = 1; j <= this.getRealRadius(i); j++) {
-                    if (j == this.getRealRadius(i))
-                        explotionList.add(new Explotion(this.x+32*j, this.y , i, true));
+            if (way == 4) {
+                for (int j = 1; j <= r; j++) {
+                    if (j == r)
+                        explotionList.add(new Explotion(this.x+32*j, this.y , way, true));
                     else
-                        explotionList.add(new Explotion(this.x+32*j, this.y, i, false ));
+                        explotionList.add(new Explotion(this.x+32*j, this.y, way, false ));
                 }
-                if (BombermanGame.map.getMap()[toadoX + this.getRealRadius(i) + 1][toadoY] == 2
-                        && this.getRealRadius(i) < radiusBomb) {
-                    BombermanGame.map.setMap(toadoX + this.getRealRadius(i) + 1, toadoY, 0);
-                    explotionList.add(new Explotion(this.x/32 + r +1, this.y/32));
-                    BombermanGame.stillObjects.set((toadoX + r + 1) * 13 + this.y /32,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+                if (BombermanGame.map.getMap()[toadoX + r + 1][toadoY] == 2
+                        && r < radiusBomb) {
+                    explotionList.add(new Explotion(toadoX + r +1, toadoY));
                 }
+            }
+    }
+    public void setWallExplotion(int way) {
+        int toadoX = this.x / 32;
+        int toadoY = this.y / 32;
+        int r = this.getRealRadius(way);
+        if (checkWall(way)) {
+            if (way == 1) {
+                BombermanGame.map.setMap(toadoX, toadoY - r - 1, 0);
+                BombermanGame.stillObjects.set(toadoX * 13 + toadoY -r -1,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+            }
+            if (way == 2) {
+                BombermanGame.map.setMap(toadoX, toadoY + r + 1, 0);
+                BombermanGame.stillObjects.set(toadoX * 13 + toadoY + r +1,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+            }
+            if (way == 3) {
+                BombermanGame.map.setMap(toadoX - 1 - r, toadoY, 0);
+                BombermanGame.stillObjects.set((toadoX - r - 1) * 13 + toadoY,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+            }
+            if(way == 4) {
+                BombermanGame.map.setMap(toadoX + 1 + r, toadoY, 0);
+                BombermanGame.stillObjects.set((toadoX + r + 1) * 13 + toadoY,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
             }
         }
     }
@@ -179,6 +220,9 @@ public class Bomb extends Entity {
             for(int i = 0; i < explotionList.size(); i++) {
                 explotionList.get(i).render(gc);
             }
+            for (int i = 0; i <wallExplotionList.size(); i++) {
+                wallExplotionList.get(i).render(gc);
+            }
         }
     }
     public void update() {
@@ -189,12 +233,21 @@ public class Bomb extends Entity {
                 for (int i = 0; i < explotionList.size(); i++) {
                     explotionList.get(i).update(timeAfterExplode);
                 }
+                for (int i = 0; i <wallExplotionList.size(); i++) {
+                    wallExplotionList.get(i).update(timeAfterExplode);
+                }
                 isExplotion = true;
                 if (timeAfterExplode > 0) {
                     timeAfterExplode--;
                 } else {
+                    for(int i = 1; i <=4 ; i++) {
+                        this.setWallExplotion(i);
+                    }
                     for (int i = 0; i < explotionList.size(); i++) {
                         explotionList.get(i).setRemove();
+                    }
+                    for (int i = 0; i <wallExplotionList.size(); i++) {
+                        wallExplotionList.get(i).setRemove();
                     }
                     setRemove();
                 }

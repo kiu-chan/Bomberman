@@ -64,8 +64,11 @@ public class Bomber extends MoveEntity {
             Bomb newBom = new Bomb(xBomber, yBomber, Sprite.bomb.getFxImage());
             if (newBom.isHaveBomb(bombs) == false) {
                 bombs.add(newBom);
+                newBom.makeExplotion(1);
+                newBom.makeExplotion(2);
+                newBom.makeExplotion(3);
+                newBom.makeExplotion(4);
             }
-            newBom.makeExplotion();
         }
     }
 

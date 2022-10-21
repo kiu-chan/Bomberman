@@ -117,10 +117,6 @@ public class Bomb extends Entity {
                         return cnt;
                     }
                 }
-                if (BombermanGame.map.getMap()[toadoX + cnt][toadoY] == 2) {
-                    BombermanGame.map.setMap(toadoX+cnt, toadoY, 0);
-                    return cnt;
-                }
             }
             break;
             default: break;
@@ -167,7 +163,7 @@ public class Bomb extends Entity {
             }
             if (BombermanGame.map.getMap()[toadoX - r - 1][toadoY] == 2
                     && r < radiusBomb) {
-                explotionList.add(new Explotion(toadoX - r -1, toadoY));
+                explotionList.add(new Explotion(toadoX - r - 1, toadoY));
                 return;
             }
         }
@@ -180,7 +176,7 @@ public class Bomb extends Entity {
             }
             if (BombermanGame.map.getMap()[toadoX + r + 1][toadoY] == 2
                     && r < radiusBomb) {
-                explotionList.add(new Explotion(toadoX + r +1, toadoY));
+                explotionList.add(new Explotion(toadoX + r + 1, toadoY));
                 return;
             }
         }

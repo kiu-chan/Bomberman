@@ -171,6 +171,9 @@ public class Images {
     public int[][] getMap() {
         return map;
     }
+    public Images getImage() {
+        return this.image;
+    }
 
 
     public void setMap(int i, int j, int value) {

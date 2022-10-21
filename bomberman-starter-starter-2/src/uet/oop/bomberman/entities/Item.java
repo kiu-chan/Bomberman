@@ -40,7 +40,8 @@ public class Item extends Entity {
             end = true;
             return true;
         }
-        System.out.println(endTime - start);
+
+        //System.out.println(endTime - start);
         return false;
     }
 

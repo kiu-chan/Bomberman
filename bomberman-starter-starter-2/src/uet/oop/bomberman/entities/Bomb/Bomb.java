@@ -18,7 +18,7 @@ public class Bomb extends Entity {
     private int timeToExplode = 80;
     private int timeAfterExplode = 60;
     private List<Explotion> explotionList = new ArrayList<>();
-    private List<Explotion> wallExplotionList = new ArrayList<>();
+
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
     }
@@ -76,6 +76,7 @@ public class Bomb extends Entity {
                 }
             }
             break;
+
             case 2 : {
                 int toadoX = this.x / 32;
                 int toadoY = this.y / 32 + 1;
@@ -90,6 +91,7 @@ public class Bomb extends Entity {
                 }
             }
             break;
+
             case 3 : {
                 int toadoX = this.x / 32 - 1;
                 int toadoY = this.y / 32;
@@ -104,6 +106,7 @@ public class Bomb extends Entity {
                 }
             }
             break;
+
             case 4 : {
                 int toadoX = this.x / 32 + 1;
                 int toadoY = this.y / 32;
@@ -204,6 +207,10 @@ public class Bomb extends Entity {
             }
         }
     }
+
+    public List<Explotion> getExplotionList() {
+        return this.explotionList;
+    }
     @Override
     public void render(GraphicsContext gc) {
         if (remove == false && isExplotion == false) {
@@ -219,6 +226,7 @@ public class Bomb extends Entity {
             }
         }
     }
+
     public void update() {
         if (remove != true) {
             if (timeToExplode > 0) {

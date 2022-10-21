@@ -2,11 +2,15 @@ package uet.oop.bomberman.entities;
 
 
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Chuyên tương tác giữa các thành phần
+ */
 public class Interactive {
     public List<Item> listItem = new ArrayList<>();
     Collision collision = new Collision();
@@ -15,7 +19,7 @@ public class Interactive {
             for (int i = 0; i < list.size(); i++) {
                 if(collision.CheckCollision(a, list.get(i))) {
                     if (!collision.CheckMapCollision(list.get(i).x, list.get(i).y, list.get(i).w, list.get(i).h, BombermanGame.map.getMap())) {
-                        System.out.println(a.x + " " +  a.y + " " + list.get(i).x + " " + list.get(i).y);
+                        //System.out.println(a.x + " " +  a.y + " " + list.get(i).x + " " + list.get(i).y);
                         Item item = (Item) list.get(i);
                         item.setStart(System.currentTimeMillis());
                         listItem.add(item);
@@ -35,6 +39,25 @@ public class Interactive {
             if (listItem.get(i).getEnd())
                 listItem.remove(i);
         }
+    }
+
+    public List<Entity> monsterDead(Bomber player, List<Entity> list) {
+        for (Entity bom : player.getListBom()) {
+            for (int i = 0; i < list.size(); i++) {
+                if (collision.CheckCollision(bom, list.get(i))) {
+                    list.get(i).setCheckDead();
+                }
+            }
+        }
+
+        BombermanGame.bomberman.remoteListBom();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getRemove()) {
+                list.remove(i);
+            }
+        }
+        return list;
     }
 
     public List<Entity> screen(List<Entity> list) {

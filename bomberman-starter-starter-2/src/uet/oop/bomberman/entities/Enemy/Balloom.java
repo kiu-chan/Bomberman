@@ -19,6 +19,10 @@ public class Balloom extends AutoMove {
     @Override
     public void update() {
         int way = random.nextInt(5);
-        moveBalloom(way);
+        if (!check_dead) {
+            moveBalloom(7);
+        } else {
+            DEAD();
+        }
     }
 }

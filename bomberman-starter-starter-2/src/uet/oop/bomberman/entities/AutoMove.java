@@ -19,8 +19,10 @@ public class AutoMove extends MoveEntity {
 
     private long timeNow = 0;
     private long timeAgo = 0;
+    private long timeDead = 0;
 
     public static final long timeWay = 500;
+    public static final long TIME_DEAD = 1000;
 
     private int startImg;
     private int checkView = 1;
@@ -33,7 +35,7 @@ public class AutoMove extends MoveEntity {
 
     Bomber bomber;
 
-    public static enum move {
+    public enum move {
         UP(0), DOWN(1), LEFT(2), RIGHT(3), STOP(4);
 
         private final int value;
@@ -42,7 +44,7 @@ public class AutoMove extends MoveEntity {
         }
     }
 
-    public static enum view {
+    public enum view {
         LEFT(-1), RIGHT(1), DIED(0);
 
         private final int value;
@@ -51,7 +53,7 @@ public class AutoMove extends MoveEntity {
         }
     }
 
-    public static enum direction {
+    public enum direction {
         LEFT(1) , LEFT_UP(2), UP(3), UP_RIGHT(4), RIGHT(5), RIGHT_DOWN(6), DOWN(7), DOWN_LEFT(8);
 
         private final int value;
@@ -268,8 +270,10 @@ public class AutoMove extends MoveEntity {
             swapImg = 0;
         if (checkView == view.LEFT.value)
             img = BombermanGame.monster.getList().get(swapImg + startImg).getFxImage();
-        else
+        if (checkView == view.RIGHT.value)
             img = BombermanGame.monster.getList().get(swapImg + startImg + 4).getFxImage();
+        if (checkView == view.DIED.value)
+            img = BombermanGame.monster.getList().get(startImg + 3).getFxImage();
     }
 
     @Override
@@ -294,6 +298,29 @@ public class AutoMove extends MoveEntity {
 
     public void moveStop() {
 
+    }
+
+    public boolean canRemove(long time) {
+        if (timeDead == 0) {
+            timeDead = time;
+        }
+
+        long timeRemove = System.currentTimeMillis();
+
+        if (timeRemove - timeDead > TIME_DEAD) {
+            return true;
+        }System.out.println(timeRemove - timeDead);
+
+        return false;
+    }
+    public void DEAD() {
+        checkView = view.DIED.value;
+        moveStop();
+        if (canRemove(System.currentTimeMillis())) {
+            setRemove();
+
+        }
+        moveIMG();
     }
 
     public boolean checkPlayer() {

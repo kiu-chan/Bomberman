@@ -23,9 +23,21 @@ public class Bomber extends MoveEntity {
     private int cntUp = 1;
     private int cntDown = 1;
     private int maxBomb = 2;
+
+    public List<Entity> listBom = new ArrayList<>();
     public int act = 0;
+
+    public long imageTimeNow = 0;
+    public long imageTimeAgo = 0;
+    public static final long TIME_IMG = 100;
+
+    private int swapImg = 0;
+
     //di chuyển sau khi lấy được item
     public int moveItem = 0;
+    /**
+     * hướng nhìn
+     */
     public enum status {
         STOP(0), LEFT(1), RIGHT(2), UP(3), DOWN(4);
 
@@ -34,6 +46,7 @@ public class Bomber extends MoveEntity {
             this.value = value;
         }
     }
+
     public static int bombRadius = 1;
     private List<Bomb> bombs = new ArrayList<>();
     private Collision collision = new Collision();
@@ -45,7 +58,6 @@ public class Bomber extends MoveEntity {
         setW(Sprite.SCALED_SIZE - 7);
         //chênh lệch chiều cao
         setH(Sprite.SCALED_SIZE - 6);
-
     }
 
     @Override
@@ -59,6 +71,7 @@ public class Bomber extends MoveEntity {
             }
         }
     }
+
     private void addBomb() {
         if (getBomberControl.bomberSpace == true && bombs.size() < maxBomb ) {
             int xBomber = (this.getX() + 10) / 32;
@@ -70,10 +83,17 @@ public class Bomber extends MoveEntity {
                 newBom.makeExplotion(2);
                 newBom.makeExplotion(3);
                 newBom.makeExplotion(4);
+                listBom.addAll(newBom.getExplotionList());
             }
         }
     }
 
+    public List<Entity> getListBom() {
+        return this.listBom;
+    }
+    public void remoteListBom() {
+        this.listBom.clear();
+    }
     /*
     1: di len --
     2:di xuong--
@@ -113,7 +133,7 @@ public class Bomber extends MoveEntity {
         return true;
     }
     public void moveBomber() {
-        act = status.STOP.value;;
+        act = status.STOP.value;
         if (getBomberControl.bomberLeft) {
             getBomberControl.bomberDown = false;
             getBomberControl.bomberRight = false;
@@ -152,10 +172,9 @@ public class Bomber extends MoveEntity {
         cntDown = 1;
         cntLeft = 1;
         cntRight =1;
-        if (cntUp < maxAnimation) cntUp +=1;
+        if (cntUp < maxAnimation) cntUp += 1;
         else cntUp = 1;
-        img = Sprite.movingSprite(BombermanGame.player.getList().get(0),BombermanGame.player.getList().get(1),
-                BombermanGame.player.getList().get(2),cntUp,maxAnimation).getFxImage();
+        moveIMG();
         if (canMove(1)) {
             y -= bomberSpeed;
             if (this.y/32 < 1) {
@@ -164,14 +183,14 @@ public class Bomber extends MoveEntity {
             }
         }
     }
+
     public void moveDown() {
         cntUp = 1;
         cntLeft = 1;
         cntRight =1;
         if (cntDown < maxAnimation) cntDown ++;
         else cntDown = 1;
-        img = Sprite.movingSprite(BombermanGame.player.getList().get(6),BombermanGame.player.getList().get(7),
-                BombermanGame.player.getList().get(8),cntDown,maxAnimation).getFxImage();
+        moveIMG();
         if (canMove(2)) {
             y += bomberSpeed;
             if (this.y/32 > 10) {
@@ -186,8 +205,7 @@ public class Bomber extends MoveEntity {
         cntRight =1;
         if (cntLeft < maxAnimation) cntLeft +=1;
         else cntLeft = 1;
-        img = Sprite.movingSprite(BombermanGame.player.getList().get(9),BombermanGame.player.getList().get(10),
-                BombermanGame.player.getList().get(11),cntLeft,maxAnimation).getFxImage();
+        moveIMG();
         if (canMove(3)) {
             x -= bomberSpeed;
             if (this.x/32 < 1) {
@@ -202,8 +220,7 @@ public class Bomber extends MoveEntity {
         cntUp = 1;
         if (cntRight < maxAnimation) cntRight += 1;
         else cntRight = 1;
-        img = Sprite.movingSprite(BombermanGame.player.getList().get(3),BombermanGame.player.getList().get(4),
-                BombermanGame.player.getList().get(5),cntRight,maxAnimation).getFxImage();
+        moveIMG();
         if (canMove(4)) {
             x += bomberSpeed;
             if (this.x / 32 > 28) {
@@ -213,6 +230,23 @@ public class Bomber extends MoveEntity {
         }
     }
 
+    public void moveIMG() {
+        imageTimeNow = System.currentTimeMillis();
+        if (imageTimeNow - imageTimeAgo > TIME_IMG) {
+            swapImg++;
+            imageTimeAgo = System.currentTimeMillis();
+        }
+        if (swapImg >= 2)
+            swapImg = 0;
+        if (act == status.LEFT.value)
+            img = BombermanGame.player.getList().get(swapImg + 9).getFxImage();
+        if (act == status.RIGHT.value)
+            img = BombermanGame.player.getList().get(swapImg + 3).getFxImage();
+        if (act == status.UP.value)
+            img = BombermanGame.player.getList().get(swapImg).getFxImage();
+        if (act == status.DOWN.value)
+            img = BombermanGame.player.getList().get(swapImg + 6).getFxImage();
+    }
     public void setBomberSpeed(int speed) {
         this.bomberSpeed += speed;
     }

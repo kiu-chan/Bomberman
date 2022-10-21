@@ -99,10 +99,19 @@ public class BombermanGame extends Application {
         }
     }
 
+        public List<Entity> updateEntity() {
+        List<Entity> list = new ArrayList<>();
+        list.add(bomberman);
+        list.addAll(monster.getStillObjects());
+        return list;
+    }
 
 
     public void update() {
+        entities = updateEntity();
         entities.forEach(Entity::update);
+        interactive.itemHandling();
+        entities = interactive.monsterDead(bomberman, entities);
         listItem = interactive.remoteItem(bomberman, listItem);
     }
 

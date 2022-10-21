@@ -15,6 +15,7 @@ public abstract class Entity {
     protected int y;
     protected int w;
     protected int h;
+    protected boolean check_dead = false;
     public void setX(int x) {
         this.x = x;
     }
@@ -56,6 +57,10 @@ public abstract class Entity {
     }
     protected void setImg(Image img) {
         this.img = img;
+    }
+
+    protected void setCheckDead() {
+        this.check_dead = true;
     }
 
     public void render(GraphicsContext gc) {

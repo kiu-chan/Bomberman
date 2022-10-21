@@ -55,7 +55,6 @@ public class Bomber extends MoveEntity {
         for (int i = 0; i < bombs.size(); i++) {
             bombs.get(i).update();
             if (bombs.get(i).getRemove()) {
-                //System.out.println("xoa bom" + bombs.get(i).getX()+"-"+bombs.get(i).getY());
                 bombs.remove(i);
             }
         }

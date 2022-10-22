@@ -38,7 +38,7 @@ public class BombermanGame extends Application {
     public static Bomber bomberman;
 
     public static final String Padding = "";
-    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map.txt";
+    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map1.txt";
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster1.txt";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
 

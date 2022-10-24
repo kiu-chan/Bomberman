@@ -25,7 +25,6 @@ public class Bomber extends MoveEntity {
     private int maxBomb = 2;
     private Collision collision = new Collision();
 
-    public List<Entity> listBom = new ArrayList<>();
     public int act = 0;
 
     public long imageTimeNow = 0;
@@ -36,6 +35,7 @@ public class Bomber extends MoveEntity {
 
     //di chuyển sau khi lấy được item
     public int moveItem = 0;
+    private List<Bomb> bombs = new ArrayList<>();
     /**
      * hướng nhìn
      */
@@ -47,9 +47,11 @@ public class Bomber extends MoveEntity {
             this.value = value;
         }
     }
+    public List<Bomb> getBombs() {
+        return this.bombs;
+    }
 
     public static int bombRadius = 1;
-    private List<Bomb> bombs = new ArrayList<>();
 
     public Bomber(int x, int y, Image img, int speed) {
         super( x, y, img,speed);
@@ -104,16 +106,8 @@ public class Bomber extends MoveEntity {
                 newBom.makeExplotion(2);
                 newBom.makeExplotion(3);
                 newBom.makeExplotion(4);
-                listBom.addAll(newBom.getExplotionList());
             }
         }
-    }
-
-    public List<Entity> getListBom() {
-        return this.listBom;
-    }
-    public void remoteListBom() {
-        this.listBom.clear();
     }
     /*
     1: di len --

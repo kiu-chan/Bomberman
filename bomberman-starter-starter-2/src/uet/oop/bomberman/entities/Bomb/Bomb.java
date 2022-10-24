@@ -16,8 +16,12 @@ public class Bomb extends Entity {
     private boolean remove = false;
     public static int radiusBomb = 1;
     private int timeToExplode = 80;
-    private int timeAfterExplode = 60;
+    private int timeAfterExplode = 100;
     private List<Explotion> explotionList = new ArrayList<>();
+
+    public boolean isExplotion() {
+        return isExplotion;
+    }
 
     public Bomb(int x, int y, Image img) {
         super(x, y, img);

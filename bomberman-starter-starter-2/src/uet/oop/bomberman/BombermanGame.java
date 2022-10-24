@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BombermanGame extends Application {
-    
+
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
@@ -48,57 +48,53 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
-        // Tao Canvas
-        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-        gc = canvas.getGraphicsContext2D();
+            // Tao Canvas
+            canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+            gc = canvas.getGraphicsContext2D();
 
-        // Tao root container
-        Group root = new Group();
-        root.getChildren().add(canvas);
+            // Tao root container
+            Group root = new Group();
+            root.getChildren().add(canvas);
 
-        // Tao scene
-        Scene scene = new Scene(root);
+            // Tao scene
+            Scene scene = new Scene(root);
 
-        // Them scene vao stage
-        stage.setScene(scene);
-        stage.show();
+            // Them scene vao stage
+            stage.setScene(scene);
+            stage.show();
 
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                render();
-                update();
-            }
-        };
-        if (!Bomber.isDead) {
-        timer.start();
+            AnimationTimer timer = new AnimationTimer() {
+                @Override
+                public void handle(long l) {
+                        render();
+                        update();
+                }
+            };
+            timer.start();
+            player.loadImage();
+            bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
+            entities.add(bomberman);
+            getBomberControl.getControl(scene);
 
-        player.loadImage();
-        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
-        entities.add(bomberman);
-        getBomberControl.getControl(scene);
+            padding.loadImage();
+            padding.createPadding(padding, WIDTH, HEIGHT);
+            listPadding.addAll(padding.getStillObjects()); //tạm thời lấy mỗi cỏ
 
-        padding.loadImage();
-        padding.createPadding(padding, WIDTH, HEIGHT);
-        listPadding.addAll(padding.getStillObjects()); //tạm thời lấy mỗi cỏ
+            map.loadImage();
+            map.readMap(Map, map, WIDTH, HEIGHT);
+            map.createMap();
+            stillObjects.addAll(map.getStillObjects());
 
-        map.loadImage();
-        map.readMap(Map, map, WIDTH, HEIGHT);
-        map.createMap();
-        stillObjects.addAll(map.getStillObjects());
+            item.loadImage();
+            item.readMap(mapItem, item, WIDTH, HEIGHT);
+            item.createItem();
+            listItem.addAll(item.getStillObjects());
 
-        item.loadImage();
-        item.readMap(mapItem, item, WIDTH, HEIGHT);
-        item.createItem();
-        listItem.addAll(item.getStillObjects());
-
-        monster.loadImage();
-        monster.readMap(mapMonster, monster, WIDTH, HEIGHT);
-        monster.createEntity();
-        entities.addAll(monster.getStillObjects());
-        }
-    }
-
+            monster.loadImage();
+            monster.readMap(mapMonster, monster, WIDTH, HEIGHT);
+            monster.createEntity();
+            entities.addAll(monster.getStillObjects());
+}
         public List<Entity> updateEntity() {
         List<Entity> list = new ArrayList<>();
         list.add(bomberman);

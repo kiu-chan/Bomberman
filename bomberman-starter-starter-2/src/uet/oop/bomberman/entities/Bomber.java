@@ -17,12 +17,13 @@ import java.util.List;
 public class Bomber extends MoveEntity {
     public static boolean isDead = false;
     private final int maxAnimation = 20;
-    protected int bomberSpeed = 1;
+    protected int bomberSpeed = 2;
     private int cntLeft = 1;
     private int cntRight = 1;
     private int cntUp = 1;
     private int cntDown = 1;
     private int maxBomb = 2;
+    private Collision collision = new Collision();
 
     public List<Entity> listBom = new ArrayList<>();
     public int act = 0;
@@ -49,7 +50,6 @@ public class Bomber extends MoveEntity {
 
     public static int bombRadius = 1;
     private List<Bomb> bombs = new ArrayList<>();
-    private Collision collision = new Collision();
 
     public Bomber(int x, int y, Image img, int speed) {
         super( x, y, img,speed);
@@ -62,12 +62,33 @@ public class Bomber extends MoveEntity {
 
     @Override
     public void update() {
-        this.moveBomber();
-        this.addBomb();
-        for (int i = 0; i < bombs.size(); i++) {
-            bombs.get(i).update();
-            if (bombs.get(i).getRemove()) {
-                bombs.remove(i);
+        if (!isDead) {
+            this.moveBomber();
+            this.addBomb();
+            for (int i = 0; i < bombs.size(); i++) {
+                bombs.get(i).update();
+                if (this.collision.CheckCollision(this, bombs.get(i)) && bombs.get(i).isExplotion()) {
+                    isDead = true;
+                    System.out.println("cham bom roi");
+                }
+                for (int j = 0; j < bombs.get(i).getExplotionList().size(); j++) {
+                    if (collision.CheckCollision(bombs.get(i).getExplotionList().get(j), this) && bombs.get(i).isExplotion()) {
+                        Bomber.isDead = true;
+                        System.out.println("cham vu no roi ");
+                        System.out.println(isDead);
+                    }
+                }
+                if (bombs.get(i).getRemove()) {
+                    bombs.remove(i);
+                }
+            }
+        } else {
+            img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, 30,60).getFxImage();
+            for (int i = 0; i < bombs.size(); i++) {
+                bombs.get(i).update();
+                if (bombs.get(i).getRemove()) {
+                    bombs.remove(i);
+                }
             }
         }
     }

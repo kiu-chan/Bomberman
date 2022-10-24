@@ -21,7 +21,6 @@ public class getBomberControl {
                     }
                     break;
                     case RIGHT: {
-
                         bomberRight = true;
                     }
                     break;

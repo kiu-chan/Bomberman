@@ -8,8 +8,7 @@ public class Collision {
 
     }
 
-    public boolean CheckCollision(Entity a, Entity b)
-    {
+    public boolean CheckCollision(Entity a, Entity b) {
         int left_a = a.x;
         int right_a = a.x + a.w;
         int top_a = a.y;

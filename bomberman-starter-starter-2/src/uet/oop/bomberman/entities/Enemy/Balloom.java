@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class Balloom extends AutoMove {
     protected int speed = 10;
+    protected int way;
     Random random = new Random();
 
 
@@ -19,8 +20,9 @@ public class Balloom extends AutoMove {
     @Override
     public void update() {
         int way = random.nextInt(5);
+        setWay(way);
         if (!check_dead) {
-            moveBalloom(7);
+            moveBalloom(way);
         } else {
             DEAD();
         }

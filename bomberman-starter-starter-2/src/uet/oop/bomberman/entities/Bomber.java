@@ -35,7 +35,6 @@ public class Bomber extends MoveEntity {
 
     //di chuyển sau khi lấy được item
     public int moveItem = 0;
-    private List<Bomb> bombs = new ArrayList<>();
     /**
      * hướng nhìn
      */
@@ -47,11 +46,9 @@ public class Bomber extends MoveEntity {
             this.value = value;
         }
     }
-    public List<Bomb> getBombs() {
-        return this.bombs;
-    }
 
     public static int bombRadius = 1;
+    private List<Bomb> bombs = new ArrayList<>();
 
     public Bomber(int x, int y, Image img, int speed) {
         super( x, y, img,speed);
@@ -60,6 +57,10 @@ public class Bomber extends MoveEntity {
         setW(Sprite.SCALED_SIZE - 7);
         //chênh lệch chiều cao
         setH(Sprite.SCALED_SIZE - 6);
+    }
+
+    public List<Bomb> getBombs() {
+        return bombs;
     }
 
     @Override
@@ -109,6 +110,8 @@ public class Bomber extends MoveEntity {
             }
         }
     }
+
+
     /*
     1: di len --
     2:di xuong--

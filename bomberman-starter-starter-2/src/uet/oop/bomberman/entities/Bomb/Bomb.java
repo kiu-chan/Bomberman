@@ -205,7 +205,7 @@ public class Bomb extends Entity {
                 BombermanGame.map.setMap(toadoX - 1 - r, toadoY, 0);
                 BombermanGame.stillObjects.set((toadoX - r - 1) * 13 + toadoY,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
             }
-            if(way == 4) {
+            if (way == 4) {
                 BombermanGame.map.setMap(toadoX + 1 + r, toadoY, 0);
                 BombermanGame.stillObjects.set((toadoX + r + 1) * 13 + toadoY,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
             }

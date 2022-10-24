@@ -3,10 +3,12 @@ package uet.oop.bomberman.entities;
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Bomb.Bomb;
+import uet.oop.bomberman.entities.Bomb.Explotion;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Chuyên tương tác giữa các thành phần
@@ -42,16 +44,66 @@ public class Interactive {
     }
 
     public List<Entity> monsterDead(Bomber player, List<Entity> list) {
-        for (Entity bom : player.getListBom()) {
+
+        //lưu vị trí nổ
+        for (Bomb bom : player.getBombs()) {
+            int[][] mapBom = new int[100][100];
+            for (Explotion explotion : bom.getExplotionList())
+                mapBom[explotion.x / Sprite.SCALED_SIZE][explotion.y / Sprite.SCALED_SIZE] = 1;
+
             for (int i = 0; i < list.size(); i++) {
-                if (collision.CheckCollision(bom, list.get(i))) {
+                MoveEntity entity = (MoveEntity) list.get(i);
+                //lấy hướng di chuyển của quái
+                int speed_x = 0;
+                int speed_y = 0;
+
+                if (entity.getWay() == AutoMove.move.UP.value) {
+                    speed_y = entity.getSpeed();
+                }
+                if (entity.getWay() == AutoMove.move.DOWN.value) {
+                    speed_y = -entity.getSpeed();
+                }
+                if (entity.getWay() == AutoMove.move.LEFT.value) {
+                    speed_x = -entity.getSpeed();
+                }
+                if (entity.getWay() == AutoMove.move.RIGHT.value) {
+                    speed_x = entity.getSpeed();
+                }
+
+                if (bom.isExplotion() && collision.CheckMapCollision(list.get(i).x + speed_x, list.get(i).y + speed_y, list.get(i).w, list.get(i).h, mapBom)) {
                     list.get(i).setCheckDead();
                 }
             }
         }
 
-        BombermanGame.bomberman.remoteListBom();
+        //for (Entity bom : player.getListBom()) {
+            //System.out.println(bom.w + " " + bom.h);
+            /*for (int i = 0; i < list.size(); i++) {
+                MoveEntity entity = (MoveEntity) list.get(i);
+                //lấy hướng di chuyển của quái
+                int speed_x = 0;
+                int speed_y = 0;
 
+                if (entity.getWay() == AutoMove.move.UP.value) {
+                    speed_y = entity.getSpeed();
+                }
+                if (entity.getWay() == AutoMove.move.DOWN.value) {
+                    speed_y = -entity.getSpeed();
+                }
+                if (entity.getWay() == AutoMove.move.LEFT.value) {
+                    speed_x = -entity.getSpeed();
+                }
+                if (entity.getWay() == AutoMove.move.RIGHT.value) {
+                    speed_x = entity.getSpeed();
+                }
+
+                if (isExplotion && collision.CheckMapCollision(list.get(i).x + speed_x, list.get(i).y + speed_y, list.get(i).w, list.get(i).h, mapBom)) {
+                    list.get(i).setCheckDead();
+                }
+           // }
+        }*/
+
+        //player.remoteListBom();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getRemove()) {
                 list.remove(i);

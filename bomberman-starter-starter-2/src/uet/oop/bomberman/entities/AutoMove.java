@@ -9,7 +9,6 @@ import java.util.Random;
 
 
 public class AutoMove extends MoveEntity {
-    private int speed;
     private int start = 5;
 
     private long imageTimeAgo = 0;
@@ -38,7 +37,7 @@ public class AutoMove extends MoveEntity {
     public enum move {
         UP(0), DOWN(1), LEFT(2), RIGHT(3), STOP(4);
 
-        private final int value;
+        public final int value;
         move(int value) {
             this.value = value;
         }

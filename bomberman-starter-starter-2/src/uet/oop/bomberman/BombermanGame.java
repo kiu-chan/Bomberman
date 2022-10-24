@@ -102,7 +102,6 @@ public class BombermanGame extends Application {
         return list;
     }
 
-
     public void update() {
         entities = updateEntity();
         entities.forEach(Entity::update);

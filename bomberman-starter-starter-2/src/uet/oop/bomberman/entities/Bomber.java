@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bomber extends MoveEntity {
+    private int heart = 2;
     public static boolean isDead = false;
     private final int maxAnimation = 20;
     protected int bomberSpeed = 2;
@@ -62,21 +63,34 @@ public class Bomber extends MoveEntity {
     public List<Bomb> getBombs() {
         return bombs;
     }
+    public void reduceHeart() {
+        this.heart--;
+    }
+    public void setPosition() {
+        this.setX(32);
+        this.setY(32);
+    }
 
     @Override
     public void update() {
-        if (!isDead) {
+        if (heart > 0) {
             this.moveBomber();
             this.addBomb();
             for (int i = 0; i < bombs.size(); i++) {
                 bombs.get(i).update();
                 bombs.get(i).isInExplotion(bombs);
                 if (this.collision.CheckCollision(this, bombs.get(i)) && bombs.get(i).isExplotion()) {
-                 //   isDead = true;
+                     if (bombs.get(i).getTimeAfterExplode() <= 0 && bombs.get(i).getRemove()) {
+                         heart--;
+                         setPosition();
+                     }
                 }
                 for (int j = 0; j < bombs.get(i).getExplotionList().size(); j++) {
                     if (collision.CheckCollision(bombs.get(i).getExplotionList().get(j), this) && bombs.get(i).isExplotion()) {
-                      //  Bomber.isDead = true;
+                        if (bombs.get(i).getTimeAfterExplode() <= 0 && bombs.get(i).getRemove()) {
+                            heart--;
+                            setPosition();
+                        }
                     }
                 }
                 if (bombs.get(i).getRemove()) {

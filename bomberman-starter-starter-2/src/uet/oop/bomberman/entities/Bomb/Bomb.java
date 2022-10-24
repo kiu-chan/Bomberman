@@ -29,6 +29,9 @@ public class Bomb extends Entity {
     public void setTimeToExplode() {
         this.timeToExplode = 0;
     }
+    public int getTimeAfterExplode() {
+        return this.timeAfterExplode;
+    }
     public boolean isInExplotion(List<Bomb> bombList) {
         for (int i = 0; i < bombList.size(); i++) {
                 for (int j = 0; j < bombList.get(i).getExplotionList().size(); j++) {

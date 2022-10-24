@@ -76,33 +76,6 @@ public class Interactive {
             }
         }
 
-        //for (Entity bom : player.getListBom()) {
-            //System.out.println(bom.w + " " + bom.h);
-            /*for (int i = 0; i < list.size(); i++) {
-                MoveEntity entity = (MoveEntity) list.get(i);
-                //lấy hướng di chuyển của quái
-                int speed_x = 0;
-                int speed_y = 0;
-
-                if (entity.getWay() == AutoMove.move.UP.value) {
-                    speed_y = entity.getSpeed();
-                }
-                if (entity.getWay() == AutoMove.move.DOWN.value) {
-                    speed_y = -entity.getSpeed();
-                }
-                if (entity.getWay() == AutoMove.move.LEFT.value) {
-                    speed_x = -entity.getSpeed();
-                }
-                if (entity.getWay() == AutoMove.move.RIGHT.value) {
-                    speed_x = entity.getSpeed();
-                }
-
-                if (isExplotion && collision.CheckMapCollision(list.get(i).x + speed_x, list.get(i).y + speed_y, list.get(i).w, list.get(i).h, mapBom)) {
-                    list.get(i).setCheckDead();
-                }
-           // }
-        }*/
-
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getRemove()) {
                 list.remove(i);

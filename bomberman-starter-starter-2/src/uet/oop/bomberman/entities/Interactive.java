@@ -14,18 +14,23 @@ import java.util.List;
  * Chuyên tương tác giữa các thành phần
  */
 public class Interactive {
+    public boolean check_swapMap = false;
     public List<Item> listItem = new ArrayList<>();
     Collision collision = new Collision();
-    public List<Entity> removeItem(Entity a, List<Entity> list) {
+    public List<Entity> removeItem(Entity a, List<Entity> list, List<Entity> monster) {
         try {
             for (int i = 0; i < list.size(); i++) {
                 if(collision.CheckCollision(a, list.get(i))) {
                     if (!collision.CheckMapCollision(list.get(i).x, list.get(i).y, list.get(i).w, list.get(i).h, BombermanGame.map.getMap())) {
                         //System.out.println(a.x + " " +  a.y + " " + list.get(i).x + " " + list.get(i).y);
                         Item item = (Item) list.get(i);
-                        item.setStart(System.currentTimeMillis());
-                        listItem.add(item);
-                        list.remove(i);
+                        if (item.getOrder() + 1 != Sprite.portal) {
+                            item.setStart(System.currentTimeMillis());
+                            listItem.add(item);
+                            list.remove(i);
+                        } else {
+                            swapMap(monster, list, i);
+                        }
                     }
                 }
             }
@@ -52,6 +57,15 @@ public class Interactive {
                 mapBom[explotion.x / Sprite.SCALED_SIZE][explotion.y / Sprite.SCALED_SIZE] = 1;
 
             for (int i = 0; i < list.size(); i++) {
+                if (bom.isExplotion() && collision.CheckMapCollision(list.get(i).x, list.get(i).y, list.get(i).w, list.get(i).h, mapBom)) {
+                    list.get(i).setCheckDead();
+                }
+            }
+        }
+
+        //for (Entity bom : player.getListBom()) {
+            //System.out.println(bom.w + " " + bom.h);
+            /*for (int i = 0; i < list.size(); i++) {
                 MoveEntity entity = (MoveEntity) list.get(i);
                 //lấy hướng di chuyển của quái
                 int speed_x = 0;
@@ -70,12 +84,13 @@ public class Interactive {
                     speed_x = entity.getSpeed();
                 }
 
-                if (bom.isExplotion() && collision.CheckMapCollision(list.get(i).x + speed_x, list.get(i).y + speed_y, list.get(i).w, list.get(i).h, mapBom)) {
+                if (isExplotion && collision.CheckMapCollision(list.get(i).x + speed_x, list.get(i).y + speed_y, list.get(i).w, list.get(i).h, mapBom)) {
                     list.get(i).setCheckDead();
                 }
-            }
-        }
+           // }
+        }*/
 
+        //player.remoteListBom();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getRemove()) {
                 list.remove(i);
@@ -104,5 +119,22 @@ public class Interactive {
         }
 
         return list;
+    }
+
+    public void swapMap(List<Entity> list, List<Entity> item, int itemLocation) {
+        if (list.size() == 1) {
+            setSwapMap(true);System.out.println(1);
+            item.remove(itemLocation);
+        } else {
+            setSwapMap(false);System.out.println(2);
+        }
+    }
+
+    public boolean getSwapMap() {
+        return this.check_swapMap;
+    }
+
+    public void setSwapMap(boolean check_swapMap) {
+        this.check_swapMap = check_swapMap;
     }
 }

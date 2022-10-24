@@ -105,8 +105,16 @@ public class Item extends Entity {
         }
     }
 
+    public void portal() {
+
+    }
+
     public boolean getEnd() {
         return this.end;
+    }
+
+    public int getOrder() {
+        return this.order;
     }
     @Override
     public void update() {

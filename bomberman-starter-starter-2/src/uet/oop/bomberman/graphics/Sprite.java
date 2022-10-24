@@ -47,11 +47,12 @@ public class Sprite {
 	public static final int item12 = 11;
 	public static final int item13 = 12;
 	public static final int item14 = 13;
+	public static final int portal = 15;
 
 	public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite wall = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.alltiles, 16, 16);
-	public static Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.alltiles, 14, 14);
+	//public static Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.alltiles, 14, 14);
 
 	/*
 	|--------------------------------------------------------------------------

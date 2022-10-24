@@ -22,6 +22,7 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
+    public int level = 1;
 
     private Interactive interactive = new Interactive();
     private List<Entity> entities = new ArrayList<>();
@@ -38,7 +39,7 @@ public class BombermanGame extends Application {
     public static Bomber bomberman;
 
     public static final String Padding = "";
-    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map1.txt";
+    public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map";
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster1.txt";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
 
@@ -75,26 +76,8 @@ public class BombermanGame extends Application {
             bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
             entities.add(bomberman);
             getBomberControl.getControl(scene);
-
-            padding.loadImage();
-            padding.createPadding(padding, WIDTH, HEIGHT);
-            listPadding.addAll(padding.getStillObjects()); //tạm thời lấy mỗi cỏ
-
-            map.loadImage();
-            map.readMap(Map, map, WIDTH, HEIGHT);
-            map.createMap();
-            stillObjects.addAll(map.getStillObjects());
-
-            item.loadImage();
-            item.readMap(mapItem, item, WIDTH, HEIGHT);
-            item.createItem();
-            listItem.addAll(item.getStillObjects());
-
-            monster.loadImage();
-            monster.readMap(mapMonster, monster, WIDTH, HEIGHT);
-            monster.createEntity();
-            entities.addAll(monster.getStillObjects());
-}
+            load();
+    }
         public List<Entity> updateEntity() {
         List<Entity> list = new ArrayList<>();
         list.add(bomberman);
@@ -102,12 +85,40 @@ public class BombermanGame extends Application {
         return list;
     }
 
+    public void load() {
+        padding.loadImage();
+        padding.createPadding(padding, WIDTH, HEIGHT);
+        listPadding.addAll(padding.getStillObjects()); //tạm thời lấy mỗi cỏ
+
+        map.loadImage();
+        map.readMap(Map + this.level + ".txt", map, WIDTH, HEIGHT);
+        map.createMap();
+        stillObjects.addAll(map.getStillObjects());
+
+        item.loadImage();
+        item.readMap(mapItem, item, WIDTH, HEIGHT);
+        item.createItem();
+        listItem.addAll(item.getStillObjects());
+
+        monster.loadImage();
+        monster.readMap(mapMonster, monster, WIDTH, HEIGHT);
+        monster.createEntity();
+        entities.addAll(monster.getStillObjects());
+    }
+
+
     public void update() {
         entities = updateEntity();
         entities.forEach(Entity::update);
         interactive.itemHandling();
         entities = interactive.monsterDead(bomberman, entities);
-        listItem = interactive.removeItem(bomberman, listItem);
+        listItem = interactive.removeItem(bomberman, listItem, entities);
+        if (interactive.getSwapMap()) {
+            this.level++;System.out.println(this.level);
+            interactive.setSwapMap(false);
+            bomberman.setPosition();
+            load();
+        }
     }
 
     public void render() {

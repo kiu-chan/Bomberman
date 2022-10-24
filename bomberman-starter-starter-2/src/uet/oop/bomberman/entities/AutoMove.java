@@ -308,8 +308,7 @@ public class AutoMove extends MoveEntity {
 
         if (timeRemove - timeDead > TIME_DEAD) {
             return true;
-        }System.out.println(timeRemove - timeDead);
-
+        }
         return false;
     }
     public void DEAD() {

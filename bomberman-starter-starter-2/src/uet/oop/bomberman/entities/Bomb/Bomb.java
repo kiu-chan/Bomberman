@@ -1,31 +1,47 @@
 package uet.oop.bomberman.entities.Bomb;
 
-import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.entities.Bomber;
-import uet.oop.bomberman.entities.Collide;
+
 import java.util.ArrayList;
 import java.util.List;
 public class Bomb extends Entity {
     private boolean isExplotion = false;
     private boolean remove = false;
-    public static int radiusBomb = 1;
+    public static int radiusBomb = 4;
     private int timeToExplode = 80;
     private int timeAfterExplode = 100;
     private List<Explotion> explotionList = new ArrayList<>();
+    private Collision collision = new Collision();
 
-    public boolean isExplotion() {
-        return isExplotion;
-    }
 
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
     }
+    public boolean isExplotion() {
+        return isExplotion;
+    }
+    public void setTimeToExplode() {
+        this.timeToExplode = 0;
+    }
+    public boolean isInExplotion(List<Bomb> bombList) {
+        for (int i = 0; i < bombList.size(); i++) {
+                for (int j = 0; j < bombList.get(i).getExplotionList().size(); j++) {
+                    if (collision.CheckCollision(bombList.get(i).getExplotionList().get(j), this)
+                            && bombList.get(i).isExplotion()) {
+                        this.setTimeToExplode();
+                        return true;
+                    }
+                }
+        }
+        return false;
+    }
+
     public boolean checkWall(int way) {
         int toadoX = this.x / 32;
         int toadoY = this.y / 32;
@@ -236,13 +252,13 @@ public class Bomb extends Entity {
             if (timeToExplode > 0) {
                 timeToExplode--;
             } else {
+                isExplotion = true;
                 for(int i = 1; i <=4 ; i++) {
                         this.setWallExplotion(i);
                 }
                 for (int i = 0; i < explotionList.size(); i++) {
                     explotionList.get(i).update(timeAfterExplode);
                 }
-                isExplotion = true;
                 if (timeAfterExplode > 0) {
                     timeAfterExplode--;
                 } else {

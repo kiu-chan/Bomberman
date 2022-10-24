@@ -16,7 +16,7 @@ import java.util.List;
 public class Interactive {
     public List<Item> listItem = new ArrayList<>();
     Collision collision = new Collision();
-    public List<Entity> remoteItem(Entity a, List<Entity> list) {
+    public List<Entity> removeItem(Entity a, List<Entity> list) {
         try {
             for (int i = 0; i < list.size(); i++) {
                 if(collision.CheckCollision(a, list.get(i))) {
@@ -103,7 +103,6 @@ public class Interactive {
            // }
         }*/
 
-        //player.remoteListBom();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getRemove()) {
                 list.remove(i);

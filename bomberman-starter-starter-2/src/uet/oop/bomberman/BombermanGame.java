@@ -108,7 +108,7 @@ public class BombermanGame extends Application {
         entities.forEach(Entity::update);
         interactive.itemHandling();
         entities = interactive.monsterDead(bomberman, entities);
-        listItem = interactive.remoteItem(bomberman, listItem);
+        listItem = interactive.removeItem(bomberman, listItem);
     }
 
     public void render() {

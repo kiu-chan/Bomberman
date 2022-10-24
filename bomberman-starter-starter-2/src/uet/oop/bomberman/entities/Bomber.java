@@ -70,15 +70,13 @@ public class Bomber extends MoveEntity {
             this.addBomb();
             for (int i = 0; i < bombs.size(); i++) {
                 bombs.get(i).update();
+                bombs.get(i).isInExplotion(bombs);
                 if (this.collision.CheckCollision(this, bombs.get(i)) && bombs.get(i).isExplotion()) {
-                    isDead = true;
-                    System.out.println("cham bom roi");
+                 //   isDead = true;
                 }
                 for (int j = 0; j < bombs.get(i).getExplotionList().size(); j++) {
                     if (collision.CheckCollision(bombs.get(i).getExplotionList().get(j), this) && bombs.get(i).isExplotion()) {
-                        Bomber.isDead = true;
-                        System.out.println("cham vu no roi ");
-                        System.out.println(isDead);
+                      //  Bomber.isDead = true;
                     }
                 }
                 if (bombs.get(i).getRemove()) {

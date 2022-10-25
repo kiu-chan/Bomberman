@@ -22,6 +22,7 @@ public class Sprite {
 	 */
 	public static final int minvoRotate = 0;	//1
 	public static final int redMinvoRotate = 7;	//2
+
 	public static final int kondoria = 14;		//3
 	public static final int minvo = 21;			//4
 	public static final int ghost = 28;			//5

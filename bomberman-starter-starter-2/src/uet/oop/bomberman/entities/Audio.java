@@ -8,11 +8,15 @@ public class Audio {
     private String path = "";
 
     MediaPlayer mediaPlayer;
-    Audio(String path) {
+    public Audio(String path) {
         this.path = path;
-        File mediaFile = new File(path);
-        Media media = new Media(mediaFile.toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
+        try {
+            File mediaFile = new File(path);System.out.println(path);
+            Media media = new Media(mediaFile.toURI().toString());
+            //mediaPlayer = new MediaPlayer(media);
+        } catch (Exception e) {
+            System.out.println("audio error");
+        }
     }
     public void playAudio() {
         mediaPlayer.setAutoPlay(true);

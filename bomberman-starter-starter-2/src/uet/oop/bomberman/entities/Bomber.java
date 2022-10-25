@@ -196,7 +196,6 @@ public class Bomber extends MoveEntity {
 
     @Override
     public void moveUp() {
-        //Audio audio = new Audio("audio/Click.mp3");
         //audio.playAudio();
 
         cntDown = 1;

@@ -40,7 +40,7 @@ public class BombermanGame extends Application {
 
     public static final String Padding = "";
     public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map";
-    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster1.txt";
+    public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
 
     public static void main(String[] args) {
@@ -72,6 +72,7 @@ public class BombermanGame extends Application {
                 }
             };
             timer.start();
+            //Audio audio = new Audio("Audio/Click.mp3");
             player.loadImage();
             bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
             entities.add(bomberman);
@@ -101,7 +102,7 @@ public class BombermanGame extends Application {
         listItem.addAll(item.getStillObjects());
 
         monster.loadImage();
-        monster.readMap(mapMonster, monster, WIDTH, HEIGHT);
+        monster.readMap(mapMonster + this.level + ".txt", monster, WIDTH, HEIGHT);
         monster.createEntity();
         entities.addAll(monster.getStillObjects());
     }

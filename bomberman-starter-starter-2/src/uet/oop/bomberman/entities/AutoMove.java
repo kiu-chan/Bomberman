@@ -67,8 +67,25 @@ public class AutoMove extends MoveEntity {
         this.startImg = startImg;
     }
 
-    public void moveOneal(int way) {
+    public void moveMinvo(int way) {
         canMove(way);
+
+        if(checkPlayer()) {
+            direction(SimpleMoveToPlayer());
+        }
+        else {
+            check_direction = 0;
+            direction(start);
+        }
+    }
+
+    public void moveOneal(int way) {
+        if (canMove(way)) {
+            Random random = new Random();
+            int new_speed = Math.abs(random.nextInt()) % 2 + 1;
+            setSpeed(new_speed);//System.out.println(new_speed);
+        }
+
         if(checkPlayer()) {
             direction(SimpleMoveToPlayer());
         }

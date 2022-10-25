@@ -266,9 +266,9 @@ public class Bomb extends Entity {
                     timeAfterExplode--;
                 } else {
                     for (int i = 0; i < explotionList.size(); i++) {
-                        explotionList.get(i).setRemove();
+                        explotionList.get(i).setRemove(true);
                     }
-                    setRemove();
+                    setRemove(true);
                 }
             }
         }

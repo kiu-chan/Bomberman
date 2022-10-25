@@ -16,6 +16,10 @@ public abstract class Entity {
     protected int w;
     protected int h;
     protected boolean check_dead = false;
+
+    //thay đổi loại quái
+    private boolean swap_monster = false;
+
     public void setX(int x) {
         this.x = x;
     }
@@ -52,15 +56,23 @@ public abstract class Entity {
     public boolean getRemove() {
         return this.remove;
     }
-    public void setRemove() {
-        this.remove = true;
+    public void setRemove(boolean remove) {
+        this.remove = remove;
     }
     protected void setImg(Image img) {
         this.img = img;
     }
 
-    protected void setCheckDead() {
-        this.check_dead = true;
+    protected void setCheckDead(boolean check_dead) {
+        this.check_dead = check_dead;
+    }
+
+    public void setSwapMonster(boolean swap_monster) {
+        this.swap_monster = swap_monster;
+    }
+
+    public boolean getSwapMonster() {
+        return this.swap_monster;
     }
 
     public void render(GraphicsContext gc) {

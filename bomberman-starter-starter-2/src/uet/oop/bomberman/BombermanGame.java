@@ -79,7 +79,8 @@ public class BombermanGame extends Application {
             getBomberControl.getControl(scene);
             load();
     }
-        public List<Entity> updateEntity() {
+
+    public List<Entity> updateEntity() {
         List<Entity> list = new ArrayList<>();
         list.add(bomberman);
         list.addAll(monster.getStillObjects());
@@ -109,7 +110,7 @@ public class BombermanGame extends Application {
 
 
     public void update() {
-        entities = updateEntity();
+        //entities = updateEntity();
         entities.forEach(Entity::update);
         interactive.itemHandling();
         entities = interactive.monsterDead(bomberman, entities);

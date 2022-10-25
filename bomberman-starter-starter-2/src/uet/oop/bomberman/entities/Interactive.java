@@ -4,6 +4,7 @@ package uet.oop.bomberman.entities;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Bomb.Explotion;
+import uet.oop.bomberman.entities.Enemy.Minvo;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -49,7 +50,6 @@ public class Interactive {
     }
 
     public List<Entity> monsterDead(Bomber player, List<Entity> list) {
-
         //lưu vị trí nổ
         for (Bomb bom : player.getBombs()) {
             int[][] mapBom = new int[100][100];
@@ -58,7 +58,7 @@ public class Interactive {
 
             for (int i = 0; i < list.size(); i++) {
                 if (bom.isExplotion() && collision.CheckMapCollision(list.get(i).x, list.get(i).y, list.get(i).w, list.get(i).h, mapBom)) {
-                    list.get(i).setCheckDead();
+                        list.get(i).setCheckDead(true);
                 }
             }
         }
@@ -93,11 +93,20 @@ public class Interactive {
         //player.remoteListBom();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getRemove()) {
-                list.remove(i);
+                if (list.get(i).getSwapMonster()) {//System.out.println(list.get(i).getRemove());
+                    int monster_x = list.get(i).getX() / Sprite.SCALED_SIZE;
+                    int monster_y = list.get(i).getY() / Sprite.SCALED_SIZE;
+                    list.remove(i);
+                    Entity minvo = new Minvo(monster_x, monster_y, BombermanGame.monster.getList().get(Sprite.minvo).getFxImage());
+                    list.add(minvo);
+                } else {
+                    list.remove(i);
+                }
             }
         }
         return list;
     }
+
 
     public List<Entity> screen(List<Entity> list) {
         int player_x = BombermanGame.bomberman.x;

@@ -21,7 +21,7 @@ public class AutoMove extends MoveEntity {
     private long timeDead = 0;
 
     public static final long timeWay = 500;
-    public static final long TIME_DEAD = 1000;
+    public static final long TIME_DEAD = 1500;
 
     private int startImg;
     private int checkView = 1;
@@ -29,6 +29,7 @@ public class AutoMove extends MoveEntity {
     private int player_x;
     private int player_y;
     private int check_direction = 0;
+
     public static final double RANGE = 3 * Sprite.SCALED_SIZE;
     private Collision collision = new Collision();
 
@@ -65,6 +66,20 @@ public class AutoMove extends MoveEntity {
         super( x, y, img,speed);
         this.speed = speed;
         this.startImg = startImg;
+    }
+
+    public void moveMinvoRotate() {
+        //thay đổi tầm nhìn
+        if (canMove(1)) {
+            if (checkView == view.LEFT.value) {
+                checkView = view.RIGHT.value;
+            } else {
+                checkView = view.LEFT.value;
+            }
+        }
+
+        moveIMG();
+
     }
 
     public void moveMinvo(int way) {
@@ -332,7 +347,7 @@ public class AutoMove extends MoveEntity {
         checkView = view.DIED.value;
         moveStop();
         if (canRemove(System.currentTimeMillis())) {
-            setRemove();
+            setRemove(true);
 
         }
         moveIMG();
@@ -403,6 +418,7 @@ public class AutoMove extends MoveEntity {
             }
         }
     }
+
 
 
     @Override

@@ -13,12 +13,16 @@ import java.util.Random;
 public class Minvo extends AutoMove {
     Random random = new Random();
     public Minvo(int x, int y, Image img) {
-        super(x,y, img, 2, Sprite.minvo);
+        super(x,y, img, 2, Sprite.minvo);//System.out.println(1);
     }
 
     @Override
     public void update() {
         int way = random.nextInt(5);
-        moveMinvo(way);
+        if (!check_dead) {
+            moveMinvo(way);
+        } else {
+            DEAD();
+        }
     }
 }

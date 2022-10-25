@@ -36,6 +36,7 @@ public class Bomber extends MoveEntity {
 
     //di chuyển sau khi lấy được item
     public int moveItem = 0;
+
     /**
      * hướng nhìn
      */
@@ -43,6 +44,7 @@ public class Bomber extends MoveEntity {
         STOP(0), LEFT(1), RIGHT(2), UP(3), DOWN(4);
 
         private final int value;
+
         status(int value) {
             this.value = value;
         }
@@ -52,8 +54,8 @@ public class Bomber extends MoveEntity {
     private List<Bomb> bombs = new ArrayList<>();
 
     public Bomber(int x, int y, Image img, int speed) {
-        super( x, y, img,speed);
-        System.out.println("toa do x:"+ x + "toa do y:" + y);
+        super(x, y, img, speed);
+        System.out.println("toa do x:" + x + "toa do y:" + y);
         //chênh lệch chiều rộng
         setW(Sprite.SCALED_SIZE - 7);
         //chênh lệch chiều cao
@@ -63,9 +65,11 @@ public class Bomber extends MoveEntity {
     public List<Bomb> getBombs() {
         return bombs;
     }
+
     public void reduceHeart() {
         this.heart--;
     }
+
     public void setPosition() {
         this.setX(32);
         this.setY(32);
@@ -80,10 +84,10 @@ public class Bomber extends MoveEntity {
                 bombs.get(i).update();
                 bombs.get(i).isInExplotion(bombs);
                 if (this.collision.CheckCollision(this, bombs.get(i)) && bombs.get(i).isExplotion()) {
-                     if (bombs.get(i).getTimeAfterExplode() <= 0 && bombs.get(i).getRemove()) {
-                         heart--;
-                         setPosition();
-                     }
+                    if (bombs.get(i).getTimeAfterExplode() <= 0 && bombs.get(i).getRemove()) {
+                        heart--;
+                        setPosition();
+                    }
                 }
                 for (int j = 0; j < bombs.get(i).getExplotionList().size(); j++) {
                     if (collision.CheckCollision(bombs.get(i).getExplotionList().get(j), this) && bombs.get(i).isExplotion()) {
@@ -98,7 +102,7 @@ public class Bomber extends MoveEntity {
                 }
             }
         } else {
-            img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, 30,60).getFxImage();
+            img = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, 30, 60).getFxImage();
             for (int i = 0; i < bombs.size(); i++) {
                 bombs.get(i).update();
                 if (bombs.get(i).getRemove()) {
@@ -109,7 +113,7 @@ public class Bomber extends MoveEntity {
     }
 
     private void addBomb() {
-        if (getBomberControl.bomberSpace == true && bombs.size() < maxBomb ) {
+        if (getBomberControl.bomberSpace == true && bombs.size() < maxBomb) {
             int xBomber = (this.getX() + 10) / 32;
             int yBomber = (this.getY() + 10) / 32;
             Bomb newBom = new Bomb(xBomber, yBomber, Sprite.bomb.getFxImage());
@@ -134,6 +138,7 @@ public class Bomber extends MoveEntity {
         UP(1), DOWN(2), LEFT(3), RIGHT(4);
 
         private final int value;
+
         move(int value) {
             this.value = value;
         }
@@ -149,19 +154,20 @@ public class Bomber extends MoveEntity {
         }
 
         if (way == move.DOWN.value) {
-             return !collision.CheckMapCollision(x, y + speed, w, h, BombermanGame.map.getMap());
+            return !collision.CheckMapCollision(x, y + speed, w, h, BombermanGame.map.getMap());
         }
 
         if (way == move.LEFT.value) {
-             return !collision.CheckMapCollision(x - speed, y, w, h, BombermanGame.map.getMap());
+            return !collision.CheckMapCollision(x - speed, y, w, h, BombermanGame.map.getMap());
         }
 
         if (way == move.RIGHT.value) {
-             return !collision.CheckMapCollision(x + speed, y, w, h, BombermanGame.map.getMap());
+            return !collision.CheckMapCollision(x + speed, y, w, h, BombermanGame.map.getMap());
         }
 
         return true;
     }
+
     public void moveBomber() {
         act = status.STOP.value;
         if (getBomberControl.bomberLeft) {
@@ -200,7 +206,7 @@ public class Bomber extends MoveEntity {
 
         cntDown = 1;
         cntLeft = 1;
-        cntRight =1;
+        cntRight = 1;
         if (cntUp < maxAnimation) cntUp += 1;
         else cntUp = 1;
         moveIMG();
@@ -216,8 +222,8 @@ public class Bomber extends MoveEntity {
     public void moveDown() {
         cntUp = 1;
         cntLeft = 1;
-        cntRight =1;
-        if (cntDown < maxAnimation) cntDown ++;
+        cntRight = 1;
+        if (cntDown < maxAnimation) cntDown++;
         else cntDown = 1;
         moveIMG();
         if (canMove(2)) {
@@ -228,11 +234,12 @@ public class Bomber extends MoveEntity {
             }*/
         }
     }
+
     public void moveLeft() {
         cntDown = 1;
         cntUp = 1;
-        cntRight =1;
-        if (cntLeft < maxAnimation) cntLeft +=1;
+        cntRight = 1;
+        if (cntLeft < maxAnimation) cntLeft += 1;
         else cntLeft = 1;
         moveIMG();
         if (canMove(3)) {
@@ -243,6 +250,7 @@ public class Bomber extends MoveEntity {
             }*/
         }
     }
+
     public void moveRight() {
         cntDown = 1;
         cntLeft = 1;
@@ -276,6 +284,7 @@ public class Bomber extends MoveEntity {
         if (act == status.DOWN.value)
             img = BombermanGame.player.getList().get(swapImg + 6).getFxImage();
     }
+
     public void setBomberSpeed(int speed) {
         this.bomberSpeed += speed;
     }
@@ -287,9 +296,11 @@ public class Bomber extends MoveEntity {
     public int getY() {
         return y;
     }
+
     public void setMoveItem(int item) {
         this.moveItem = item;
     }
+
     @Override
     public void render(GraphicsContext gc) {
         super.render(gc);

@@ -121,11 +121,11 @@ public class Images {
                 /*if (map[i][j] == 2) {
                     Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
-                }
-                if (map[i][j] == 3) {
-                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
-                    stillObjects.add(object);
                 }*/
+                if (map[i][j] == 3) {
+                    Entity object = new Kondoria(i, j, image.getList().get(map[i][j]).getFxImage());
+                    stillObjects.add(object);
+                }
                 if (map[i][j] == 4) {
                     Entity object = new Minvo(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);

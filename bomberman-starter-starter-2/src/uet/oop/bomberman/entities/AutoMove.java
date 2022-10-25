@@ -82,6 +82,12 @@ public class AutoMove extends MoveEntity {
 
     }
 
+    public void moveKondoria(int way) {
+        canMove(way);
+
+        move(start);
+    }
+
     public void moveMinvo(int way) {
         canMove(way);
 

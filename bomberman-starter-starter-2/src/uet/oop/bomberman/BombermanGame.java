@@ -1,5 +1,8 @@
 package uet.oop.bomberman;
 
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Interaction.Interactive;
 import uet.oop.bomberman.graphics.Images;
@@ -13,6 +16,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +29,8 @@ public class BombermanGame extends Application {
     private GraphicsContext gc;
     private Canvas canvas;
     public int level = 1;
+
+    public Audio audio = new Audio();
 
     private Interactive interactive = new Interactive();
     private List<Entity> entities = new ArrayList<>();
@@ -74,8 +81,9 @@ public class BombermanGame extends Application {
             };
 
             timer.start();
-            //Audio audio = new Audio();
-            //Audio.list.get(0).play();
+
+            audio.playAudioFull(Audio.audio.backgroundMusic.value);
+
             player.loadImage();
             bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
             entities.add(bomberman);

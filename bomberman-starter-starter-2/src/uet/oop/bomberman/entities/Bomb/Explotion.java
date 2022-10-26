@@ -36,10 +36,11 @@ public class Explotion extends Entity {
     }
 
     public Explotion(int x, int y, int way,boolean isLast) {
-        super(x,y,null);
+        super(x,y,Sprite.brick.getFxImage());
         this.x = x;
         this.y = y;
         this.way = way;
+        this.isLast = isLast;
         if (isLast) {
             if (way == 1)
                 setImg(Sprite.explosion_vertical2.getFxImage());
@@ -64,10 +65,13 @@ public class Explotion extends Entity {
 
     public void update(int timeAfter) {
         if (this.way == 3) {
-                img = isLast ?
-                        Sprite.movingSprite(Sprite.explosion_horizontal_left_last,Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, 60 - timeAfter, 80).getFxImage():
-                        Sprite.movingSprite(Sprite.explosion_horizontal,Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, 60-(timeAfter), 80).getFxImage();
-            }
+                if (isLast == true) {
+                    img = Sprite.movingSprite(Sprite.explosion_horizontal_left_last, Sprite.explosion_horizontal_left_last1, Sprite.explosion_horizontal_left_last2, 60 - timeAfter, 80).getFxImage();
+                }
+                else {
+                    img = Sprite.movingSprite(Sprite.explosion_horizontal, Sprite.explosion_horizontal1, Sprite.explosion_horizontal2, 60 - (timeAfter), 80).getFxImage();
+                }
+        }
         if (this.way == 4) {
                 img = isLast ?
                         Sprite.movingSprite(Sprite.explosion_horizontal_right_last,Sprite.explosion_horizontal_right_last1, Sprite.explosion_horizontal_right_last2, 60 - timeAfter, 80).getFxImage():

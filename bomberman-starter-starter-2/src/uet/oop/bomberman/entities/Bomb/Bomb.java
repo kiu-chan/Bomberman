@@ -14,7 +14,7 @@ public class Bomb extends Entity {
     private boolean isExplotion = false;
     private boolean remove = false;
     public static int radiusBomb = 4;
-    private int timeToExplode = 80;
+    private int timeToExplode = 150;
     private int timeAfterExplode = 100;
     private List<Explotion> explotionList = new ArrayList<>();
     private Collision collision = new Collision();
@@ -156,7 +156,7 @@ public class Bomb extends Entity {
         if (way == 1) {
             for (int j = 1; j <= r; j++) {
                 if (j == r)
-                    explotionList.add(new Explotion(this.x, this.y - 32 * j, way, true));
+                    explotionList.add(new Explotion(this.x, this.y - 32 * j, way, false));
                 else
                     explotionList.add(new Explotion(this.x, this.y - 32 * j, way, false));
             }
@@ -169,7 +169,7 @@ public class Bomb extends Entity {
         if (way == 2) {
             for (int j = 1; j <= r; j++) {
                 if  (j == r) {
-                    explotionList.add(new Explotion(this.x, this.y + 32 * j, way, true));
+                    explotionList.add(new Explotion(this.x, this.y + 32 * j, way, false));
                 } else {
                     explotionList.add(new Explotion(this.x, this.y + 32 * j, way, false));
                 }
@@ -183,7 +183,7 @@ public class Bomb extends Entity {
         if (way == 3) {
             for (int j = 1; j <= r; j++) {
                 if (j == r)
-                    explotionList.add(new Explotion(this.x - 32*j, this.y, way, true));
+                    explotionList.add(new Explotion(this.x - 32*j, this.y, way, false));
                 else
                     explotionList.add(new Explotion(this.x - 32*j, this.y , way, false ));
             }
@@ -198,7 +198,7 @@ public class Bomb extends Entity {
                 if (j == r)
                     explotionList.add(new Explotion(this.x + 32*j, this.y , way, true));
                 else
-                    explotionList.add(new Explotion(this.x + 32*j, this.y, way, false ));
+                    explotionList.add(new Explotion(this.x + 32*j, this.y, way, true ));
             }
             if (BombermanGame.map.getMap()[toadoX + r + 1][toadoY] == 2
                     && r < radiusBomb) {

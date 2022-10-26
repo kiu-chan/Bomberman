@@ -138,6 +138,18 @@ public class Interactive {
             setSwapMap(false);System.out.println(2);
         }
     }
+    public void collideWithEnemy(Bomber bomber, List<Entity> enemy) {
+        for (int i = 0; i < enemy.size(); i++) {
+            if (enemy.get(i) instanceof Bomber == false) {
+                if (collision.CheckCollision(bomber, enemy.get(i))) {
+                    bomber.reduceHeart();
+                    if (bomber.getHeart() >= 1) {
+                        bomber.setPosition();
+                    }
+                }
+            }
+        }
+    }
 
     public boolean getSwapMap() {
         return this.check_swapMap;

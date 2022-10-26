@@ -122,7 +122,17 @@ public class BombermanGame extends Application {
             this.level++;System.out.println(this.level);
             interactive.setSwapMap(false);
             bomberman.setPosition();
+            stillObjects.clear();
+            map.clearMap();
+            map.clearStillObjects();
+            map.clearList();
             load();
+            /*for (int i = 0; i < HEIGHT ; i ++) {
+                for (int j = 0; j  < WIDTH; j++) {
+                    System.out.print(map.getMap()[j][i] + " ");
+                }
+                System.out.println();
+            }*/
         }
     }
 

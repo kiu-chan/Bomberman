@@ -132,10 +132,10 @@ public class Interactive {
 
     public void swapMap(List<Entity> list, List<Entity> item, int itemLocation) {
         if (list.size() == 1) {
-            setSwapMap(true);System.out.println(1);
+            setSwapMap(true);//System.out.println(1);
             item.remove(itemLocation);
         } else {
-            setSwapMap(false);System.out.println(2);
+            setSwapMap(false);//System.out.println(2);
         }
     }
     public void collideWithEnemy(Bomber bomber, List<Entity> enemy) {

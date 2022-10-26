@@ -63,9 +63,9 @@ public class Images {
                 }
             }
 
-            /*for (int i = 0; i < HEIGHT ; i ++) {
-                for (int j = 0; j  < WIDTH; j++) {
-                    System.out.print(tileMap[i][j] + " ");
+            /*for (int i = 0; i < height ; i ++) {
+                for (int j = 0; j  < width; j++) {
+                    System.out.print(map[i][j] + " ");
                 }
                 System.out.println();
             }*/
@@ -164,6 +164,18 @@ public class Images {
 
     public List<Entity> getStillObjects() {
         return stillObjects;
+    }
+
+    public void clearStillObjects() {
+        this.stillObjects.clear();
+    }
+
+    public void clearList() {
+        this.list.clear();
+    }
+
+    public void clearMap() {
+        this.map = new int[100][100];
     }
 
     public int[][] getMap() {

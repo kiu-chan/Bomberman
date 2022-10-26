@@ -1,8 +1,8 @@
 package uet.oop.bomberman.entities;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.Interaction.Collision;
+import uet.oop.bomberman.entities.Move.MoveEntity;
 import uet.oop.bomberman.getBomberControl;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.entities.Bomb.Bomb;
@@ -10,7 +10,6 @@ import uet.oop.bomberman.entities.Bomb.Bomb;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

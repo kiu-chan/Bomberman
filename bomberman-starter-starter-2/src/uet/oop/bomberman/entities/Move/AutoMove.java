@@ -1,6 +1,8 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Move;
 
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.Bomber;
+import uet.oop.bomberman.entities.Interaction.Collision;
 import uet.oop.bomberman.graphics.Sprite;
 
 import javafx.scene.image.Image;

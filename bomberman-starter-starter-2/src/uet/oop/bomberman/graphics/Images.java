@@ -3,7 +3,7 @@ package uet.oop.bomberman.graphics;
 import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.entities.Collide;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.Item;
+import uet.oop.bomberman.entities.Item.Item;
 
 import java.io.BufferedReader;
 import java.io.File;

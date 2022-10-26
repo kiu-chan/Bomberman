@@ -1,7 +1,7 @@
 package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.image.Image;
-import uet.oop.bomberman.entities.AutoMove;
+import uet.oop.bomberman.entities.Move.AutoMove;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
@@ -18,6 +18,10 @@ public class Ghost extends AutoMove {
     @Override
     public void update() {
         int way = random.nextInt(5);
-        moveGhost(way);
+        if (!check_dead) {
+            moveGhost(way);
+        } else {
+            DEAD();
+        }
     }
 }

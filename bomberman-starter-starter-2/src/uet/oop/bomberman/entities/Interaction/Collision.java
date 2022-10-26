@@ -1,5 +1,6 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Interaction;
 
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Collision {
@@ -9,15 +10,15 @@ public class Collision {
     }
 
     public boolean CheckCollision(Entity a, Entity b) {
-        int left_a = a.x;
-        int right_a = a.x + a.w;
-        int top_a = a.y;
-        int bottom_a = a.y + a.h;
+        int left_a = a.getX();
+        int right_a = a.getX() + a.getW();
+        int top_a = a.getY();
+        int bottom_a = a.getY() + a.getH();
 
-        int left_b = b.x;
-        int right_b = b.x + b.w;
-        int top_b = b.y;
-        int bottom_b = b.y + b.h;
+        int left_b = b.getX();
+        int right_b = b.getX() + b.getW();
+        int top_b = b.getY();
+        int bottom_b = b.getY() + b.getH();
 
         // Case 1: size object 1 < size object 2
         if (left_a > left_b && left_a < right_b)

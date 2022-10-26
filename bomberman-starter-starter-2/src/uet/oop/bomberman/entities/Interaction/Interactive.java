@@ -1,10 +1,13 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Interaction;
 
 
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Bomb.Explotion;
+import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Enemy.Minvo;
+import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.Item.Item;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ public class Interactive {
         try {
             for (int i = 0; i < list.size(); i++) {
                 if(collision.CheckCollision(a, list.get(i))) {
-                    if (!collision.CheckMapCollision(list.get(i).x, list.get(i).y, list.get(i).w, list.get(i).h, BombermanGame.map.getMap())) {
+                    if (!collision.CheckMapCollision(list.get(i).getX(), list.get(i).getY(), list.get(i).getW(), list.get(i).getH(), BombermanGame.map.getMap())) {
                         //System.out.println(a.x + " " +  a.y + " " + list.get(i).x + " " + list.get(i).y);
                         Item item = (Item) list.get(i);
                         if (item.getOrder() + 1 != Sprite.portal) {
@@ -54,10 +57,10 @@ public class Interactive {
         for (Bomb bom : player.getBombs()) {
             int[][] mapBom = new int[100][100];
             for (Explotion explotion : bom.getExplotionList())
-                mapBom[explotion.x / Sprite.SCALED_SIZE][explotion.y / Sprite.SCALED_SIZE] = 1;
+                mapBom[explotion.getX() / Sprite.SCALED_SIZE][explotion.getY() / Sprite.SCALED_SIZE] = 1;
 
             for (int i = 0; i < list.size(); i++) {
-                if (bom.isExplotion() && collision.CheckMapCollision(list.get(i).x, list.get(i).y, list.get(i).w, list.get(i).h, mapBom)) {
+                if (bom.isExplotion() && collision.CheckMapCollision(list.get(i).getX(), list.get(i).getY(), list.get(i).getW(), list.get(i).getH(), mapBom)) {
                         list.get(i).setCheckDead(true);
                 }
             }
@@ -109,21 +112,21 @@ public class Interactive {
 
 
     public List<Entity> screen(List<Entity> list) {
-        int player_x = BombermanGame.bomberman.x;
-        int player_y = BombermanGame.bomberman.y;
+        int player_x = BombermanGame.bomberman.getX();
+        int player_y = BombermanGame.bomberman.getY();
         int screen_x = BombermanGame.WIDTH * Sprite.SCALED_SIZE;
         int screen_y = BombermanGame.HEIGHT * Sprite.SCALED_SIZE;
-        int speed = BombermanGame.bomberman.speed;
+        int speed = BombermanGame.bomberman.getSpeed();
 
         if (player_x + speed >= screen_x / 2) {
             for (int i = 0; i < list.size(); i++) {
-                list.get(i).x -= speed;
+                list.get(i).addX(-speed);
             }
         }
 
         if (player_x - speed <= screen_x / 2 && BombermanGame.bomberman.act == 1) {
             for (int i = 0; i < list.size(); i++) {
-                list.get(i).x += speed;
+                list.get(i).addX(speed);
             }
         }
 

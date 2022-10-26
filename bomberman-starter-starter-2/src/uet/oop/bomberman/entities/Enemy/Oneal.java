@@ -1,6 +1,6 @@
 package uet.oop.bomberman.entities.Enemy;
 
-import uet.oop.bomberman.entities.AutoMove;
+import uet.oop.bomberman.entities.Move.AutoMove;
 import uet.oop.bomberman.graphics.Sprite;
 
 import javafx.scene.image.Image;
@@ -19,6 +19,10 @@ public class Oneal extends AutoMove {
     @Override
     public void update() {
         int way = random.nextInt(5);
-        moveOneal(way);
+        if (!check_dead) {
+            moveOneal(way);
+        } else {
+            DEAD();
+        }
     }
 }

@@ -39,8 +39,22 @@ public abstract class Entity {
     public int getX() {
         return x;
     }
+    public void addX(int x) {
+        this.x += x;
+    }
+
+    public void addY(int y) {
+        this.y += y;
+    }
     public int getY() {
         return y;
+    }
+    public int getW() {
+        return w;
+    }
+
+    public int getH() {
+        return h;
     }
     protected Image img;
     protected boolean remove = false;
@@ -63,7 +77,7 @@ public abstract class Entity {
         this.img = img;
     }
 
-    protected void setCheckDead(boolean check_dead) {
+    public void setCheckDead(boolean check_dead) {
         this.check_dead = check_dead;
     }
 

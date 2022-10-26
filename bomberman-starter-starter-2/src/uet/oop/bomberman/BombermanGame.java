@@ -1,6 +1,7 @@
 package uet.oop.bomberman;
 
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.Interaction.Interactive;
 import uet.oop.bomberman.graphics.Images;
 import uet.oop.bomberman.graphics.Sprite;
 

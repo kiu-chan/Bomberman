@@ -1,8 +1,9 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Item;
 
 import javafx.scene.image.Image;
 
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
@@ -23,6 +24,7 @@ public class Item extends Entity {
         super(x, y, img);
         this.order = order;
     }
+
 
     public void setStart(long start) {
         this.start = start;

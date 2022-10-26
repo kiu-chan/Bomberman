@@ -1,6 +1,7 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Move;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.Entity;
 
 public abstract class MoveEntity extends Entity {
     protected int speed;
@@ -11,7 +12,7 @@ public abstract class MoveEntity extends Entity {
     protected int down = 0;
     protected int dieTime = 0;
     protected boolean isDead = false;
-    MoveEntity(int x, int y, Image img, int speed) {
+    public MoveEntity(int x, int y, Image img, int speed) {
         super(x,y,img);
         this.speed = speed;
     }

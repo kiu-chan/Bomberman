@@ -37,7 +37,7 @@ public class Item extends Entity {
 
         long endTime = System.currentTimeMillis();
 
-        System.out.println(endTime - start);
+        //System.out.println(endTime - start);
         if (endTime - start >= ITEM_TIME_LIMIT) {
             start = -1;
             end = true;

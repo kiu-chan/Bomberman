@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.Interaction;
 
 
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.Audio;
 import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Bomb.Explotion;
 import uet.oop.bomberman.entities.Bomber;
@@ -32,6 +33,11 @@ public class Interactive {
                             item.setStart(System.currentTimeMillis());
                             listItem.add(item);
                             list.remove(i);
+
+                            BombermanGame.audio.stopAudio(Audio.audio.powerUp.value);
+                            BombermanGame.audio.playAudio(Audio.audio.powerUp.value);
+                            //BombermanGame.audio.audioStopTime(Audio.audio.powerUp.value, 100);
+
                         } else {
                             swapMap(monster, list, i);
                         }

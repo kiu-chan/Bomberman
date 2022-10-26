@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Audio {
 
+    private long startTime = 0;
     public List<MediaPlayer> list = new ArrayList<>();
 
     public enum audio {
@@ -66,6 +67,18 @@ public class Audio {
         list.get(i).play();
     }
 
+    public void audioStopTime(int i, long time) {
+        if (startTime == 0) {
+            startTime = System.currentTimeMillis();
+        }
+        long endTime = System.currentTimeMillis();
+
+        System.out.println(endTime - startTime);
+        if (endTime - startTime >= time) {
+            list.get(i).stop();
+            startTime = endTime;
+        }
+    }
 
     public void stopAudio(int i) {
         list.get(i).stop();

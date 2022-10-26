@@ -113,6 +113,7 @@ public class BombermanGame extends Application {
         //entities = updateEntity();
         entities.forEach(Entity::update);
         interactive.itemHandling();
+        interactive.collideWithEnemy(bomberman,entities);
         entities = interactive.monsterDead(bomberman, entities);
         listItem = interactive.removeItem(bomberman, listItem, entities);
         if (interactive.getSwapMap()) {

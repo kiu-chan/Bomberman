@@ -127,6 +127,9 @@ public class Bomber extends MoveEntity {
         } else {
                 act = status.DEAD.value;
                 this.moveIMG();
+
+                BombermanGame.audio.playAudio(Audio.audio.gameOver.value);
+
             for (int i = 0; i < bombs.size(); i++) {
                 bombs.get(i).update();
                 if (bombs.get(i).getRemove()) {
@@ -278,6 +281,8 @@ public class Bomber extends MoveEntity {
     public void moveIMG() {
         imageTimeNow = System.currentTimeMillis();
 
+        BombermanGame.audio.playAudio(Audio.audio.bobDropped.value);
+
         if (act == status.DEAD.value) {
             if (imageTimeNow - imageTimeAgo > TIME_DEAD) {
                 cntDead++;
@@ -288,12 +293,16 @@ public class Bomber extends MoveEntity {
             }
         } else if (imageTimeNow - imageTimeAgo > TIME_IMG) {
             swapImg++;
+
+            BombermanGame.audio.stopAudio(Audio.audio.bobDropped.value);
+
             imageTimeAgo = System.currentTimeMillis();
         }
 
 
         if (swapImg >= 2)
             swapImg = 0;
+
         if (act == status.LEFT.value)
             img = BombermanGame.player.getList().get(swapImg + 9).getFxImage();
         if (act == status.RIGHT.value)

@@ -30,7 +30,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     public int level = 1;
 
-    public Audio audio = new Audio();
+    public static Audio audio = new Audio();
 
     private Interactive interactive = new Interactive();
     private List<Entity> entities = new ArrayList<>();
@@ -82,7 +82,7 @@ public class BombermanGame extends Application {
 
             timer.start();
 
-            audio.playAudioFull(Audio.audio.backgroundMusic.value);
+            //audio.playAudioFull(Audio.audio.backgroundMusic.value);
 
             player.loadImage();
             bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);

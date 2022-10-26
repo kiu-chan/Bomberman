@@ -17,7 +17,7 @@ public class Bomber extends MoveEntity {
     private int heart = 2;
     public static boolean isDead = false;
     private final int maxAnimation = 20;
-    protected int bomberSpeed = 2;
+    protected int bomberSpeed = 1;
     private int cntLeft = 1;
     private int cntRight = 1;
     private int cntUp = 1;
@@ -44,7 +44,7 @@ public class Bomber extends MoveEntity {
     public enum status {
         STOP(0), LEFT(1), RIGHT(2), UP(3), DOWN(4), DEAD(5);
 
-        private final int value;
+        public final int value;
 
         status(int value) {
             this.value = value;
@@ -229,53 +229,75 @@ public class Bomber extends MoveEntity {
 
     @Override
     public void moveUp() {
-        //audio.playAudio();
-
-        cntDown = 1;
-        cntLeft = 1;
-        cntRight = 1;
-        if (cntUp < maxAnimation) cntUp += 1;
-        else cntUp = 1;
-        moveIMG();
-        if (canMove(1)) {
+        if (canMove(move.UP.value)) {
             y -= bomberSpeed;
+        } else {
+            //di chuyển mượt hơn
+            boolean check_left = !collision.CheckMapCollision(x, y - speed, 0, h, BombermanGame.map.getMap());
+            boolean check_right = !collision.CheckMapCollision(x + w, y - speed, 0, h, BombermanGame.map.getMap());
+
+            if (check_left && ! check_right) {
+                moveLeft();
+            }
+            if (!check_left && check_right) {
+                moveRight();
+            }
         }
+        moveIMG();
     }
 
     public void moveDown() {
-        cntUp = 1;
-        cntLeft = 1;
-        cntRight = 1;
-        if (cntDown < maxAnimation) cntDown++;
-        else cntDown = 1;
-        moveIMG();
-        if (canMove(2)) {
+        if (canMove(move.DOWN.value)) {
             y += bomberSpeed;
+        } else {
+            //di chuyển mượt hơn
+            boolean check_left = !collision.CheckMapCollision(x, y + speed, 0, h, BombermanGame.map.getMap());
+            boolean check_right = !collision.CheckMapCollision(x + w, y + speed, 0, h, BombermanGame.map.getMap());
+
+            if (check_left && ! check_right) {
+                moveLeft();
+            }
+            if (!check_left && check_right) {
+                moveRight();
+            }
         }
+        moveIMG();
     }
 
     public void moveLeft() {
-        cntDown = 1;
-        cntUp = 1;
-        cntRight = 1;
-        if (cntLeft < maxAnimation) cntLeft += 1;
-        else cntLeft = 1;
-        moveIMG();
-        if (canMove(3)) {
+        if (canMove(move.LEFT.value)) {
             x -= bomberSpeed;
+        } else {
+            //di chuyển mượt hơn
+            boolean check_up = !collision.CheckMapCollision(x - speed, y, w, 0, BombermanGame.map.getMap());
+            boolean check_down = !collision.CheckMapCollision(x - speed, y + h, w, 0, BombermanGame.map.getMap());
+
+            if (check_up && ! check_down) {
+                moveUp();
+            }
+            if (!check_up && check_down) {
+                moveDown();
+            }
         }
+        moveIMG();
     }
 
     public void moveRight() {
-        cntDown = 1;
-        cntLeft = 1;
-        cntUp = 1;
-        if (cntRight < maxAnimation) cntRight += 1;
-        else cntRight = 1;
-        moveIMG();
-        if (canMove(4)) {
+        if (canMove(move.RIGHT.value)) {
             x += bomberSpeed;
+        } else {
+            //di chuyển mượt hơn
+            boolean check_up = !collision.CheckMapCollision(x + speed, y, w, 0, BombermanGame.map.getMap());
+            boolean check_down = !collision.CheckMapCollision(x + speed, y + h, w, 0, BombermanGame.map.getMap());
+
+            if (check_up && ! check_down) {
+                moveUp();
+            }
+            if (!check_up && check_down) {
+                moveDown();
+            }
         }
+        moveIMG();
     }
 
     public void moveIMG() {
@@ -330,6 +352,10 @@ public class Bomber extends MoveEntity {
 
     public void setMoveItem(int item) {
         this.moveItem = item;
+    }
+
+    public void setAct(int act) {
+        this.act = act;
     }
 
     @Override

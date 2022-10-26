@@ -71,8 +71,10 @@ public class BombermanGame extends Application {
                         update();
                 }
             };
+
             timer.start();
-            //Audio audio = new Audio("Audio/Click.mp3");
+            //Audio audio = new Audio();
+            //Audio.list.get(0).play();
             player.loadImage();
             bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
             entities.add(bomberman);

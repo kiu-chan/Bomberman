@@ -19,6 +19,10 @@ public class Kondoria extends AutoMove {
     @Override
     public void update() {
         int way = random.nextInt(5);
-        moveKondoria(way);
+        if (!check_dead) {
+            moveKondoria(way);
+        } else {
+            DEAD();
+        }
     }
 }

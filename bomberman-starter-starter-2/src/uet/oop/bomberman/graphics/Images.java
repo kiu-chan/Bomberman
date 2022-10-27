@@ -6,12 +6,14 @@ import uet.oop.bomberman.entities.Collide;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Item.Item;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import uet.oop.bomberman.entities.EntityOfMap.*;
 
 public class Images {
@@ -21,6 +23,7 @@ public class Images {
     private int width;
     private int height;
     private int[][] map = new int[100][100];
+    private int[] item = new int[20];
     SpriteSheet sheet;
     Images image;
     private List<Sprite> list = new ArrayList<>();
@@ -168,18 +171,43 @@ public class Images {
     }
 
     public int[][] randomItem(String path, Images image, int width, int height) {
-        this.path = path;
         this.image = image;
         this.width = width;
         this.height = height;
+
+
+        try {
+            File file = new File(path);
+            FileReader fileReader = new FileReader(file);
+
+            BufferedReader reader = new BufferedReader(fileReader);
+            for (int i = 0; i < 15; i++) {
+                String s = reader.readLine();
+                item[i] = Integer.parseInt(s);
+            }
+            reader.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 14; i++) {
+            System.out.println(item[i]);
+        }
         int[][] arr = BombermanGame.map.getMap();
         Random random = new Random();
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j ++) {
-                if (arr[i][j] == 2 && random.nextInt(10) < 3) {
-                    this.map[i][j] = 1;
+
+        for (int numItem = 0; numItem <= 15; numItem++) {
+            while (item[numItem] > 0) {
+                for (int i = 0; i < width; i++) {
+                    for (int j = 0; j < height; j ++) {
+                        if (arr[i][j] == 2 && random.nextInt(10) < 1 && item[numItem] > 0) {
+                            this.map[i][j] = numItem + 1;
+                            item[numItem]--;
+                        }
+                    }
                 }
             }
+
         }
         /*for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j ++) {

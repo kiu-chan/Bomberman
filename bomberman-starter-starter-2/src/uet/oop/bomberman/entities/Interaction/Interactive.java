@@ -107,7 +107,9 @@ public class Interactive {
                     int monster_y = list.get(i).getY() / Sprite.SCALED_SIZE;
                     list.remove(i);
                     Entity minvo = new Minvo(monster_x, monster_y, BombermanGame.monster.getList().get(Sprite.minvo).getFxImage());
+                    Entity minvo1 = new Minvo(monster_x, monster_y, BombermanGame.monster.getList().get(Sprite.minvo).getFxImage());
                     list.add(minvo);
+                    list.add(minvo1);
                 } else {
                     list.remove(i);
                 }

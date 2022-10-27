@@ -35,6 +35,9 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     public int level = 1;
 
+    public boolean check_play = false;
+    public boolean check_pause = false;
+
     public static Audio audio = new Audio();
 
     private Interactive interactive = new Interactive();
@@ -84,19 +87,33 @@ public class BombermanGame extends Application {
                 public void handle(long l) {
                         render();
                         update();
+                        if (check_play) {
+                            clear();
+
+                            //audio.stopAudio(Audio.audio.backgroundMusic.value);
+
+                            playGame(scene);
+                            check_play = false;
+                        }
                 }
             };
 
             timer.start();
 
-            audio.playAudioFull(Audio.audio.backgroundMusic.value);
+            playGame(scene);
 
-            player.loadImage();
-            bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 4);
-            entities.add(bomberman);
-            getBomberControl.getControl(scene);
-            load();
     }
+
+    public void playGame(Scene scene) {
+        audio.playAudioFull(Audio.audio.backgroundMusic.value);
+
+        player.loadImage();
+        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 4);
+        entities.add(bomberman);
+        getBomberControl.getControl(scene);
+        load();
+    }
+
     public void createText() {
         textHeart = new Text("Heart:" + bomberman.getHeart());
         textHeart.setFont(Font.font(null, FontWeight.BOLD, 15));
@@ -138,25 +155,46 @@ public class BombermanGame extends Application {
         entities.addAll(monster.getStillObjects());
     }
 
+    public void clear() {
+        stillObjects.clear();
+        listItem.clear();
+        entities.clear();
+
+        map.clearMap();
+        map.clearStillObjects();
+        map.clearList();
+
+        item.clearMap();
+        item.clearStillObjects();
+        item.clearList();
+
+        monster.clearMap();
+        monster.clearStillObjects();
+        monster.clearList();
+    }
+
 
     public void update() {
         //entities = updateEntity();
-        entities.forEach(Entity::update);
-        interactive.itemHandling();
-        interactive.collideWithEnemy(bomberman,entities);
-        entities = interactive.monsterDead(bomberman, entities);
-        listItem = interactive.removeItem(bomberman, listItem, entities);
-        if (interactive.getSwapMap()) {
-            this.level++;
-            System.out.println(this.level);
-            interactive.setSwapMap(false);
-            bomberman.setPosition();
-            stillObjects.clear();
-            map.clearMap();
-            map.clearStillObjects();
-            map.clearList();
-            load();
+        if (!check_pause) {
+            entities.forEach(Entity::update);
+            interactive.itemHandling();
+            interactive.collideWithEnemy(bomberman,entities);
+            entities = interactive.monsterDead(bomberman, entities);
+            listItem = interactive.removeItem(bomberman, listItem, entities);
+            if (interactive.getSwapMap()) {
+                this.level++;
+                System.out.println(this.level);
+                interactive.setSwapMap(false);
+                bomberman.setPosition();
+                clear();
+                entities.add(bomberman);
+                load();
+            }
         }
+
+        /*if (getBomberControl.bomberSpace)
+            check_pause = !check_pause;*/
     }
 
     public void render() {

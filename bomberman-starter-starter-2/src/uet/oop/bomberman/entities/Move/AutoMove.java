@@ -24,6 +24,9 @@ public class AutoMove extends MoveEntity {
     private long timeAgo = 0;
     private long timeDead = 0;
 
+    private int cntDelay = 0;
+
+    public static final long TIME_DELAY = 2;
     public static final long timeWay = 500;
     public static final long TIME_DEAD = 1500;
 
@@ -325,22 +328,38 @@ public class AutoMove extends MoveEntity {
 
     @Override
     public void moveUp() {
-        y -= speed;
+        cntDelay++;
+        if (cntDelay > TIME_DELAY) {
+            y -= speed;
+            cntDelay = 0;
+        }
     }
 
     @Override
     public void moveDown() {
-        y += speed;
+        cntDelay++;
+        if (cntDelay > TIME_DELAY) {
+            y += speed;
+            cntDelay = 0;
+        }
     }
 
     @Override
     public void moveLeft() {
-        x -= speed;
+        cntDelay++;
+        if (cntDelay > TIME_DELAY) {
+            x -= speed;
+            cntDelay = 0;
+        }
     }
 
     @Override
     public void moveRight() {
-        x += speed;
+        cntDelay++;
+        if (cntDelay > TIME_DELAY) {
+            x += speed;
+            cntDelay = 0;
+        }
     }
 
     public void moveStop() {

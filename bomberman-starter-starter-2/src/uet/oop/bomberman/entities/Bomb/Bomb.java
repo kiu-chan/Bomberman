@@ -75,11 +75,13 @@ public class Bomb extends Entity {
         return false;
     }
     public boolean isHaveBomb(List <Bomb> bombList) {
+        BombermanGame.audio.stopAudio(Audio.audio.bomSet.value);
         for(int i = 0; i < bombList.size(); i++) {
             if (this.x == bombList.get(i).getX() && this.y == bombList.get(i).getY()) {
                 return true;
             }
         }
+        BombermanGame.audio.playAudio(Audio.audio.bomSet.value);
         return false;
     }
 
@@ -255,6 +257,7 @@ public class Bomb extends Entity {
             if (timeToExplode > 0) {
                 timeToExplode--;
             } else {
+                BombermanGame.audio.playAudio(Audio.audio.bomExplode.value);
                 isExplotion = true;
                 if (cntMakeWall == 0) {
                     for(int i = 1; i <=4 ; i++) {
@@ -268,6 +271,7 @@ public class Bomb extends Entity {
                 if (timeAfterExplode > 0) {
                     timeAfterExplode--;
                 } else {
+                    BombermanGame.audio.stopAudio(Audio.audio.bomExplode.value);
                     for (int i = 0; i < explotionList.size(); i++) {
                         explotionList.get(i).setRemove(true);
                     }

@@ -137,10 +137,10 @@ public class Images {
                     Entity object = new MinvoRotate(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
                 }
-                /*if (map[i][j] == 2) {
-                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                if (map[i][j] == 2) {
+                    Entity object = new RedMinvoRotate(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
-                }*/
+                }
                 if (map[i][j] == 3) {
                     Entity object = new Kondoria(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
@@ -153,11 +153,11 @@ public class Images {
                     Entity object = new Ghost(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
                 }
-                /*if (map[i][j] == 6) {
-                    Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
+                if (map[i][j] == 6) {
+                    Entity object = new Pass(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
                 }
-                if (map[i][j] == 7) {
+                /*if (map[i][j] == 7) {
                     Entity object = new Balloom(i, j, image.getList().get(map[i][j]).getFxImage());
                     stillObjects.add(object);
                 }*/

@@ -135,6 +135,12 @@ public class AutoMove extends MoveEntity {
             move(start);
         }
     }
+
+    public void movePass(int way) {
+        canMove(way);
+
+        direction(start);
+    }
     @Override
     public boolean canMove(int way) {
         timeNow = System.currentTimeMillis();

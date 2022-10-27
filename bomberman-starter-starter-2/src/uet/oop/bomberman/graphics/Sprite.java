@@ -26,7 +26,7 @@ public class Sprite {
 	public static final int kondoria = 14;		//3
 	public static final int minvo = 21;			//4
 	public static final int ghost = 28;			//5
-	public static final int mob = 35;			//6
+	public static final int pass = 35;			//6
 	public static final int doll = 45;			//7
 	public static final int oneal = 52;			//8
 	public static final int balloom = 59;		//9

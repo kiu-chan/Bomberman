@@ -105,11 +105,11 @@ public class Interactive {
                 if (list.get(i).getSwapMonster()) {//System.out.println(list.get(i).getRemove());
                     int monster_x = list.get(i).getX() / Sprite.SCALED_SIZE;
                     int monster_y = list.get(i).getY() / Sprite.SCALED_SIZE;
+                    int amount = list.get(i).getAmount();
+
                     list.remove(i);
-                    Entity minvo = new Minvo(monster_x, monster_y, BombermanGame.monster.getList().get(Sprite.minvo).getFxImage());
-                    Entity minvo1 = new Minvo(monster_x, monster_y, BombermanGame.monster.getList().get(Sprite.minvo).getFxImage());
-                    list.add(minvo);
-                    list.add(minvo1);
+
+                    list.addAll(addMinvo(monster_x, monster_y, amount));
                 } else {
                     list.remove(i);
                 }
@@ -118,6 +118,13 @@ public class Interactive {
         return list;
     }
 
+    public List<Entity> addMinvo(int x, int y, int n) {
+        List<Entity> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            list.add(new Minvo(x, y, BombermanGame.monster.getList().get(Sprite.minvo).getFxImage()));
+        }
+        return list;
+    }
 
     public List<Entity> screen(List<Entity> list) {
         int player_x = BombermanGame.bomberman.getX();

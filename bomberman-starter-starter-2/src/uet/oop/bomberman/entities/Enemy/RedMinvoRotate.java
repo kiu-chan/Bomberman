@@ -4,13 +4,16 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Move.AutoMove;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.Random;
+
 /**
- * Đứng yên 1 chỗ quay, khi bị nổ sẽ trở thành Minvo.
+ * Đứng yên 1 chỗ quay, khi bị nổ sẽ trở thành 1-4 Minvo.
  */
-public class MinvoRotate extends AutoMove {
-    public MinvoRotate(int x, int y, Image img) {
-        super(x,y, img, 1, Sprite.minvoRotate);
-        setAmount(1);
+public class RedMinvoRotate extends AutoMove {
+    Random random = new Random();
+    public RedMinvoRotate(int x, int y, Image img) {
+        super(x,y, img, 1, Sprite.redMinvoRotate);
+        setAmount(random.nextInt(3) + 1);
     }
 
     @Override

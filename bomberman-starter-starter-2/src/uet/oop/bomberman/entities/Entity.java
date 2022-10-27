@@ -19,6 +19,7 @@ public abstract class Entity {
 
     //thay đổi loại quái
     private boolean swap_monster = false;
+    private int amount = 1;
 
     public void setX(int x) {
         this.x = x;
@@ -67,6 +68,15 @@ public abstract class Entity {
         this.h = Sprite.SCALED_SIZE;
         this.img = img;
     }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getAmount() {
+        return this.amount;
+    }
+
     public boolean getRemove() {
         return this.remove;
     }

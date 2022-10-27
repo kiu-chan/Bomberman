@@ -1,5 +1,6 @@
 package uet.oop.bomberman.graphics;
 
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.entities.Collide;
 import uet.oop.bomberman.entities.Entity;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Images {
     private String path;
@@ -100,7 +102,7 @@ public class Images {
         }
     }
 
-    public void createItem() {
+    public void createItem() {//System.out.println(width);
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (map[i][j] != 0) {
@@ -152,6 +154,28 @@ public class Images {
                 }
             }
         }
+    }
+
+    public int[][] randomItem(String path, Images image, int width, int height) {
+        this.path = path;
+        this.image = image;
+        this.width = width;
+        this.height = height;
+        int[][] arr = BombermanGame.map.getMap();
+        Random random = new Random();
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j ++) {
+                if (arr[i][j] == 2 && random.nextInt(10) < 3) {
+                    this.map[i][j] = 1;
+                }
+            }
+        }
+        /*for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j ++) {
+                System.out.print(map[j][i] + " ");
+            }System.out.println();
+        }*/
+        return map;
     }
 
     public void setRealImg(int i, int width, int height) {

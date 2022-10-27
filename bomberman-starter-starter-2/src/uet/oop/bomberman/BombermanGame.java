@@ -109,7 +109,8 @@ public class BombermanGame extends Application {
         stillObjects.addAll(map.getStillObjects());
 
         item.loadImage();
-        item.readMap(mapItem, item, WIDTH, HEIGHT);
+        //item.readMap(mapItem, item, WIDTH, HEIGHT);
+        item.randomItem(mapItem, item, WIDTH, HEIGHT);
         item.createItem();
         listItem.addAll(item.getStillObjects());
 

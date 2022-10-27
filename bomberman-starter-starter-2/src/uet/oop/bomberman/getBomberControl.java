@@ -4,6 +4,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 
+/**
+ * Bắt sự kiện từ bàn phím.
+ */
 public class getBomberControl {
     public static boolean bomberLeft = false;
     public static boolean bomberRight = false;

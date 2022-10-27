@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 
 import java.util.Random;
 
+/**
+ * Loại quái không thể đi qua tường nhưng lại có thể đuổi theo player.
+ */
 public class Oneal extends AutoMove {
     protected int speed = 10;
     Random random = new Random();

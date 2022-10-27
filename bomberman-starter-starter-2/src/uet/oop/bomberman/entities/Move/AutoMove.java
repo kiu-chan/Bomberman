@@ -9,7 +9,9 @@ import javafx.scene.image.Image;
 
 import java.util.Random;
 
-
+/**
+ * Di chuyển của quái.
+ */
 public class AutoMove extends MoveEntity {
     private int start = 5;
 

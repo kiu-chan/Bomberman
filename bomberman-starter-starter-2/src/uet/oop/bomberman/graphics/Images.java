@@ -16,6 +16,9 @@ import java.util.logging.Logger;
 
 import uet.oop.bomberman.entities.EntityOfMap.*;
 
+/**
+ * Cắt và xử lý hình ảnh, các đối tượng hình ảnh được lưu trữ trong List.
+ */
 public class Images {
     private String path;
     private int x;

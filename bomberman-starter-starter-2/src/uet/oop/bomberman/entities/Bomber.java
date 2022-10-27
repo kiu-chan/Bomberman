@@ -13,6 +13,9 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Các thuộc tính của Bomber.
+ */
 public class Bomber extends MoveEntity {
     private int heart = 2;
     public static boolean isDead = false;

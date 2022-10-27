@@ -16,7 +16,7 @@ import java.util.List;
 
 
 /**
- * Chuyên tương tác giữa các thành phần
+ * Chuyên tương tác giữa các thành phần(xóa, thực hiện chức năng).
  */
 public class Interactive {
     public boolean check_swapMap = false;

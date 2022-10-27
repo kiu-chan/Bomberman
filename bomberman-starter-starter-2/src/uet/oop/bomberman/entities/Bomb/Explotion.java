@@ -10,6 +10,9 @@ import uet.oop.bomberman.entities.Bomber;
 
 import java.security.Signature;
 
+/**
+ * Đối tượng bom nổ.
+ */
 public class Explotion extends Entity {
     private boolean isLast ;
     private int way;

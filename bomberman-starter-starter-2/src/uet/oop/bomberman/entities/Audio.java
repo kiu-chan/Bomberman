@@ -8,6 +8,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Lưu trữ và xử lý âm thanh.
+ */
 public class Audio {
 
     private long startTime = 0;

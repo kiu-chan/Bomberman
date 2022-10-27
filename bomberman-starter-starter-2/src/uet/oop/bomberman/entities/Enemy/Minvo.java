@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import java.util.Random;
 
 /**
- * loại quái có tốc độ di chuyển nhanh gấp đôi quái khác.
+ * loại quái có tốc độ di chuyển nhanh gấp đôi quái khác và đuổi theo player.
  */
 public class Minvo extends AutoMove {
     Random random = new Random();

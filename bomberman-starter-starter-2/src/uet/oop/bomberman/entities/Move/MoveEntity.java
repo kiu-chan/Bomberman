@@ -3,6 +3,9 @@ package uet.oop.bomberman.entities.Move;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.Entity;
 
+/**
+ * Di chuyển của player.
+ */
 public abstract class MoveEntity extends Entity {
     protected int speed;
     protected int way;

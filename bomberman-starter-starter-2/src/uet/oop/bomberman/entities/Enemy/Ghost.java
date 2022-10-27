@@ -6,6 +6,9 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.Random;
 
+/**
+ * Loại quái có thể đi xuyên tường và đuổi theo player.
+ */
 public class Ghost extends AutoMove {
     protected int speed = 8;
 

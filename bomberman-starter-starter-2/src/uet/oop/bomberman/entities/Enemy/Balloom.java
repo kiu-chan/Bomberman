@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 
 import java.util.Random;
 
+/**
+ * Loại quái di chuyển đơn giản(random), không thể đi xuyên qua tường.
+ */
 public class Balloom extends AutoMove {
     protected int speed = 10;
     protected int way;

@@ -1,8 +1,5 @@
 package uet.oop.bomberman;
 
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Interaction.Interactive;
 import uet.oop.bomberman.graphics.Images;
@@ -16,8 +13,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -3,6 +3,9 @@ package uet.oop.bomberman.entities.Interaction;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
+/**
+ * Xử lý va chạm trong này.
+ */
 public class Collision {
 
     public Collision() {

@@ -11,6 +11,10 @@ import uet.oop.bomberman.entities.EntityOfMap.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Chứa những quả bom.
+ */
 public class Bomb extends Entity {
     private int cntMakeWall = 0;
     private boolean isExplotion = false;

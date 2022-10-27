@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import uet.oop.bomberman.entities.EntityOfMap.*;
 
 public class Images {
     private String path;
@@ -88,7 +89,7 @@ public class Images {
         this.height = height;
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                stillObjects.add(new Collide(i, j, image.getList().get(0).getFxImage()));
+                stillObjects.add(new Grass(i, j));
             }
         }
     }
@@ -96,8 +97,15 @@ public class Images {
     public void createMap() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                Entity object = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
-                stillObjects.add(object);
+                if (map[i][j] == 0) {
+                    stillObjects.add(new Glass(i,j));
+                } else if (map[i][j] == 1) {
+                    stillObjects.add(new Wall(i,j));
+                } else if (map[i][j] == 2) {
+                    stillObjects.add(new Brick(i,j));
+                }
+            /*    Entity object = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
+                stillObjects.add(object);*/
             }
         }
     }

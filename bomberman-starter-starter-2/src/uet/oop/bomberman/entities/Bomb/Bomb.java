@@ -7,10 +7,12 @@ import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.Interaction.Collision;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.entities.EntityOfMap.*;
 
 import java.util.ArrayList;
 import java.util.List;
 public class Bomb extends Entity {
+    private int cntMakeWall = 0;
     private boolean isExplotion = false;
     private boolean remove = false;
     public static int radiusBomb = 4;
@@ -212,19 +214,19 @@ public class Bomb extends Entity {
         if (checkWall(way)) {
             if (way == 1) {
                 BombermanGame.map.setMap(toadoX, toadoY - r - 1, 0);
-                BombermanGame.stillObjects.set(toadoX * 13 + toadoY -r -1,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+                BombermanGame.stillObjects.set(toadoX * 13 + toadoY -r -1,new Glass(-1, -1));
             }
             if (way == 2) {
                 BombermanGame.map.setMap(toadoX, toadoY + r + 1, 0);
-                BombermanGame.stillObjects.set(toadoX * 13 + toadoY + r +1,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+                BombermanGame.stillObjects.set(toadoX * 13 + toadoY + r +1,new Glass(-1, -1));
             }
             if (way == 3) {
                 BombermanGame.map.setMap(toadoX - 1 - r, toadoY, 0);
-                BombermanGame.stillObjects.set((toadoX - r - 1) * 13 + toadoY,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+                BombermanGame.stillObjects.set((toadoX - r - 1) * 13 + toadoY,new Glass(-1, -1));
             }
             if (way == 4) {
                 BombermanGame.map.setMap(toadoX + 1 + r, toadoY, 0);
-                BombermanGame.stillObjects.set((toadoX + r + 1) * 13 + toadoY,new Collide(0,0,BombermanGame.map.getList().get(0).getFxImage()));
+                BombermanGame.stillObjects.set((toadoX + r + 1) * 13 + toadoY,new Glass(-1, -1));
             }
         }
     }
@@ -254,8 +256,11 @@ public class Bomb extends Entity {
                 timeToExplode--;
             } else {
                 isExplotion = true;
-                for(int i = 1; i <=4 ; i++) {
+                if (cntMakeWall == 0) {
+                    for(int i = 1; i <=4 ; i++) {
                         this.setWallExplotion(i);
+                    }
+                    cntMakeWall++;
                 }
                 for (int i = 0; i < explotionList.size(); i++) {
                     explotionList.get(i).update(timeAfterExplode);

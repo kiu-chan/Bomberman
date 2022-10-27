@@ -37,6 +37,9 @@ public abstract class MoveEntity extends Entity {
     public int getSpeed() {
         return this.speed;
     }
+    public void increaseSpeed(int k) {
+        this.speed += k;
+    }
     /*
     1: di len --
     2:di xuong--

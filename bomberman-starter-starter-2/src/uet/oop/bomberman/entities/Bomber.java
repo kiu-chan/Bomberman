@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities;
 
+import javafx.scene.text.Text;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Interaction.Collision;
 import uet.oop.bomberman.entities.Move.MoveEntity;
@@ -40,6 +41,7 @@ public class Bomber extends MoveEntity {
 
     //di chuyển sau khi lấy được item
     public int moveItem = 0;
+    private int cntPotition;
 
     /**
      * hướng nhìn
@@ -93,6 +95,9 @@ public class Bomber extends MoveEntity {
             for (int i = 0; i < bombs.size(); i++) {
                 bombs.get(i).update();
                 bombs.get(i).isInExplotion(bombs);
+                if (!this.collision.CheckCollision(this, bombs.get(i))) {
+                    bombs.get(i).setWall();
+                }
                 if (this.collision.CheckCollision(this, bombs.get(i)) && bombs.get(i).isExplotion()) {
                     if (this.x != x_) {
                         this.setX(x_);
@@ -124,13 +129,14 @@ public class Bomber extends MoveEntity {
                     }
                 }
                 if (bombs.get(i).getRemove()) {
+                    bombs.get(i).setWallToZero();
                     bombs.remove(i);
                 }
             }
         } else {
                 act = status.DEAD.value;
                 this.moveIMG();
-
+                BombermanGame.audio.stopAudio(Audio.audio.backgroundMusic.value);
                 BombermanGame.audio.playAudio(Audio.audio.gameOver.value);
 
             for (int i = 0; i < bombs.size(); i++) {

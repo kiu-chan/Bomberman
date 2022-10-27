@@ -20,6 +20,8 @@ public class Bomb extends Entity {
     private int timeAfterExplode = 100;
     private List<Explotion> explotionList = new ArrayList<>();
     private Collision collision = new Collision();
+    private int toado_x = this.x / 32;
+    private int toado_y = this.y / 32;
 
     public Bomb(int x, int y, Image img) {
         super(x, y, img);
@@ -209,6 +211,12 @@ public class Bomb extends Entity {
             }
         }
     }
+    public void setWall() {
+        BombermanGame.map.setMap(toado_x, toado_y, 1);
+    }
+    public void setWallToZero() {
+        BombermanGame.map.setMap(toado_x, toado_y, 0);
+    }
     public void setWallExplotion(int way) {
         int toadoX = this.x / 32;
         int toadoY = this.y / 32;
@@ -275,6 +283,7 @@ public class Bomb extends Entity {
                     for (int i = 0; i < explotionList.size(); i++) {
                         explotionList.get(i).setRemove(true);
                     }
+                    //BombermanGame.map.setMap(toado_x, toado_y, 0);
                     setRemove(true);
                 }
             }

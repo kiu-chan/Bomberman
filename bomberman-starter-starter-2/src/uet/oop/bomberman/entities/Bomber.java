@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities;
 
+import javafx.scene.text.Text;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Interaction.Collision;
 import uet.oop.bomberman.entities.Move.MoveEntity;
@@ -127,7 +128,7 @@ public class Bomber extends MoveEntity {
         } else {
                 act = status.DEAD.value;
                 this.moveIMG();
-
+                BombermanGame.audio.stopAudio(Audio.audio.backgroundMusic.value);
                 BombermanGame.audio.playAudio(Audio.audio.gameOver.value);
 
             for (int i = 0; i < bombs.size(); i++) {

@@ -3,6 +3,10 @@ package uet.oop.bomberman;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Interaction.Interactive;
 import uet.oop.bomberman.graphics.Images;
@@ -15,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import javafx.fxml.FXML;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -50,6 +55,8 @@ public class BombermanGame extends Application {
     public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map";
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
+    private Text textHeart;
+    private List <Text> textList = new ArrayList<>();
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -90,6 +97,17 @@ public class BombermanGame extends Application {
             getBomberControl.getControl(scene);
             load();
     }
+    public void createText() {
+        textHeart = new Text("Heart:" + bomberman.getHeart());
+        textHeart.setFont(Font.font(null, FontWeight.BOLD, 15));
+
+        //Setting the color of the text
+        textHeart.setFill(Color.CRIMSON);
+
+        //setting the position of the text
+        textHeart.setX(100);
+        textHeart.setY(500);
+    }
 
     public List<Entity> updateEntity() {
         List<Entity> list = new ArrayList<>();
@@ -120,7 +138,6 @@ public class BombermanGame extends Application {
         entities.addAll(monster.getStillObjects());
     }
 
-
     public void update() {
         //entities = updateEntity();
         entities.forEach(Entity::update);
@@ -129,7 +146,8 @@ public class BombermanGame extends Application {
         entities = interactive.monsterDead(bomberman, entities);
         listItem = interactive.removeItem(bomberman, listItem, entities);
         if (interactive.getSwapMap()) {
-            this.level++;System.out.println(this.level);
+            this.level++;
+            System.out.println(this.level);
             interactive.setSwapMap(false);
             bomberman.setPosition();
             stillObjects.clear();
@@ -137,12 +155,6 @@ public class BombermanGame extends Application {
             map.clearStillObjects();
             map.clearList();
             load();
-            /*for (int i = 0; i < HEIGHT ; i ++) {
-                for (int j = 0; j  < WIDTH; j++) {
-                    System.out.print(map.getMap()[j][i] + " ");
-                }
-                System.out.println();
-            }*/
         }
     }
 

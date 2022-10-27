@@ -149,6 +149,7 @@ public class Interactive {
     }
 
     public void swapMap(List<Entity> list, List<Entity> item, int itemLocation) {
+        BombermanGame.bomberman.removeAllBom();
         if (list.size() == 1) {
             setSwapMap(true);//System.out.println(1);
             item.remove(itemLocation);

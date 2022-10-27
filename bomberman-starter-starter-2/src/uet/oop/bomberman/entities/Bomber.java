@@ -75,6 +75,9 @@ public class Bomber extends MoveEntity {
     public List<Bomb> getBombs() {
         return bombs;
     }
+    public void removeAllBom() {
+        bombs.clear();
+    }
 
     public void reduceHeart() {
         this.heart--;

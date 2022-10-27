@@ -1,8 +1,11 @@
 package uet.oop.bomberman.entities;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Interaction.Interactive;
 import uet.oop.bomberman.graphics.Images;
@@ -17,6 +20,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,5 +33,21 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 public class Menu {
+    public static Image backgroundMenuImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/MenuImage/background.png");
+    public static ImageView backgroundMenu = new ImageView(backgroundMenuImage);
+    public static Image playImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/MenuImage/play.png");
+    public static ImageView playButton = new ImageView(playImage);
+    public static Image instructionImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/MenuImage/instruction.png");
+    public static ImageView instructionButton = new ImageView(instructionImage);
+    public static Image quit = new Image("C:\\Users\\ngohu\\IdeaProjects\\BombermanGame\\bomberman-starter-starter-2\\res\\MenuImage/quit.png");
+    public static ImageView quitButton = new ImageView(quit);
+    public static Image guideImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame\\bomberman-starter-starter-2\\res\\MenuImage/instruction_image.jpg");
+    public static ImageView instruction = new ImageView(guideImage);
+    public static Button Pause = new Button("Pause");
+    public static Image endGameImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/background/over.jpg");
+    public static ImageView endGameMenu = new ImageView(endGameImage);
+    public Menu()  {
 
+    }
 }
+

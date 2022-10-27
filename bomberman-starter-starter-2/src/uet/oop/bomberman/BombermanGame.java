@@ -1,5 +1,8 @@
 package uet.oop.bomberman;
 
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -11,6 +14,7 @@ import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Interaction.Interactive;
 import uet.oop.bomberman.graphics.Images;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.entities.Menu;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -22,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXML;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +36,13 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
 
-    private GraphicsContext gc;
-    private Canvas canvas;
+    private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
     public int level = 1;
-
+    private GraphicsContext gc = canvas.getGraphicsContext2D();
+    public boolean check_play = false;
+    private int isPlay = 0;
+    private boolean playMusic = true;
+    private boolean loseGame = false;
     public static Audio audio = new Audio();
 
     private Interactive interactive = new Interactive();
@@ -55,8 +63,10 @@ public class BombermanGame extends Application {
     public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map";
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
-    private Text textHeart;
-    private List <Text> textList = new ArrayList<>();
+    private Text textHeart2;
+    private Text textHeart1;
+    private List<Text> textList = new ArrayList<>();
+    private Menu mainMenu = new Menu();
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -64,49 +74,50 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
-            // Tao Canvas
-            canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-            gc = canvas.getGraphicsContext2D();
+        mainMenu(stage);
+    }
 
-            // Tao root container
+    public void playGame(Stage stage) {
+        if (loseGame == false) {
             Group root = new Group();
             root.getChildren().add(canvas);
-
             // Tao scene
             Scene scene = new Scene(root);
-
             // Them scene vao stage
             stage.setScene(scene);
             stage.show();
-
-            AnimationTimer timer = new AnimationTimer() {
-                @Override
-                public void handle(long l) {
-                        render();
-                        update();
-                }
-            };
-
-            timer.start();
-
-            audio.playAudioFull(Audio.audio.backgroundMusic.value);
-
+            //  audio.playAudioFull(Audio.audio.backgroundMusic.value);
             player.loadImage();
             bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 4);
             entities.add(bomberman);
             getBomberControl.getControl(scene);
             load();
+            AnimationTimer timer = new AnimationTimer() {
+                @Override
+                public void handle(long l) {
+                    render();
+                    update();
+                }
+            };
+            timer.start();
+        }
     }
-    public void createText() {
-        textHeart = new Text("Heart:" + bomberman.getHeart());
-        textHeart.setFont(Font.font(null, FontWeight.BOLD, 15));
 
+    public void createTextHeart() {
+        textHeart1 = new Text("Heart: 1 ");
+        textHeart1.setFont(Font.font(null, FontWeight.BOLD, 15));
         //Setting the color of the text
-        textHeart.setFill(Color.CRIMSON);
-
+        textHeart1.setFill(Color.CRIMSON);
         //setting the position of the text
-        textHeart.setX(100);
-        textHeart.setY(500);
+        textHeart1.setX(5);
+        textHeart1.setY(30);
+        textHeart2 = new Text("Heart: 2 ");
+        textHeart2.setFont(Font.font(null, FontWeight.BOLD, 15));
+        //Setting the color of the text
+        textHeart2.setFill(Color.CRIMSON);
+        //setting the position of the text
+        textHeart2.setX(5);
+        textHeart2.setY(30);
     }
 
     public List<Entity> updateEntity() {
@@ -138,24 +149,45 @@ public class BombermanGame extends Application {
         entities.addAll(monster.getStillObjects());
     }
 
+    public void clear() {
+        stillObjects.clear();
+        listItem.clear();
+        entities.clear();
+
+        map.clearMap();
+        map.clearStillObjects();
+        map.clearList();
+
+        item.clearMap();
+        item.clearStillObjects();
+        item.clearList();
+
+        monster.clearMap();
+        monster.clearStillObjects();
+        monster.clearList();
+    }
+
 
     public void update() {
         //entities = updateEntity();
-        entities.forEach(Entity::update);
-        interactive.itemHandling();
-        interactive.collideWithEnemy(bomberman,entities);
-        entities = interactive.monsterDead(bomberman, entities);
-        listItem = interactive.removeItem(bomberman, listItem, entities);
-        if (interactive.getSwapMap()) {
-            this.level++;
-            System.out.println(this.level);
-            interactive.setSwapMap(false);
-            bomberman.setPosition();
-            stillObjects.clear();
-            map.clearMap();
-            map.clearStillObjects();
-            map.clearList();
-            load();
+        if (isPlay%2 == 0) {
+            if (bomberman.getHeart() == 0) {
+                loseGame = true;
+            }
+            entities.forEach(Entity::update);
+            interactive.itemHandling();
+            interactive.collideWithEnemy(bomberman, entities);
+            entities = interactive.monsterDead(bomberman, entities);
+            listItem = interactive.removeItem(bomberman, listItem, entities);
+            if (interactive.getSwapMap()) {
+                this.level++;
+                System.out.println(this.level);
+                interactive.setSwapMap(false);
+                bomberman.setPosition();
+                clear();
+                entities.add(bomberman);
+                load();
+            }
         }
     }
 
@@ -166,4 +198,99 @@ public class BombermanGame extends Application {
         stillObjects.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
     }
+    public void mainMenu(Stage stage) {
+        Menu.instructionButton.setX(300);
+        Menu.instructionButton.setY(200);
+        Menu.quitButton.setX(300);
+        Menu.quitButton.setY(400);
+        Menu.playButton.setX(300);
+        Menu.playButton.setY(300);
+        Button muteVolume = new Button("Mute?");
+        muteVolume.setLayoutY(0);
+        muteVolume.setLayoutX(840);
+        muteVolume.setMinSize(66,66);
+        Group root = new Group();
+        root.getChildren().add(Menu.backgroundMenu);
+        root.getChildren().add(Menu.playButton);
+        root.getChildren().add(Menu.instructionButton);
+        root.getChildren().add(Menu.quitButton);
+        root.getChildren().add(muteVolume);
+        // Tao scene
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        if (playMusic == true) {
+            audio.playAudio(Audio.audio.backgroundMusic.value);
+        }
+        muteVolume.setOnMouseClicked(mouseEvent -> {
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            playMusic = false;
+            audio.stopAudio(Audio.audio.backgroundMusic.value);
+        });
+        Menu.playButton.setOnMouseClicked(mouseEvent -> {
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            playGame(stage);
+        });
+        Menu.instructionButton.setOnMouseClicked(mouseEvent -> {
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+         //   root.getChildren().clear();
+            guideMenu(stage);
+        });
+        Menu.quitButton.setOnMouseClicked(mouseEvent -> {
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+           // root.getChildren().clear();
+            stage.close();
+        });
+    }
+    public void guideMenu(Stage stage) {
+        Button backButton = new Button("Back");
+        backButton.setMinSize(66,50);
+        Group root = new Group();
+        root.getChildren().add(Menu.instruction);
+        root.getChildren().add(backButton);
+        // Tao scene
+        Scene scene = new Scene(root);
+        // Them scene vao stage
+        stage.setScene(scene);
+        stage.show();
+        backButton.setOnMouseClicked(mouseEvent -> {
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+          //  root.getChildren().clear();
+            mainMenu(stage);
+        });
+    }
+    public void endGame(Stage stage) {
+        Group root = new Group();
+        Menu.quitButton.setX(300);
+        Menu.quitButton.setY(400);
+        Menu.playButton.setX(300);
+        Menu.playButton.setY(300);
+        root.getChildren().add(Menu.endGameMenu);
+        root.getChildren().add(Menu.playButton);
+        root.getChildren().add(Menu.quitButton);
+        Scene scene = new Scene(root);
+        // Them scene vao stage
+        stage.setScene(scene);
+        stage.show();
+        Menu.playButton.setOnMouseClicked(mouseEvent -> {
+            loseGame = false;
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            playGame(stage);
+        });
+        Menu.quitButton.setOnMouseClicked(mouseEvent -> {
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            System.out.println("da an quit endgame");
+            stage.close();
+        });
+    }
 }
+

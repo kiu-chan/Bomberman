@@ -34,15 +34,15 @@ public class Audio {
         }
     }
 
-    public String path1 = "bomberman-starter-starter-2/res/Audio/BG_MUSIC.wav";
-    public String path2 = "bomberman-starter-starter-2/res/Audio/BOM_EXPLODE.wav";
-    public String path3 = "bomberman-starter-starter-2/res/Audio/BOM_SET.wav";
-    public String path4 = "bomberman-starter-starter-2/res/Audio/bombDropped.wav";
-    public String path5 = "bomberman-starter-starter-2/res/Audio/BUTTON_CLICK.wav";
-    public String path6 = "bomberman-starter-starter-2/res/Audio/GAME_OVER.wav";
-    public String path7 = "bomberman-starter-starter-2/res/Audio/GAME_START.wav";
-    public String path8 = "bomberman-starter-starter-2/res/Audio/PLAYER_DEAD.wav";
-    public String path9 = "bomberman-starter-starter-2/res/Audio/POWER_UP.wav";
+    private String path1 = "bomberman-starter-starter-2/res/Audio/BG_MUSIC.wav";
+    private String path2 = "bomberman-starter-starter-2/res/Audio/BOM_EXPLODE.wav";
+    private String path3 = "bomberman-starter-starter-2/res/Audio/BOM_SET.wav";
+    private String path4 = "bomberman-starter-starter-2/res/Audio/bombDropped.wav";
+    private String path5 = "bomberman-starter-starter-2/res/Audio/BUTTON_CLICK.wav";
+    private String path6 = "bomberman-starter-starter-2/res/Audio/GAME_OVER.wav";
+    private String path7 = "bomberman-starter-starter-2/res/Audio/GAME_START.wav";
+    private String path8 = "bomberman-starter-starter-2/res/Audio/PLAYER_DEAD.wav";
+    private String path9 = "bomberman-starter-starter-2/res/Audio/POWER_UP.wav";
 
     public Audio() {
         loadAudio(path1);
@@ -79,7 +79,7 @@ public class Audio {
         System.out.println(endTime - startTime);
         if (endTime - startTime >= time) {
             list.get(i).stop();
-            startTime = endTime;
+          //  startTime = endTime;
         }
     }
 

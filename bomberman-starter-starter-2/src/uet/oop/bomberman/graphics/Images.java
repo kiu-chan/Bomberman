@@ -98,13 +98,16 @@ public class Images {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (map[i][j] == 0) {
-                    stillObjects.add(new Glass(i,j));
+                    Entity g = new Glass(i, j);
+                    stillObjects.add(g);
                 } else if (map[i][j] == 1) {
-                    stillObjects.add(new Wall(i,j));
+                    Entity w = new Wall(i,j);
+                    stillObjects.add(w);
                 } else if (map[i][j] == 2) {
-                    stillObjects.add(new Brick(i,j));
+                    Entity b = new Brick(i, j);
+                    stillObjects.add(b);
                 }
-            /*    Entity object = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
+               /* Entity object = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
                 stillObjects.add(object);*/
             }
         }

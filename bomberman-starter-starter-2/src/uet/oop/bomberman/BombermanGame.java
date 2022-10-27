@@ -85,7 +85,7 @@ public class BombermanGame extends Application {
             audio.playAudioFull(Audio.audio.backgroundMusic.value);
 
             player.loadImage();
-            bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
+            bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 4);
             entities.add(bomberman);
             getBomberControl.getControl(scene);
             load();

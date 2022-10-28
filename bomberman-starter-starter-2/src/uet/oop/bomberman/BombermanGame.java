@@ -93,6 +93,8 @@ public class BombermanGame extends Application {
             load();
             getBomberControl.getControl(scene);
             createTextHeart();
+            root.getChildren().add(Menu.getGbPlay());
+            root.getChildren().add(Menu.getHeartPlayer());
             root.getChildren().add(textHeart1);
             /*button = new Button();
             button.intersects(1000, 0, 100, 100);
@@ -118,13 +120,13 @@ public class BombermanGame extends Application {
     }
 
     public void createTextHeart() {
-        textHeart1 = new Text("Heart: " + bomberman.getHeart() + " ");
+        textHeart1 = new Text(" : " + bomberman.getHeart());
         textHeart1.setFont(Font.font(null, FontWeight.BOLD, 15));
         //Setting the color of the text
         textHeart1.setFill(Color.CRIMSON);
         //setting the position of the text
-        textHeart1.setX(5);
-        textHeart1.setY(30);
+        textHeart1.setX(30);
+        textHeart1.setY(25);
     }
 
     public List<Entity> updateEntity() {

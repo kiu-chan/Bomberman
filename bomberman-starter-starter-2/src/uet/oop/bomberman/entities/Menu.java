@@ -22,6 +22,11 @@ public class Menu {
     private Image levelimg = new Image("background/level.png");
     ImageView level = new ImageView(levelimg);
 
+    private Image bg = new Image("MenuImage/buttonPlayer.png");
+    ImageView gbPlay = new ImageView(bg);
+
+    private Image heart = new Image("MenuImage/HeartPlayer.png");
+    ImageView heartPlayer = new ImageView(heart);
 
     public Menu()  {
         instructionButton.setX(300);
@@ -37,6 +42,9 @@ public class Menu {
         muteVolumeButton.setMinSize(66,66);
         playAgainButton.setX(300);
         playAgainButton.setY(300);
+        gbPlay.setY(5);
+        heartPlayer.setX(5);
+        heartPlayer.setY(10);
     }
 
     public Button getMuteVolumeButton() {
@@ -73,6 +81,14 @@ public class Menu {
 
     public ImageView getLevel() {
         return level;
+    }
+
+    public ImageView getGbPlay() {
+        return this.gbPlay;
+    }
+
+    public ImageView getHeartPlayer() {
+        return this.heartPlayer;
     }
 }
 

@@ -76,9 +76,8 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
-       /* player.loadImage();
-        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 4);
-        entities.add(bomberman);*/
+        player.loadImage();
+
         mainMenu(stage);
     }
     public void playGame(Stage stage) {
@@ -90,7 +89,7 @@ public class BombermanGame extends Application {
             stage.setScene(scene);
             stage.show();
             //  audio.playAudioFull(Audio.audio.backgroundMusic.value);
-            player.loadImage();
+         //   player.loadImage();
             bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 4);
             entities.add(bomberman);
             load();

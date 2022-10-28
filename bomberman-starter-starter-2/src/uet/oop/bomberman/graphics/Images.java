@@ -107,8 +107,6 @@ public class Images {
                     Entity b = new Brick(i, j);
                     stillObjects.add(b);
                 }
-               /* Entity object = new Collide(i, j, image.getList().get(map[i][j]).getFxImage());
-                stillObjects.add(object);*/
             }
         }
     }

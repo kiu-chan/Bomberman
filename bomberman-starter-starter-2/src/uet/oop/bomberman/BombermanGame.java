@@ -19,6 +19,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class BombermanGame extends Application {
 
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-    public int level = 0;
+    public int level = 1;
     private GraphicsContext gc = canvas.getGraphicsContext2D();
     public boolean check_play = false;
     private int isPlay = 0;
@@ -39,7 +41,7 @@ public class BombermanGame extends Application {
     private long startLevel = 0;
     private static final long TIME_NEXT_LEVEL = 1500;
     private boolean nextLevel = false;
-    private int cntAddTextHeart = 0;
+    private int cntDownTime = 10000;
     private int cntMenu = 0;
     public static Audio audio = new Audio();
 
@@ -62,11 +64,12 @@ public class BombermanGame extends Application {
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
     private Text textHeart1;
+    private Text textHeart2;
+    private int cntTextHeart = 0;
     private List<Text> textList = new ArrayList<>();
     private Menu Menu = new Menu();
 
-    private Button button;
-    private Stage stage1;
+    // private Stage stage1;
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -74,59 +77,79 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
-        player.loadImage();
-        stage1 = stage;
+        //   stage1 = stage;
         mainMenu(stage);
     }
     public void playGame(Stage stage) {
-            Group root = new Group();
-            root.getChildren().add(canvas);
-            // Tao scene
-            Scene scene = new Scene(root);
-            // Them scene vao stage
-            stage.setScene(scene);
-            stage.show();
-            //  audio.playAudioFull(Audio.audio.backgroundMusic.value);
-         //   player.loadImage();
-            bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 1);
-            entities.add(bomberman);
+        clear();
+        Group root = new Group();
+        root.getChildren().add(canvas);
+        // Tao scene
+        Scene scene = new Scene(root);
+        // Them scene vao stage
+        stage.setScene(scene);
+        stage.show();
+        player.loadImage();
+        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 1);
+        entities.add(bomberman);
+        try {
             load();
-            getBomberControl.getControl(scene);
-            createTextHeart();
-            root.getChildren().add(Menu.getGbPlay());
-            root.getChildren().add(Menu.getHeartPlayer());
-            root.getChildren().add(textHeart1);
-            /*button = new Button();
-            button.intersects(1000, 0, 100, 100);
-            root.getChildren().add(button);*/
-                AnimationTimer timer = new AnimationTimer() {
-                    @Override
-                    public void handle(long l) {
-                        root.getChildren().remove(textHeart1);
-                        createTextHeart();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        bomberman.setHeart(2);
+        cntTextHeart = 0;
+        getBomberControl.getControl(scene);
+        createTextHeart();
+        root.getChildren().add(Menu.getGbPlay());
+        root.getChildren().add(Menu.getHeartPlayer());
+        root.getChildren().add(textHeart2);
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                if (bomberman.getHeart() == 1) {
+                    root.getChildren().remove(textHeart2);
+                    if (cntTextHeart < 1) {
+                        ++cntTextHeart;
                         root.getChildren().add(textHeart1);
-                            render();
-                            update();
-                            if (loseGame && cntMenu <= 1) {
-                                endGame(stage);
-                                ++cntMenu;
-                        }
-                        if (nextLevel) {
-                            nextLevel(stage);
-                        }
                     }
-                };
-                timer.start();
+                }
+                if (getBomberControl.clearEnemy) {
+                    for (int i = 1; i < entities.size(); i++) {
+                        entities.remove(i);
+                    }
+                }
+                render();
+                update();
+                if (loseGame && cntMenu <=1) {
+                    root.getChildren().clear();
+                    endGame(stage);
+                    ++cntMenu;
+                }
+                if (nextLevel) {
+                    nextLevel(stage);
+                }
+            }
+        };
+        timer.start();
     }
 
     public void createTextHeart() {
-        textHeart1 = new Text(" : " + bomberman.getHeart());
+        textHeart1 = new Text(" : 1" );
         textHeart1.setFont(Font.font(null, FontWeight.BOLD, 15));
         //Setting the color of the text
         textHeart1.setFill(Color.CRIMSON);
         //setting the position of the text
         textHeart1.setX(30);
         textHeart1.setY(25);
+        textHeart2 = new Text(" : 2");
+        textHeart2.setFont(Font.font(null, FontWeight.BOLD, 15));
+        //Setting the color of the text
+        textHeart2.setFill(Color.CRIMSON);
+        //setting the position of the text
+        textHeart2.setX(30);
+        textHeart2.setY(25);
+
     }
 
     public List<Entity> updateEntity() {
@@ -136,7 +159,7 @@ public class BombermanGame extends Application {
         return list;
     }
 
-    public void load() {
+    public void load() throws FileNotFoundException {
         padding.loadImage();
         padding.createPadding(padding, WIDTH, HEIGHT);
         listPadding.addAll(padding.getStillObjects()); //tạm thời lấy mỗi cỏ
@@ -198,7 +221,7 @@ public class BombermanGame extends Application {
                 interactive.setSwapMap(false);
                 bomberman.setPosition();
                 clear();
-                entities.add(bomberman);
+                //  entities.add(bomberman);
                 nextLevel = true;
             }
         }
@@ -265,7 +288,7 @@ public class BombermanGame extends Application {
         backButton.setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
-           root.getChildren().clear();
+            root.getChildren().clear();
             mainMenu(stage);
         });
     }
@@ -306,14 +329,10 @@ public class BombermanGame extends Application {
         stage.setScene(scene);
         stage.show();
         Menu.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
-            clear();
-            bomberman.setHeart(2);
             loseGame = false;
             cntMenu = 0;
-            cntAddTextHeart = 0;
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
-            BombermanGame.audio.stopAudio(Audio.audio.gameOver.value);
             root.getChildren().clear();
             playGame(stage);
         });

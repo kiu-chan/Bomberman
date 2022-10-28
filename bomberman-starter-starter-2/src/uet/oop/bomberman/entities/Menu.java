@@ -44,7 +44,7 @@ public class Menu {
         playAgainButton.setY(300);
         gbPlay.setY(5);
         heartPlayer.setX(5);
-        heartPlayer.setY(10);
+        heartPlayer.setY(5);
     }
 
     public Button getMuteVolumeButton() {

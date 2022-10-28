@@ -8,6 +8,7 @@ import javafx.scene.Scene;
  * Bắt sự kiện từ bàn phím.
  */
 public class getBomberControl {
+    public static boolean clearEnemy = false;
     public static boolean bomberLeft = false;
     public static boolean bomberRight = false;
     public static boolean bomberUp = false;
@@ -39,6 +40,9 @@ public class getBomberControl {
                         bomberSpace = true;
                     }
                     break;
+                    case ENTER:
+                        clearEnemy = true;
+                    break;
                     default:
                         break;
                 }
@@ -67,6 +71,9 @@ public class getBomberControl {
                     case SPACE: {
                         bomberSpace = false;
                     }
+                    break;
+                    case ENTER:
+                        clearEnemy = false;
                     break;
                     default:
                         break;

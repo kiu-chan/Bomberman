@@ -43,6 +43,8 @@ public class BombermanGame extends Application {
     private int isPlay = 0;
     private boolean playMusic = true;
     private boolean loseGame = false;
+    private int cntAddTextHeart = 0;
+    private int cntMenu = 0;
     public static Audio audio = new Audio();
 
     private Interactive interactive = new Interactive();
@@ -74,11 +76,12 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+       /* player.loadImage();
+        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 4);
+        entities.add(bomberman);*/
         mainMenu(stage);
     }
-
     public void playGame(Stage stage) {
-        if (loseGame == false) {
             Group root = new Group();
             root.getChildren().add(canvas);
             // Tao scene
@@ -90,19 +93,35 @@ public class BombermanGame extends Application {
             player.loadImage();
             bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 4);
             entities.add(bomberman);
-            getBomberControl.getControl(scene);
             load();
-            AnimationTimer timer = new AnimationTimer() {
-                @Override
-                public void handle(long l) {
-                    render();
-                    update();
-                }
-            };
-            timer.start();
-        }
+            getBomberControl.getControl(scene);
+            createTextHeart();
+            System.out.println("haha");
+            root.getChildren().add(textHeart2);
+                AnimationTimer timer = new AnimationTimer() {
+                    @Override
+                    public void handle(long l) {
+                            if (bomberman.getHeart() == 1) {
+                            /*for (int i = 0; i < root.getChildren().size(); i++) {
+                                if (root.getChildren().get(i) == textHeart2) {*/
+                                root.getChildren().remove(textHeart2);
+                                //  }
+                                //   }
+                                if (cntAddTextHeart < 1) {
+                                    ++cntAddTextHeart;
+                                    root.getChildren().add(textHeart1);
+                                }
+                            }
+                            render();
+                            update();
+                            if (loseGame && cntMenu <=1) {
+                                endGame(stage);
+                                ++cntMenu;
+                        }
+                    }
+                };
+                timer.start();
     }
-
     public void createTextHeart() {
         textHeart1 = new Text("Heart: 1 ");
         textHeart1.setFont(Font.font(null, FontWeight.BOLD, 15));
@@ -167,11 +186,10 @@ public class BombermanGame extends Application {
         monster.clearList();
     }
 
-
     public void update() {
         //entities = updateEntity();
         if (isPlay%2 == 0) {
-            if (bomberman.getHeart() == 0) {
+            if (bomberman.getHeart() <= 0) {
                 loseGame = true;
             }
             entities.forEach(Entity::update);
@@ -227,13 +245,13 @@ public class BombermanGame extends Application {
         Menu.getInstructionButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
-         //   root.getChildren().clear();
+            root.getChildren().clear();
             guideMenu(stage);
         });
         Menu.getQuitButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
-           // root.getChildren().clear();
+            root.getChildren().clear();
             stage.close();
         });
     }
@@ -251,7 +269,7 @@ public class BombermanGame extends Application {
         backButton.setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
-          //  root.getChildren().clear();
+           root.getChildren().clear();
             mainMenu(stage);
         });
     }
@@ -265,7 +283,11 @@ public class BombermanGame extends Application {
         stage.setScene(scene);
         stage.show();
         Menu.getPlayButton().setOnMouseClicked(mouseEvent -> {
+            clear();
+            bomberman.setHeart(2);
             loseGame = false;
+            cntMenu = 0;
+            cntAddTextHeart = 0;
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
@@ -274,7 +296,6 @@ public class BombermanGame extends Application {
         Menu.getQuitButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
-            System.out.println("da an quit endgame");
             stage.close();
         });
     }

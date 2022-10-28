@@ -87,6 +87,9 @@ public class Bomber extends MoveEntity {
         this.setX(32);
         this.setY(32);
     }
+    public void setHeart(int heart) {
+        this.heart = heart;
+    }
 
     @Override
     public void update() {
@@ -137,6 +140,7 @@ public class Bomber extends MoveEntity {
                 }
             }
         } else {
+                isDead = true;
                 act = status.DEAD.value;
                 this.moveIMG();
                 BombermanGame.audio.stopAudio(Audio.audio.backgroundMusic.value);

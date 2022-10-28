@@ -12,7 +12,7 @@ import java.util.Random;
 public class Pass extends AutoMove {
     Random random = new Random();
     public Pass(int x, int y, Image img) {
-        super(x,y, img, 1, Sprite.pass);
+        super(x,y, img, 4, Sprite.pass);
         setAmount(random.nextInt(3) + 1);
     }
 

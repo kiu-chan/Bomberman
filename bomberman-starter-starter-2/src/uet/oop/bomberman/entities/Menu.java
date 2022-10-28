@@ -33,18 +33,18 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 public class Menu {
-    public static Image backgroundMenuImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/MenuImage/background.png");
+    public static Image backgroundMenuImage = new Image("MenuImage/background.png");
     public static ImageView backgroundMenu = new ImageView(backgroundMenuImage);
-    public static Image playImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/MenuImage/play.png");
+    public static Image playImage = new Image("MenuImage/play.png");
     public static ImageView playButton = new ImageView(playImage);
-    public static Image instructionImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/MenuImage/instruction.png");
+    public static Image instructionImage = new Image("MenuImage/instruction.png");
     public static ImageView instructionButton = new ImageView(instructionImage);
-    public static Image quit = new Image("C:\\Users\\ngohu\\IdeaProjects\\BombermanGame\\bomberman-starter-starter-2\\res\\MenuImage/quit.png");
+    public static Image quit = new Image("MenuImage/quit.png");
     public static ImageView quitButton = new ImageView(quit);
-    public static Image guideImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame\\bomberman-starter-starter-2\\res\\MenuImage/instruction_image.jpg");
+    public static Image guideImage = new Image("MenuImage/instruction_image.jpg");
     public static ImageView instruction = new ImageView(guideImage);
     public static Button Pause = new Button("Pause");
-    public static Image endGameImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/background/over.jpg");
+    public static Image endGameImage = new Image("background/over.jpg");
     public static ImageView endGameMenu = new ImageView(endGameImage);
     public Menu()  {
 

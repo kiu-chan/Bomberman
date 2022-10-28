@@ -66,7 +66,7 @@ public class BombermanGame extends Application {
     private Text textHeart2;
     private Text textHeart1;
     private List<Text> textList = new ArrayList<>();
-    private Menu mainMenu = new Menu();
+    private Menu Menu = new Menu();
 
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
@@ -199,22 +199,12 @@ public class BombermanGame extends Application {
         entities.forEach(g -> g.render(gc));
     }
     public void mainMenu(Stage stage) {
-        Menu.instructionButton.setX(300);
-        Menu.instructionButton.setY(200);
-        Menu.quitButton.setX(300);
-        Menu.quitButton.setY(400);
-        Menu.playButton.setX(300);
-        Menu.playButton.setY(300);
-        Button muteVolume = new Button("Mute?");
-        muteVolume.setLayoutY(0);
-        muteVolume.setLayoutX(840);
-        muteVolume.setMinSize(66,66);
         Group root = new Group();
-        root.getChildren().add(Menu.backgroundMenu);
-        root.getChildren().add(Menu.playButton);
-        root.getChildren().add(Menu.instructionButton);
-        root.getChildren().add(Menu.quitButton);
-        root.getChildren().add(muteVolume);
+        root.getChildren().add(Menu.getBackgroundMenu());
+        root.getChildren().add(Menu.getPlayButton());
+        root.getChildren().add(Menu.getInstructionButton());
+        root.getChildren().add(Menu.getQuitButton());
+        root.getChildren().add(Menu.getMuteVolumeButton());
         // Tao scene
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -222,25 +212,25 @@ public class BombermanGame extends Application {
         if (playMusic == true) {
             audio.playAudio(Audio.audio.backgroundMusic.value);
         }
-        muteVolume.setOnMouseClicked(mouseEvent -> {
+        Menu.getMuteVolumeButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             playMusic = false;
             audio.stopAudio(Audio.audio.backgroundMusic.value);
         });
-        Menu.playButton.setOnMouseClicked(mouseEvent -> {
+        Menu.getPlayButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             playGame(stage);
         });
-        Menu.instructionButton.setOnMouseClicked(mouseEvent -> {
+        Menu.getInstructionButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
          //   root.getChildren().clear();
             guideMenu(stage);
         });
-        Menu.quitButton.setOnMouseClicked(mouseEvent -> {
+        Menu.getQuitButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
            // root.getChildren().clear();
@@ -251,7 +241,7 @@ public class BombermanGame extends Application {
         Button backButton = new Button("Back");
         backButton.setMinSize(66,50);
         Group root = new Group();
-        root.getChildren().add(Menu.instruction);
+        root.getChildren().add(Menu.getInstruction());
         root.getChildren().add(backButton);
         // Tao scene
         Scene scene = new Scene(root);
@@ -267,25 +257,21 @@ public class BombermanGame extends Application {
     }
     public void endGame(Stage stage) {
         Group root = new Group();
-        Menu.quitButton.setX(300);
-        Menu.quitButton.setY(400);
-        Menu.playButton.setX(300);
-        Menu.playButton.setY(300);
-        root.getChildren().add(Menu.endGameMenu);
-        root.getChildren().add(Menu.playButton);
-        root.getChildren().add(Menu.quitButton);
+        root.getChildren().add(Menu.getEndGameMenu());
+        root.getChildren().add(Menu.getPlayButton());
+        root.getChildren().add(Menu.getQuitButton());
         Scene scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-        Menu.playButton.setOnMouseClicked(mouseEvent -> {
+        Menu.getPlayButton().setOnMouseClicked(mouseEvent -> {
             loseGame = false;
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             playGame(stage);
         });
-        Menu.quitButton.setOnMouseClicked(mouseEvent -> {
+        Menu.getQuitButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             System.out.println("da an quit endgame");

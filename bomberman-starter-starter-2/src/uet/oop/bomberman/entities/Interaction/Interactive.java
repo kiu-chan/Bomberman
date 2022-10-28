@@ -27,7 +27,6 @@ public class Interactive {
             for (int i = 0; i < list.size(); i++) {
                 if(collision.CheckCollision(a, list.get(i))) {
                     if (!collision.CheckMapCollision(list.get(i).getX(), list.get(i).getY(), list.get(i).getW(), list.get(i).getH(), BombermanGame.map.getMap())) {
-                        //System.out.println(a.x + " " +  a.y + " " + list.get(i).x + " " + list.get(i).y);
                         Item item = (Item) list.get(i);
                         if (item.getOrder() + 1 != Sprite.portal) {
                             item.setStart(System.currentTimeMillis());
@@ -36,7 +35,6 @@ public class Interactive {
 
                             BombermanGame.audio.stopAudio(Audio.audio.powerUp.value);
                             BombermanGame.audio.playAudio(Audio.audio.powerUp.value);
-                            //BombermanGame.audio.audioStopTime(Audio.audio.powerUp.value, 100);
 
                         } else {
                             swapMap(monster, list, i);
@@ -72,37 +70,10 @@ public class Interactive {
             }
         }
 
-        //for (Entity bom : player.getListBom()) {
-            //System.out.println(bom.w + " " + bom.h);
-            /*for (int i = 0; i < list.size(); i++) {
-                MoveEntity entity = (MoveEntity) list.get(i);
-                //lấy hướng di chuyển của quái
-                int speed_x = 0;
-                int speed_y = 0;
 
-                if (entity.getWay() == AutoMove.move.UP.value) {
-                    speed_y = entity.getSpeed();
-                }
-                if (entity.getWay() == AutoMove.move.DOWN.value) {
-                    speed_y = -entity.getSpeed();
-                }
-                if (entity.getWay() == AutoMove.move.LEFT.value) {
-                    speed_x = -entity.getSpeed();
-                }
-                if (entity.getWay() == AutoMove.move.RIGHT.value) {
-                    speed_x = entity.getSpeed();
-                }
-
-                if (isExplotion && collision.CheckMapCollision(list.get(i).x + speed_x, list.get(i).y + speed_y, list.get(i).w, list.get(i).h, mapBom)) {
-                    list.get(i).setCheckDead();
-                }
-           // }
-        }*/
-
-        //player.remoteListBom();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getRemove()) {
-                if (list.get(i).getSwapMonster()) {//System.out.println(list.get(i).getRemove());
+                if (list.get(i).getSwapMonster()) {
                     int monster_x = list.get(i).getX() / Sprite.SCALED_SIZE;
                     int monster_y = list.get(i).getY() / Sprite.SCALED_SIZE;
                     int amount = list.get(i).getAmount();
@@ -151,10 +122,10 @@ public class Interactive {
     public void swapMap(List<Entity> list, List<Entity> item, int itemLocation) {
         BombermanGame.bomberman.removeAllBom();
         if (list.size() == 1) {
-            setSwapMap(true);//System.out.println(1);
+            setSwapMap(true);
             item.remove(itemLocation);
         } else {
-            setSwapMap(false);//System.out.println(2);
+            setSwapMap(false);
         }
     }
     public void collideWithEnemy(Bomber bomber, List<Entity> enemy) {

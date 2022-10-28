@@ -20,7 +20,6 @@ public class MinvoRotate extends AutoMove {
         } else {
             DEAD();
         }
-        //System.out.println(1);
         if (getRemove() && !getSwapMonster()) {
             setSwapMonster(true);
         }

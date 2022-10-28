@@ -37,7 +37,6 @@ public class Item extends Entity {
 
         long endTime = System.currentTimeMillis();
 
-        //System.out.println(endTime - start);
         if (endTime - start >= ITEM_TIME_LIMIT) {
             start = -1;
             end = true;
@@ -99,11 +98,11 @@ public class Item extends Entity {
     public void powerupSpeed() {
         if (end) {
             powerup_speed = false;
-            BombermanGame.bomberman.setBomberSpeed(-SPEED_UPDATE);
+            BombermanGame.bomberman.addSpeed(-SPEED_UPDATE);
         }
         if (cntItem == 0) {
             cntItem++;
-            BombermanGame.bomberman.setBomberSpeed(SPEED_UPDATE);//System.out.println(1);
+            BombermanGame.bomberman.addSpeed(SPEED_UPDATE);
         }
     }
 

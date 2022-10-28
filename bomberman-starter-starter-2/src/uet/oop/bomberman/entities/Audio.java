@@ -76,7 +76,6 @@ public class Audio {
         }
         long endTime = System.currentTimeMillis();
 
-        System.out.println(endTime - startTime);
         if (endTime - startTime >= time) {
             list.get(i).stop();
           //  startTime = endTime;

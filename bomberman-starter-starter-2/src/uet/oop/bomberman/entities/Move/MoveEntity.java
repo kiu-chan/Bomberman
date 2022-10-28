@@ -7,7 +7,6 @@ import uet.oop.bomberman.entities.Entity;
  * Di chuyển của player.
  */
 public abstract class MoveEntity extends Entity {
-    protected int speed;
     protected int way;
     protected int left = 0;
     protected int right = 0;
@@ -29,16 +28,6 @@ public abstract class MoveEntity extends Entity {
     }
     public int getWay() {
         return way;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-    public int getSpeed() {
-        return this.speed;
-    }
-    public void increaseSpeed(int k) {
-        this.speed += k;
     }
     /*
     1: di len --

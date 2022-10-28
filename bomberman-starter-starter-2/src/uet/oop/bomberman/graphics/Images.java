@@ -72,17 +72,11 @@ public class Images {
                 }
             }
 
-            /*for (int i = 0; i < height ; i ++) {
-                for (int j = 0; j  < width; j++) {
-                    System.out.print(map[i][j] + " ");
-                }
-                System.out.println();
-            }*/
 
             reader.close();
         }
         catch (Exception e) {
-            e.printStackTrace();System.out.println(1);
+            e.printStackTrace();
         }
     }
     public int convert2Dto1D(int row, int column) {
@@ -119,7 +113,7 @@ public class Images {
         }
     }
 
-    public void createItem() {//System.out.println(width);
+    public void createItem() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if (map[i][j] != 0) {
@@ -193,9 +187,6 @@ public class Images {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < 14; i++) {
-            System.out.println(item[i]);
-        }
         int[][] arr = BombermanGame.map.getMap();
         Random random = new Random();
 
@@ -212,11 +203,6 @@ public class Images {
             }
 
         }
-        /*for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j ++) {
-                System.out.print(map[j][i] + " ");
-            }System.out.println();
-        }*/
         return map;
     }
 

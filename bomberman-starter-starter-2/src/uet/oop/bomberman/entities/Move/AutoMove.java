@@ -71,7 +71,6 @@ public class AutoMove extends MoveEntity {
 
     public AutoMove(int x, int y, Image img, int speed, int startImg) {
         super( x, y, img,speed);
-        this.speed = speed;
         this.startImg = startImg;
     }
 
@@ -289,7 +288,7 @@ public class AutoMove extends MoveEntity {
 
         //player bên dưới
         if (check_direction == direction.DOWN.value) {
-            way = move.DOWN.value;//System.out.println(1);
+            way = move.DOWN.value;
             if (x < player_x) {
                 way = move.RIGHT.value;
             }

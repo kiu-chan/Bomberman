@@ -21,7 +21,6 @@ public class Bomber extends MoveEntity {
     private int heart = 2;
     public static boolean isDead = false;
     private final int maxAnimation = 20;
-    protected int bomberSpeed = 1;
     private int cntLeft = 1;
     private int cntRight = 1;
     private int cntUp = 1;
@@ -61,7 +60,6 @@ public class Bomber extends MoveEntity {
 
     public Bomber(int x, int y, Image img, int speed) {
         super(x, y, img, speed);
-        System.out.println("toa do x:" + x + "toa do y:" + y);
         //chênh lệch chiều rộng
         setW(Sprite.SCALED_SIZE - 7);
         //chênh lệch chiều cao
@@ -246,7 +244,7 @@ public class Bomber extends MoveEntity {
     @Override
     public void moveUp() {
         if (canMove(move.UP.value)) {
-            y -= bomberSpeed;
+            y -= speed;
         } else {
             //di chuyển mượt hơn
             boolean check_left = !collision.CheckMapCollision(x, y - speed, 0, h, BombermanGame.map.getMap());
@@ -264,7 +262,7 @@ public class Bomber extends MoveEntity {
 
     public void moveDown() {
         if (canMove(move.DOWN.value)) {
-            y += bomberSpeed;
+            y += speed;
         } else {
             //di chuyển mượt hơn
             boolean check_left = !collision.CheckMapCollision(x, y + speed, 0, h, BombermanGame.map.getMap());
@@ -282,7 +280,7 @@ public class Bomber extends MoveEntity {
 
     public void moveLeft() {
         if (canMove(move.LEFT.value)) {
-            x -= bomberSpeed;
+            x -= speed;
         } else {
             //di chuyển mượt hơn
             boolean check_up = !collision.CheckMapCollision(x - speed, y, w, 0, BombermanGame.map.getMap());
@@ -300,7 +298,7 @@ public class Bomber extends MoveEntity {
 
     public void moveRight() {
         if (canMove(move.RIGHT.value)) {
-            x += bomberSpeed;
+            x += speed;
         } else {
             //di chuyển mượt hơn
             boolean check_up = !collision.CheckMapCollision(x + speed, y, w, 0, BombermanGame.map.getMap());
@@ -354,9 +352,6 @@ public class Bomber extends MoveEntity {
 
     }
 
-    public void setBomberSpeed(int speed) {
-        this.bomberSpeed += speed;
-    }
 
     public int getX() {
         return x;
@@ -372,6 +367,9 @@ public class Bomber extends MoveEntity {
 
     public void setAct(int act) {
         this.act = act;
+    }
+    public int getAct() {
+        return this.act;
     }
 
     @Override

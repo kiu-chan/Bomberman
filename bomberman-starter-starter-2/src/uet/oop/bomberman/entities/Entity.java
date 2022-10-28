@@ -9,6 +9,9 @@ import java.util.List;
 
 public abstract class Entity {
     //Tọa độ X tính từ góc trái trên trong Canvas
+    protected int speed;
+    //khoảng cách so với tạo độ gôc
+    int distance = 0;
     protected int x;
 
     //Tọa độ Y tính từ góc trái trên trong Canvas
@@ -97,6 +100,16 @@ public abstract class Entity {
 
     public boolean getSwapMonster() {
         return this.swap_monster;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    public void addSpeed(int speed){
+        this.speed += speed;
+    }
+    public int getSpeed() {
+        return this.speed;
     }
 
     public void render(GraphicsContext gc) {

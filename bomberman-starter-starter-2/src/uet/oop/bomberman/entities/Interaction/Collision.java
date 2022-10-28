@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities.Interaction;
 
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -99,24 +100,30 @@ public class Collision {
 
     public boolean CheckMapCollision(int x1, int y1, int w1, int h1, int[][] map)
     {
+
         int left_a = (x1 + 1) / Sprite.SCALED_SIZE;
         int right_a = (x1 + w1 - 1) / Sprite.SCALED_SIZE;
         int top_a = (y1 + 1) / Sprite.SCALED_SIZE;
         int bottom_a = (y1 + h1 - 1) / Sprite.SCALED_SIZE;
-       // System.out.println(left_a + " " + top_a);
 
         try {
-            if (map[left_a][top_a] != 0)
+            if (map[left_a][top_a] != 0) {
                 return true;
-            if (map[left_a][bottom_a] != 0)
+            }
+            if (map[left_a][bottom_a] != 0) {
                 return true;
-            if (map[right_a][top_a] != 0)
+            }
+            if (map[right_a][top_a] != 0) {
                 return true;
-            if (map[right_a][bottom_a] != 0)
+            }
+            if (map[right_a][bottom_a] != 0) {
                 return true;
+            }
         } catch (Exception e) {
             return false;
         }
         return false;
     }
 }
+
+

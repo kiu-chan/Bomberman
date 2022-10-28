@@ -2,53 +2,27 @@ package uet.oop.bomberman.entities;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.*;
-import uet.oop.bomberman.entities.Interaction.Interactive;
-import uet.oop.bomberman.graphics.Images;
-import uet.oop.bomberman.graphics.Sprite;
-import javafx.fxml.FXML;
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 public class Menu {
-    private Image backgroundMenuImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/MenuImage/background.png");
+    private Image backgroundMenuImage = new Image("MenuImage/background.png");
     private ImageView backgroundMenu = new ImageView(backgroundMenuImage);
-    private Image playImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/MenuImage/play.png");
+    private Image playImage = new Image("MenuImage/play.png");
     private ImageView playButton = new ImageView(playImage);
-    private Image instructionImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/MenuImage/instruction.png");
+    private Image instructionImage = new Image("MenuImage/instruction.png");
     private ImageView instructionButton = new ImageView(instructionImage);
-    private Image quit = new Image("C:\\Users\\ngohu\\IdeaProjects\\BombermanGame\\bomberman-starter-starter-2\\res\\MenuImage/quit.png");
+    private Image quit = new Image("MenuImage/quit.png");
     private ImageView quitButton = new ImageView(quit);
-    private Image guideImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame\\bomberman-starter-starter-2\\res\\MenuImage/instruction_image.jpg");
+    private Image guideImage = new Image("MenuImage/instruction_image.jpg");
     private ImageView instruction = new ImageView(guideImage);
     private Button Pause = new Button("Pause");
-    private Image endGameImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/background/over.jpg");
+    private Image endGameImage = new Image("background/over.jpg");
     private ImageView endGameMenu = new ImageView(endGameImage);
     private Button muteVolumeButton = new Button("Mute?");
-    private Image playAgain = new Image("C:\\Users\\ngohu\\IdeaProjects\\BombermanGame\\bomberman-starter-starter-2\\res\\MenuImage\\again.png");
+    private Image playAgain = new Image("MenuImage/again.png");
     ImageView playAgainButton = new ImageView(playAgain);
+    private Image levelimg = new Image("background/level.png");
+    ImageView level = new ImageView(levelimg);
+
+
     public Menu()  {
         instructionButton.setX(300);
         instructionButton.setY(200);
@@ -95,6 +69,10 @@ public class Menu {
 
     public ImageView getPlayAgainButton() {
         return playAgainButton;
+    }
+
+    public ImageView getLevel() {
+        return level;
     }
 }
 

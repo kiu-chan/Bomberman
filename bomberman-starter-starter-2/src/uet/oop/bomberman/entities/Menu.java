@@ -47,6 +47,8 @@ public class Menu {
     private Image endGameImage = new Image("C:/Users/ngohu/IdeaProjects/BombermanGame/bomberman-starter-starter-2/res/background/over.jpg");
     private ImageView endGameMenu = new ImageView(endGameImage);
     private Button muteVolumeButton = new Button("Mute?");
+    private Image playAgain = new Image("C:\\Users\\ngohu\\IdeaProjects\\BombermanGame\\bomberman-starter-starter-2\\res\\MenuImage\\again.png");
+    ImageView playAgainButton = new ImageView(playAgain);
     public Menu()  {
         instructionButton.setX(300);
         instructionButton.setY(200);
@@ -59,6 +61,8 @@ public class Menu {
         muteVolumeButton.setLayoutY(0);
         muteVolumeButton.setLayoutX(840);
         muteVolumeButton.setMinSize(66,66);
+        playAgainButton.setX(300);
+        playAgainButton.setY(300);
     }
 
     public Button getMuteVolumeButton() {
@@ -87,6 +91,10 @@ public class Menu {
 
     public ImageView getQuitButton() {
         return quitButton;
+    }
+
+    public ImageView getPlayAgainButton() {
+        return playAgainButton;
     }
 }
 

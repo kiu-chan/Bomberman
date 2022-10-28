@@ -275,13 +275,13 @@ public class BombermanGame extends Application {
     public void endGame(Stage stage) {
         Group root = new Group();
         root.getChildren().add(Menu.getEndGameMenu());
-        root.getChildren().add(Menu.getPlayButton());
+        root.getChildren().add(Menu.getPlayAgainButton());
         root.getChildren().add(Menu.getQuitButton());
         Scene scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-        Menu.getPlayButton().setOnMouseClicked(mouseEvent -> {
+        Menu.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
             clear();
             bomberman.setHeart(2);
             loseGame = false;

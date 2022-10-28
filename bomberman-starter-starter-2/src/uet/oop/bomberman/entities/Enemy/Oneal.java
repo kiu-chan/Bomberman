@@ -16,7 +16,7 @@ public class Oneal extends AutoMove {
 
 
     public Oneal(int x, int y, Image img) {
-        super( x, y, img, 1, Sprite.oneal);
+        super( x, y, img, 3, Sprite.oneal);
     }
 
     @Override

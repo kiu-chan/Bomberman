@@ -15,7 +15,7 @@ public class Ghost extends AutoMove {
     Random random = new Random();
 
     public Ghost(int x, int y, Image img) {
-        super( x, y, img, 1, Sprite.ghost);
+        super( x, y, img, 2, Sprite.ghost);
     }
 
     @Override

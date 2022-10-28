@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Item extends Entity {
     public static final long ITEM_TIME_LIMIT = 5000;
-    public static final int SPEED_UPDATE = 1;
+    public static final int SPEED_UPDATE = 10;
     public int order;
     private int item;
     private int cntItem = 0;

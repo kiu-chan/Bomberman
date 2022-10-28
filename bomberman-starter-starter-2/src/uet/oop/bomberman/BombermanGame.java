@@ -29,7 +29,7 @@ public class BombermanGame extends Application {
 
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-    public int level = 1;
+    public int level = 0;
     private GraphicsContext gc = canvas.getGraphicsContext2D();
     public boolean check_play = false;
     private int isPlay = 0;
@@ -107,7 +107,7 @@ public class BombermanGame extends Application {
                         root.getChildren().add(textHeart1);
                             render();
                             update();
-                            if (loseGame && cntMenu <=1) {
+                            if (loseGame && cntMenu <= 1) {
                                 endGame(stage);
                                 ++cntMenu;
                         }
@@ -313,6 +313,7 @@ public class BombermanGame extends Application {
             cntAddTextHeart = 0;
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            BombermanGame.audio.stopAudio(Audio.audio.gameOver.value);
             root.getChildren().clear();
             playGame(stage);
         });

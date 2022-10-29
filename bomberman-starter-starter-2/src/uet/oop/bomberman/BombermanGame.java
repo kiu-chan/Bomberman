@@ -130,19 +130,17 @@ public class BombermanGame extends Application {
                     endGame(stage);
                    // ++cntMenu;
                 }
-                if (win == true) {
+                if (win == true || level > MAX_LEVEL) {
                    winGame(stage);
                     timer.stop();
                 }
                 if (canNextLevel) {
+                    timer.stop();
                     nextLevel(stage);
                 }
             }
         };
         timer.start();
-        if (loseGame) {
-            timer.stop();
-        }
     }
 
     public void createTextHeart() {

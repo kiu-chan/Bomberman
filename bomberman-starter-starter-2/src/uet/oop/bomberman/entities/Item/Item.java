@@ -10,12 +10,14 @@ import java.util.Random;
 
 public class Item extends Entity {
     public static final long ITEM_TIME_LIMIT = 5000;
-    public static final int SPEED_UPDATE = 10;
+    public static final int SPEED_UPDATE = 2;
     public int order;
     private int item;
     private int cntItem = 0;
     private long start = -1;
     private boolean end = false;
+
+    private int cntBom = 0;
 
     private boolean powerup_wallpass = false;
     private boolean powerup_speed = false;
@@ -73,6 +75,10 @@ public class Item extends Entity {
         if (order == Sprite.random_item) {
             randomItem();
         }
+
+        if (order == Sprite.item11) {
+            Item11();
+        }
     }
 
     public void randomItem() {
@@ -103,6 +109,13 @@ public class Item extends Entity {
         if (cntItem == 0) {
             cntItem++;
             BombermanGame.bomberman.addSpeed(SPEED_UPDATE);
+        }
+    }
+
+    public void Item11() {
+        if (cntBom < 1) {
+            BombermanGame.bomberman.setMaxBomb();
+            cntBom++;
         }
     }
 

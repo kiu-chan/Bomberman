@@ -18,15 +18,18 @@ public class Menu {
     private ImageView endGameMenu = new ImageView(endGameImage);
     private Button muteVolumeButton = new Button("Mute?");
     private Image playAgain = new Image("MenuImage/again.png");
-    ImageView playAgainButton = new ImageView(playAgain);
+    private ImageView playAgainButton = new ImageView(playAgain);
     private Image levelimg = new Image("background/level.png");
-    ImageView level = new ImageView(levelimg);
+    private ImageView level = new ImageView(levelimg);
 
     private Image bg = new Image("MenuImage/buttonPlayer.png");
-    ImageView gbPlay = new ImageView(bg);
+    private ImageView gbPlay = new ImageView(bg);
 
     private Image heart = new Image("MenuImage/HeartPlayer.png");
-    ImageView heartPlayer = new ImageView(heart);
+    private Image winImage = new Image("MenuImage/win.jpg");
+
+    private ImageView winImg = new ImageView(winImage);
+    private ImageView heartPlayer = new ImageView(heart);
 
     public Menu()  {
         instructionButton.setX(300);
@@ -89,6 +92,10 @@ public class Menu {
 
     public ImageView getHeartPlayer() {
         return this.heartPlayer;
+    }
+
+    public ImageView getWinImg() {
+        return winImg;
     }
 }
 

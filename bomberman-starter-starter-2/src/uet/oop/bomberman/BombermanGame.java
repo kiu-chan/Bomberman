@@ -28,6 +28,8 @@ public class BombermanGame extends Application {
 
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
+    private boolean win = false;
+    private static final int MAX_LEVEL = 3;
 
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -40,7 +42,7 @@ public class BombermanGame extends Application {
 
     private long startLevel = 0;
     private static final long TIME_NEXT_LEVEL = 1500;
-    private boolean nextLevel = false;
+    private boolean canNextLevel = false;
     private int cntDownTime = 10000;
     private int cntMenu = 0;
     public static Audio audio = new Audio();
@@ -68,6 +70,7 @@ public class BombermanGame extends Application {
     private int cntTextHeart = 0;
     private List<Text> textList = new ArrayList<>();
     private Menu Menu = new Menu();
+    AnimationTimer timer;
 
     // private Stage stage1;
 
@@ -90,7 +93,7 @@ public class BombermanGame extends Application {
         stage.setScene(scene);
         stage.show();
         player.loadImage();
-        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 1);
+        bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
         entities.add(bomberman);
         try {
             load();
@@ -104,7 +107,7 @@ public class BombermanGame extends Application {
         root.getChildren().add(Menu.getGbPlay());
         root.getChildren().add(Menu.getHeartPlayer());
         root.getChildren().add(textHeart2);
-        AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
                 if (bomberman.getHeart() == 1) {
@@ -121,17 +124,25 @@ public class BombermanGame extends Application {
                 }
                 render();
                 update();
-                if (loseGame && cntMenu <=1) {
+                if (loseGame) {
                     root.getChildren().clear();
+                    timer.stop();
                     endGame(stage);
-                    ++cntMenu;
+                   // ++cntMenu;
                 }
-                if (nextLevel) {
+                if (win == true) {
+                   winGame(stage);
+                    timer.stop();
+                }
+                if (canNextLevel) {
                     nextLevel(stage);
                 }
             }
         };
         timer.start();
+        if (loseGame) {
+            timer.stop();
+        }
     }
 
     public void createTextHeart() {
@@ -206,6 +217,9 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
+        if (level > MAX_LEVEL) {
+            win = true;
+        }
         if (isPlay%2 == 0) {
             if (bomberman.getHeart() <= 0) {
                 loseGame = true;
@@ -222,7 +236,7 @@ public class BombermanGame extends Application {
                 bomberman.setPosition();
                 clear();
                 //  entities.add(bomberman);
-                nextLevel = true;
+                canNextLevel = true;
             }
         }
     }
@@ -294,6 +308,9 @@ public class BombermanGame extends Application {
     }
 
     public void nextLevel(Stage stage) {
+        if (win == true) {
+            return;
+        }
         Group root = new Group();
         Text text = new Text("Level " + this.level);
         text.setFont(Font.font(null, FontWeight.BOLD, 50));
@@ -312,9 +329,12 @@ public class BombermanGame extends Application {
         }
 
         long endLevel = System.currentTimeMillis();
+        if (this.level == MAX_LEVEL) {
+            canNextLevel = false;
+        }
 
         if (endLevel - startLevel >= TIME_NEXT_LEVEL) {
-            nextLevel = false;
+            canNextLevel = false;
             startLevel = 0;
             playGame(stage);
         }
@@ -336,6 +356,20 @@ public class BombermanGame extends Application {
             root.getChildren().clear();
             playGame(stage);
         });
+        Menu.getQuitButton().setOnMouseClicked(mouseEvent -> {
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            stage.close();
+        });
+    }
+    public void winGame(Stage stage) {
+        Group root = new Group();
+        root.getChildren().add(Menu.getQuitButton());
+        root.getChildren().add(Menu.getWinImg());
+        Scene scene = new Scene(root);
+        // Them scene vao stage
+        stage.setScene(scene);
+
         Menu.getQuitButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);

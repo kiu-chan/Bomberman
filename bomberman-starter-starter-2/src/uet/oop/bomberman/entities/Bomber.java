@@ -20,13 +20,12 @@ import java.util.List;
 public class Bomber extends MoveEntity {
     private int heart = 2;
     public static boolean isDead = false;
-    private final int maxAnimation = 20;
     private int cntLeft = 1;
     private int cntRight = 1;
     private int cntUp = 1;
     private int cntDown = 1;
     private int cntDead = 0;
-    private int maxBomb = 2;
+    private int maxBomb = 1;
     private Collision collision = new Collision();
 
     public int act = 0;

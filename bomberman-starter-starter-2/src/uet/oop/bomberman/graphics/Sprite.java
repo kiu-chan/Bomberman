@@ -43,7 +43,7 @@ public class Sprite {
 	public static final int powerup_flames = 7;
 	public static final int item9 = 8;
 	public static final int item10 = 9;
-	public static final int item11 = 10;
+	public static final int addBom = 10;
 	public static final int item12 = 11;
 	public static final int item13 = 12;
 	public static final int item14 = 13;

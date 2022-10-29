@@ -51,9 +51,9 @@ public class Bomb extends Entity {
         }
         return false;
     }
-    public void setRadiusBomb() {
+    /*public void setRadiusBomb() {
         radiusBomb++;
-    }
+    }*/
     public boolean checkWall(int way) {
         int toadoX = this.x / 32;
         int toadoY = this.y / 32;

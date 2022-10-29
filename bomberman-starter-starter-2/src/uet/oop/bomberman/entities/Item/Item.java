@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities.Item;
 import javafx.scene.image.Image;
 
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.Bomb.Bomb;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -76,8 +77,12 @@ public class Item extends Entity {
             randomItem();
         }
 
-        if (order == Sprite.item11) {
-            Item11();
+        if (order == Sprite.powerup_flames) {
+            powerupFlames();
+        }
+
+        if (order == Sprite.addBom) {
+            addBom();
         }
     }
 
@@ -101,6 +106,13 @@ public class Item extends Entity {
 
     }
 
+    public void powerupFlames() {
+        if (cntBom < 1) {
+            Bomb.radiusBomb ++;
+            cntBom++;
+        }
+    }
+
     public void powerupSpeed() {
         if (end) {
             powerup_speed = false;
@@ -112,7 +124,7 @@ public class Item extends Entity {
         }
     }
 
-    public void Item11() {
+    public void addBom() {
         if (cntBom < 1) {
             BombermanGame.bomberman.setMaxBomb();
             cntBom++;

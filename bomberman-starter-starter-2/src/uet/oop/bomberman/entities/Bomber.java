@@ -53,6 +53,9 @@ public class Bomber extends MoveEntity {
             this.value = value;
         }
     }
+    public void setMaxBomb() {
+        maxBomb++;
+    }
 
     public static int bombRadius = 1;
     private List<Bomb> bombs = new ArrayList<>();

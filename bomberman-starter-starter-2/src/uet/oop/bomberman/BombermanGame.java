@@ -52,6 +52,7 @@ public class BombermanGame extends Application {
     public static List<Entity> stillObjects = new ArrayList<>();
     private List<Entity> listItem = new ArrayList<>();
     private List<Entity> listPadding = new ArrayList<>();
+
     public static Images map = new Images("/Images/Map_set1.png", 7, 1);
     public static Images player = new Images("/Player/Player2.png", 3, 5);
     public static Images monster = new Images("/Images/monster.png", 9, 8);
@@ -59,12 +60,15 @@ public class BombermanGame extends Application {
     //lớp đệm của map như cỏ
     public static Images padding = new Images("/Images/Padding.png", 1, 1);
 
+
     public static Bomber bomberman;
+
 
     public static final String Padding = "";
     public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map";
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
+
     private Text textHeart1;
     private Text textHeart2;
     private int cntTextHeart = 0;
@@ -135,6 +139,10 @@ public class BombermanGame extends Application {
                 if (win == true || level > MAX_LEVEL) {
                     winGame(stage);
                     timer.stop();
+                }
+                if (canNextLevel) {
+                    //timer.stop();
+                    nextLevel(stage);
                 }
             }
         };

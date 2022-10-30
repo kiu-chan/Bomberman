@@ -57,7 +57,7 @@ public class Item extends Entity {
         }
 
         if(order == Sprite.powerup_bombpass) {
-
+            moveBomb();System.out.println(1);
         }
 
         if (order == Sprite.powerup_detonator) {
@@ -70,19 +70,19 @@ public class Item extends Entity {
         }
 
         if (order == Sprite.powerup_flamepass) {
-
+            flamePass();
         }
 
         if (order == Sprite.random_item) {
             randomItem();
         }
 
-        if (order == Sprite.powerup_flames) {
-            powerupFlames();
+        if (order == Sprite.powerup_bombs) {
+            addBom();
         }
 
-        if (order == Sprite.addBom) {
-            addBom();
+        if (order == Sprite.powerup_flames) {
+            powerupFlames();
         }
     }
 
@@ -106,6 +106,10 @@ public class Item extends Entity {
 
     }
 
+    public void moveBomb() {
+        BombermanGame.bomberman.setCheck_move_bomb(true);
+    }
+
     public void powerupFlames() {
         if (cntBom < 1) {
             Bomb.radiusBomb ++;
@@ -122,6 +126,10 @@ public class Item extends Entity {
             cntItem++;
             BombermanGame.bomberman.addSpeed(SPEED_UPDATE);
         }
+    }
+
+    public void flamePass() {
+        BombermanGame.bomberman.setCheck_isExplotion(true);
     }
 
     public void addBom() {

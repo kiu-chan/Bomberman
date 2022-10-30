@@ -8,12 +8,13 @@ import javafx.scene.image.Image;
 import java.util.List;
 
 public abstract class Entity {
-    //Tọa độ X tính từ góc trái trên trong Canvas
     protected int speed;
     //khoảng cách so với tạo độ gôc
     int distance = 0;
     protected int x;
 
+    protected int maxImg;
+    //Tọa độ X tính từ góc trái trên trong Canvas
     //Tọa độ Y tính từ góc trái trên trong Canvas
     protected int y;
     protected int w;
@@ -110,6 +111,13 @@ public abstract class Entity {
     }
     public int getSpeed() {
         return this.speed;
+    }
+
+    public int getMaxImg() {
+        return this.maxImg;
+    }
+    public void setMaxImg(int maxImg) {
+        this.maxImg = maxImg;
     }
 
     public void render(GraphicsContext gc) {

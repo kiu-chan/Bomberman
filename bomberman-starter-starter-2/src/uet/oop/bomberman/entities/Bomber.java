@@ -18,6 +18,7 @@ import java.util.List;
  * Các thuộc tính của Bomber.
  */
 public class Bomber extends MoveEntity {
+    //mạng player
     private int heart = 2;
     public static boolean isDead = false;
     private int cntLeft = 1;
@@ -27,6 +28,9 @@ public class Bomber extends MoveEntity {
     private int cntDead = 0;
     private int maxBomb = 1;
     private Collision collision = new Collision();
+
+    private boolean check_move_bomb = true;
+    private boolean check_isExplotion = true;
 
     public int act = 0;
 
@@ -99,11 +103,14 @@ public class Bomber extends MoveEntity {
             this.moveBomber();
             this.addBomb();
             for (int i = 0; i < bombs.size(); i++) {
+                //không đi qua bom
                 bombs.get(i).update();
                 bombs.get(i).isInExplotion(bombs);
-                if (!this.collision.CheckCollision(this, bombs.get(i))) {
+                if (!this.collision.CheckCollision(this, bombs.get(i)) && check_move_bomb) {
                     bombs.get(i).setWall();
                 }
+
+                //bom nổ
                 if (this.collision.CheckCollision(this, bombs.get(i)) && bombs.get(i).isExplotion()) {
                     if (this.x != x_) {
                         this.setX(x_);
@@ -111,7 +118,7 @@ public class Bomber extends MoveEntity {
                     if (this.y != y_) {
                         this.setY(y_);
                     }
-                    if (bombs.get(i).getTimeAfterExplode() <= 0 && bombs.get(i).getRemove()) {
+                    if (bombs.get(i).getTimeAfterExplode() <= 0 && bombs.get(i).getRemove() && check_isExplotion) {
                         heart--;
                         if (heart >= 1) {
                             setPosition();
@@ -126,7 +133,7 @@ public class Bomber extends MoveEntity {
                         if (this.y != y_) {
                             this.setY(y_);
                         }
-                        if (bombs.get(i).getTimeAfterExplode() <= 0 && bombs.get(i).getRemove()) {
+                        if (bombs.get(i).getTimeAfterExplode() <= 0 && bombs.get(i).getRemove() && check_isExplotion) {
                             heart--;
                             if (heart >= 1) {
                                 setPosition();
@@ -138,6 +145,7 @@ public class Bomber extends MoveEntity {
                     bombs.get(i).setWallToZero();
                     bombs.remove(i);
                 }
+
             }
         } else {
                 isDead = true;
@@ -153,6 +161,10 @@ public class Bomber extends MoveEntity {
                 }
             }
         }
+    }
+
+    public void checkBomberDead() {
+
     }
 
     private void addBomb() {
@@ -365,6 +377,14 @@ public class Bomber extends MoveEntity {
 
     public void setMoveItem(int item) {
         this.moveItem = item;
+    }
+
+    public void setCheck_move_bomb(boolean check_move_bomb) {
+        this.check_move_bomb = !check_move_bomb;
+    }
+
+    public void setCheck_isExplotion(boolean check_isExplotion) {
+        this.check_isExplotion = !check_isExplotion;
     }
 
     public void setAct(int act) {

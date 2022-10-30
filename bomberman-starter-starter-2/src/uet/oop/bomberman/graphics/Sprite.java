@@ -33,17 +33,17 @@ public class Sprite {
 	/**
 	 * Định vị trên ảnh item
 	 */
-	public static final int powerup_wallpass = 0;
-	public static final int powerup_bombpass = 1;
-	public static final int powerup_detonator = 2;
-	public static final int powerup_speed = 3;
-	public static final int powerup_flamepass = 4;
-	public static final int random_item = 5;
-	public static final int powerup_bombs = 6;
-	public static final int powerup_flames = 7;
+	public static final int powerup_wallpass = 0;	//đi xuyên tường (ok)
+	public static final int powerup_bombpass = 1;	//đi xuyên qua bom (ok)
+	public static final int powerup_detonator = 2;	//nổ xuyên tường
+	public static final int powerup_speed = 3;		//tăng tốc (ok)
+	public static final int powerup_flamepass = 4;	//miễn nổ (ok)
+	public static final int random_item = 5;		//item ngẫu nhiên (ok)
+	public static final int powerup_bombs = 6;		//tăng lượng bom (ok)
+	public static final int powerup_flames = 7;		//tăng phạm vi (ok)
 	public static final int item9 = 8;
 	public static final int item10 = 9;
-	public static final int addBom = 10;
+	public static final int item11 = 10;
 	public static final int item12 = 11;
 	public static final int item13 = 12;
 	public static final int item14 = 13;

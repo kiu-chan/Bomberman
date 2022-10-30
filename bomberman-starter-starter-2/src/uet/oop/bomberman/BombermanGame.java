@@ -29,7 +29,7 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
     private boolean win = false;
-    private static final int MAX_LEVEL = 1;
+    private static final int MAX_LEVEL = 2;
 
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -128,17 +128,13 @@ public class BombermanGame extends Application {
                     root.getChildren().clear();
                     timer.stop();
                     endGame(stage);
-                    // ++cntMenu;
+                }
+                if (canNextLevel && win == false) {
+                    nextLevel(stage);
                 }
                 if (win == true || level > MAX_LEVEL) {
-                    System.out.println("un ts");
                     winGame(stage);
                     timer.stop();
-                }
-                if (canNextLevel) {
-                    System.out.println("can next" + win);
-                    timer.stop();
-                    nextLevel(stage);
                 }
             }
         };
@@ -232,7 +228,6 @@ public class BombermanGame extends Application {
                 ++this.level;
                 if (this.level > MAX_LEVEL) {
                     win = true;
-                    return;
                 }
                 interactive.setSwapMap(false);
                 bomberman.setPosition();
@@ -310,10 +305,7 @@ public class BombermanGame extends Application {
     }
 
     public void nextLevel(Stage stage) {
-        if (win == true) {
-            System.out.println("win roi choi lam gi");
-            return;
-        }
+      //  timer.stop();
         Group root = new Group();
         Text text = new Text("Level " +(this.level+1) );
         text.setFont(Font.font(null, FontWeight.BOLD, 50));
@@ -332,17 +324,21 @@ public class BombermanGame extends Application {
         }
 
         long endLevel = System.currentTimeMillis();
-        if (this.level == MAX_LEVEL) {
+        if (this.level >= MAX_LEVEL) {
             canNextLevel = false;
+            win = true;
         }
 
         if (endLevel - startLevel >= TIME_NEXT_LEVEL) {
+            timer.stop();
             canNextLevel = false;
             startLevel = 0;
+            root.getChildren().clear();
             playGame(stage);
         }
     }
     public void endGame(Stage stage) {
+        timer.stop();
         Group root = new Group();
         root.getChildren().add(Menu.getEndGameMenu());
         root.getChildren().add(Menu.getPlayAgainButton());

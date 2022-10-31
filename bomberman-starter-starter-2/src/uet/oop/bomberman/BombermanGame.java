@@ -265,7 +265,7 @@ public class BombermanGame extends Application {
         root.getChildren().add(Menu.getPlayButton());
         root.getChildren().add(Menu.getInstructionButton());
         root.getChildren().add(Menu.getQuitButton());
-        root.getChildren().add(Menu.getMuteVolumeButton());
+        root.getChildren().add(Menu.getVolumOnButton());
         // Tao scene
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -273,11 +273,21 @@ public class BombermanGame extends Application {
         if (playMusic == true) {
             audio.playAudio(Audio.audio.backgroundMusic.value);
         }
-        Menu.getMuteVolumeButton().setOnMouseClicked(mouseEvent -> {
+        Menu.getVolumOnButton().setOnMouseClicked(mouseEvent -> {
+            root.getChildren().remove(Menu.getVolumOnButton());
+            root.getChildren().add(Menu.getVolumOffButton());
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             playMusic = false;
             audio.stopAudio(Audio.audio.backgroundMusic.value);
+        });
+        Menu.getVolumOffButton().setOnMouseClicked(mouseEvent -> {
+            root.getChildren().remove(Menu.getVolumOffButton());
+            root.getChildren().add(Menu.getVolumOnButton());
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            playMusic = true;
+            audio.playAudio(Audio.audio.backgroundMusic.value);
         });
         Menu.getPlayButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
@@ -299,17 +309,15 @@ public class BombermanGame extends Application {
         });
     }
     public void guideMenu(Stage stage) {
-        Button backButton = new Button("Back");
-        backButton.setMinSize(66,50);
         Group root = new Group();
         root.getChildren().add(Menu.getInstruction());
-        root.getChildren().add(backButton);
+        root.getChildren().add(Menu.getBackButton());
         // Tao scene
         Scene scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-        backButton.setOnMouseClicked(mouseEvent -> {
+        Menu.getBackButton().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();

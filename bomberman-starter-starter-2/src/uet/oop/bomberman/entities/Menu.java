@@ -16,14 +16,18 @@ public class Menu {
     private Button Pause = new Button("Pause");
     private Image endGameImage = new Image("MenuImage/end.png");
     private ImageView endGameMenu = new ImageView(endGameImage);
-    private Button muteVolumeButton = new Button("Mute?");
     private Image playAgain = new Image("MenuImage/playag.png");
     private ImageView playAgainButton = new ImageView(playAgain);
-    private Image levelimg = new Image("background/level.png");
+    private Image levelimg = new Image("MenuImage/level.png");
     private Image quit2 = new Image("MenuImage/quit.png");
     private ImageView quit2Button = new ImageView(quit2);
     private ImageView level = new ImageView(levelimg);
-
+    private Image back = new Image("MenuImage/button_back.png");
+    private ImageView backButton = new ImageView(back);
+    private Image volumOn = new Image("MenuImage/button_music1.png");
+    private Image volumOff = new Image("MenuImage/button_music2.png");
+    private ImageView volumOnButton = new ImageView(volumOn);
+    private ImageView volumOffButton = new ImageView(volumOff);
   //  private Image bg = new Image("MenuImage/buttonPlayer.png");
   //  private ImageView gbPlay = new ImageView(bg);
 
@@ -42,19 +46,30 @@ public class Menu {
         playButton.setY(250);
         quitButton.setX(200);
         quitButton.setY(390);
-        muteVolumeButton.setLayoutY(0);
-        muteVolumeButton.setLayoutX(840);
-        muteVolumeButton.setMinSize(66,66);
         playAgainButton.setX(100);
         playAgainButton.setY(330);
         quit2Button.setX(700);
         quit2Button.setY(330);
         heartPlayer.setX(5);
         heartPlayer.setY(5);
+        backButton.setY(5);
+        backButton.setX(5);
+        volumOnButton.setX(840);
+        volumOnButton.setY(5);
+        volumOffButton.setX(840);
+        volumOffButton.setY(5);
     }
 
-    public Button getMuteVolumeButton() {
-        return muteVolumeButton;
+    public ImageView getBackButton() {
+        return backButton;
+    }
+
+    public ImageView getVolumOffButton() {
+        return volumOffButton;
+    }
+
+    public ImageView getVolumOnButton() {
+        return volumOnButton;
     }
 
     public ImageView getBackgroundMenu() {

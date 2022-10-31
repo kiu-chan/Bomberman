@@ -45,7 +45,6 @@ public class BombermanGame extends Application {
     private static final long TIME_NEXT_LEVEL = 1500;
     private boolean canNextLevel = false;
     private int cntDownTime = 10000;
-    private int cntMenu = 0;
     public static Audio audio = new Audio();
 
     private Interactive interactive = new Interactive();
@@ -370,7 +369,6 @@ public class BombermanGame extends Application {
         stage.show();
         Menu.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
             loseGame = false;
-            cntMenu = 0;
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
@@ -396,7 +394,9 @@ public class BombermanGame extends Application {
             stage.close();
         });
         Menu.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
-            cntMenu = 0;
+            this.level = 0;
+            clear();
+            root.getChildren().clear();
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();

@@ -111,7 +111,6 @@ public class BombermanGame extends Application {
         cntTextHeart = 0;
         getBomberControl.getControl(scene);
         createTextHeart();
-        root.getChildren().add(Menu.getGbPlay());
         root.getChildren().add(Menu.getHeartPlayer());
         root.getChildren().add(textHeart2);
         timer = new AnimationTimer() {
@@ -356,7 +355,7 @@ public class BombermanGame extends Application {
         Group root = new Group();
         root.getChildren().add(Menu.getEndGameMenu());
         root.getChildren().add(Menu.getPlayAgainButton());
-        root.getChildren().add(Menu.getQuitButton());
+        root.getChildren().add(Menu.getQuit2Button());
         Scene scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);
@@ -369,7 +368,7 @@ public class BombermanGame extends Application {
             root.getChildren().clear();
             playGame(stage);
         });
-        Menu.getQuitButton().setOnMouseClicked(mouseEvent -> {
+        Menu.getQuit2Button().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             stage.close();
@@ -378,16 +377,22 @@ public class BombermanGame extends Application {
     public void winGame(Stage stage) {
         Group root = new Group();
         root.getChildren().add(Menu.getWinImg());
-        root.getChildren().add(Menu.getQuitButton());
+        root.getChildren().add(Menu.getQuit2Button());
         root.getChildren().add(Menu.getPlayAgainButton());
         Scene scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);
-
-        Menu.getQuitButton().setOnMouseClicked(mouseEvent -> {
+        Menu.getQuit2Button().setOnMouseClicked(mouseEvent -> {
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             stage.close();
+        });
+        Menu.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
+            cntMenu = 0;
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            playGame(stage);
         });
     }
 }

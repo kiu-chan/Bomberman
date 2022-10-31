@@ -43,7 +43,6 @@ public class Bomber extends MoveEntity {
 
     //di chuyển sau khi lấy được item
     public int moveItem = 0;
-    private int cntPotition;
 
     /**
      * hướng nhìn

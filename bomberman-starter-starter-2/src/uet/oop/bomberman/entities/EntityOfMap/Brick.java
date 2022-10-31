@@ -8,9 +8,6 @@ public class Brick extends Entity {
         super(x,y, Sprite.brick.getFxImage());
     }
 
-    public void setExplotion() {
-        this.img = Sprite.glass.getFxImage();
-    }
     public void setExploted() {
         this.isExploted = true;
     }

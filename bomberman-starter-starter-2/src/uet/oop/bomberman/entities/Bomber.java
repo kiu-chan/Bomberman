@@ -151,9 +151,6 @@ public class Bomber extends MoveEntity {
                 isDead = true;
                 act = status.DEAD.value;
                 this.moveIMG();
-                BombermanGame.audio.stopAudio(Audio.audio.backgroundMusic.value);
-                BombermanGame.audio.playAudio(Audio.audio.gameOver.value);
-
             for (int i = 0; i < bombs.size(); i++) {
                 bombs.get(i).update();
                 if (bombs.get(i).getRemove()) {

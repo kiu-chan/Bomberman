@@ -170,7 +170,6 @@ public class Images {
         this.width = width;
         this.height = height;
 
-
         try {
             File file = new File(path);
             FileReader fileReader = new FileReader(file);

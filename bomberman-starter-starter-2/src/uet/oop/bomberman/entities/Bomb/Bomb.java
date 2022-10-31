@@ -170,11 +170,6 @@ public class Bomb extends Entity {
             if (r>0) {
                 explotionList.add(new Explotion(this.x, this.y - 32 * r, way, true));
             }
-            if (BombermanGame.map.getMap()[toadoX][toadoY - r - 1] == 2
-                    && r < radiusBomb) {
-                explotionList.add(new Explotion(toadoX, toadoY - r - 1));
-                return;
-            }
         }
         if (way == 2) {
             for (int j = 1; j <= r; j++) {
@@ -184,11 +179,6 @@ public class Bomb extends Entity {
                     explotionList.add(new Explotion(this.x, this.y + 32 * j, way, false));
                 }
             }
-            if (BombermanGame.map.getMap()[toadoX][toadoY + r + 1] == 2
-                    && r < radiusBomb) {
-                explotionList.add(new Explotion(toadoX,toadoY + r + 1));
-                return;
-            }
         }
         if (way == 3) {
             for (int j = 1; j <= r; j++) {
@@ -197,11 +187,6 @@ public class Bomb extends Entity {
                 else
                     explotionList.add(new Explotion(this.x - 32*j, this.y , way, false));
             }
-            if (BombermanGame.map.getMap()[toadoX - r - 1][toadoY] == 2
-                    && r < radiusBomb) {
-                explotionList.add(new Explotion(toadoX - r - 1, toadoY));
-                return;
-            }
         }
         if (way == 4) {
             for (int j = 1; j <= r; j++) {
@@ -209,11 +194,6 @@ public class Bomb extends Entity {
                     explotionList.add(new Explotion(this.x + 32*j, this.y , way, true));
                 else
                     explotionList.add(new Explotion(this.x + 32*j, this.y, way, false ));
-            }
-            if (BombermanGame.map.getMap()[toadoX + r + 1][toadoY] == 2
-                    && r < radiusBomb) {
-                explotionList.add(new Explotion(toadoX + r + 1, toadoY));
-                return;
             }
         }
     }
@@ -230,19 +210,27 @@ public class Bomb extends Entity {
         if (checkWall(way)) {
             if (way == 1) {
                 BombermanGame.map.setMap(toadoX, toadoY - r - 1, 0);
-                BombermanGame.stillObjects.set(toadoX * 13 + toadoY -r -1,new Glass(-1, -1));
+                if (BombermanGame.stillObjects.get(toadoX * 13 + toadoY -r -1) instanceof Brick) {
+                    ((Brick) BombermanGame.stillObjects.get(toadoX * 13 + toadoY -r -1)).setExploted();
+                }
             }
             if (way == 2) {
                 BombermanGame.map.setMap(toadoX, toadoY + r + 1, 0);
-                BombermanGame.stillObjects.set(toadoX * 13 + toadoY + r +1,new Glass(-1, -1));
+                if (BombermanGame.stillObjects.get(toadoX * 13 + toadoY + r +1) instanceof Brick) {
+                    ((Brick) BombermanGame.stillObjects.get(toadoX * 13 + toadoY + r + 1)).setExploted();
+                }
             }
             if (way == 3) {
                 BombermanGame.map.setMap(toadoX - 1 - r, toadoY, 0);
-                BombermanGame.stillObjects.set((toadoX - r - 1) * 13 + toadoY,new Glass(-1, -1));
+                if (BombermanGame.stillObjects.get((toadoX - r - 1) * 13 + toadoY) instanceof Brick) {
+                    ((Brick) BombermanGame.stillObjects.get((toadoX - r - 1) * 13 + toadoY)).setExploted();
+                }
             }
             if (way == 4) {
                 BombermanGame.map.setMap(toadoX + 1 + r, toadoY, 0);
-                BombermanGame.stillObjects.set((toadoX + r + 1) * 13 + toadoY,new Glass(-1, -1));
+                if (BombermanGame.stillObjects.get((toadoX + r + 1) * 13 + toadoY) instanceof Brick) {
+                    ((Brick) BombermanGame.stillObjects.get((toadoX + r + 1) * 13 + toadoY)).setExploted();
+                }
             }
         }
     }
@@ -279,6 +267,11 @@ public class Bomb extends Entity {
                     }
                     cntMakeWall++;
                 }
+                for (int i = 0; i < BombermanGame.stillObjects.size(); i++) {
+                    if (BombermanGame.stillObjects.get(i) instanceof Brick) {
+                        ((Brick) BombermanGame.stillObjects.get(i)).update(timeAfterExplode);
+                    }
+                }
                 for (int i = 0; i < explotionList.size(); i++) {
                     explotionList.get(i).update(timeAfterExplode);
                 }
@@ -289,7 +282,6 @@ public class Bomb extends Entity {
                     for (int i = 0; i < explotionList.size(); i++) {
                         explotionList.get(i).setRemove(true);
                     }
-                    //BombermanGame.map.setMap(toado_x, toado_y, 0);
                     setRemove(true);
                 }
             }

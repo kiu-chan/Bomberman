@@ -6,8 +6,7 @@ import uet.oop.bomberman.graphics.Images;
 import uet.oop.bomberman.BombermanGame;
 public class Glass extends Entity {
     public Glass(int x,int y) {
-        super(x, y, null);
-        this.img = BombermanGame.map.getList().get(0).getFxImage();
+        super(x, y, Sprite.glass.getFxImage());
     }
     @Override
     public void update() {

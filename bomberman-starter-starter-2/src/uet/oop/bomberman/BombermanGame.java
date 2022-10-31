@@ -30,7 +30,7 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
     private boolean win = false;
-    private static final int MAX_LEVEL = 2;
+    private static final int MAX_LEVEL = 1;
 
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -131,6 +131,8 @@ public class BombermanGame extends Application {
                 update();
                 if (loseGame) {
                     root.getChildren().clear();
+                    audio.stopAudio(Audio.audio.backgroundMusic.value);
+                    audio.playAudio(Audio.audio.gameOver.value);
                     timer.stop();
                     endGame(stage);
                 }
@@ -372,8 +374,9 @@ public class BombermanGame extends Application {
     }
     public void winGame(Stage stage) {
         Group root = new Group();
-        root.getChildren().add(Menu.getQuitButton());
         root.getChildren().add(Menu.getWinImg());
+        root.getChildren().add(Menu.getQuitButton());
+        root.getChildren().add(Menu.getPlayAgainButton());
         Scene scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);

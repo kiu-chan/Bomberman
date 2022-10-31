@@ -53,7 +53,7 @@ public class Sprite {
 	public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite wall = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.alltiles, 16, 16);
-	public static Sprite glass = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.glass, 16, 16);
+	public static Sprite glass = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.tiles, 16, 16);
 	//public static Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.alltiles, 14, 14);
 
 	/*

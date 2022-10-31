@@ -71,6 +71,7 @@ public class Audio {
     }
 
     public void audioStopTime(int i, long time) {
+        list.get(i).play();
         if (startTime == 0) {
             startTime = System.currentTimeMillis();
         }
@@ -79,6 +80,14 @@ public class Audio {
         if (endTime - startTime >= time) {
             list.get(i).stop();
           //  startTime = endTime;
+        }
+    }
+    public void autoPlay(int i, int time) {
+        list.get(i).play();
+        if (time > 0) {
+            time--;
+        } else {
+            list.get(i).stop();
         }
     }
 

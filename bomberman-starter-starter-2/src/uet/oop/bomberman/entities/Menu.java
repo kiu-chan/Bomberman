@@ -11,7 +11,7 @@ public class Menu {
     private ImageView instructionButton = new ImageView(instructionImage);
     private Image quit = new Image("MenuImage/button_quit.png");
     private ImageView quitButton = new ImageView(quit);
-    private Image guideImage = new Image("MenuImage/instruction_image.jpg");
+    private Image guideImage = new Image("MenuImage/hduong.jpg");
     private ImageView instruction = new ImageView(guideImage);
     private Button Pause = new Button("Pause");
     private Image endGameImage = new Image("MenuImage/end.png");

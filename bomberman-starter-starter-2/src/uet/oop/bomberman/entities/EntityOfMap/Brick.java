@@ -1,8 +1,6 @@
 package uet.oop.bomberman.entities.EntityOfMap;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.graphics.Images;
-import uet.oop.bomberman.entities.Bomb.*;
 public class Brick extends Entity {
     private boolean isExploted = false;
     private boolean isEndExplotion = false;

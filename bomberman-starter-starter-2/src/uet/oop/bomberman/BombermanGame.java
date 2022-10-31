@@ -30,7 +30,7 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 31;
     public static final int HEIGHT = 13;
     private boolean win = false;
-    private static final int MAX_LEVEL = 1;
+    private static final int MAX_LEVEL = 2;
 
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
@@ -70,6 +70,8 @@ public class BombermanGame extends Application {
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
 
+
+    private StopWatch cntLose = new StopWatch(2000);
     private Text textHeart1;
     private Text textHeart2;
     private int cntTextHeart = 0;
@@ -129,12 +131,13 @@ public class BombermanGame extends Application {
                 }
                 render();
                 update();
-                if (loseGame) {
-                    root.getChildren().clear();
-                    audio.stopAudio(Audio.audio.backgroundMusic.value);
-                    audio.playAudio(Audio.audio.gameOver.value);
-                    timer.stop();
-                    endGame(stage);
+                if (loseGame) {//System.out.println(1);
+                    if (cntLose.checkEnd()) {
+                        root.getChildren().clear();
+                        timer.stop();
+                        endGame(stage);
+                        cntLose.setStart();
+                    }
                 }
                 if (canNextLevel && win == false) {
                     nextLevel(stage);

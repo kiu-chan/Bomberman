@@ -41,6 +41,7 @@ public class Sprite {
 	public static final int random_item = 5;		//item ngẫu nhiên (ok)
 	public static final int powerup_bombs = 6;		//tăng lượng bom (ok)
 	public static final int powerup_flames = 7;		//tăng phạm vi (ok)
+
 	public static final int item9 = 8;
 	public static final int item10 = 9;
 	public static final int item11 = 10;
@@ -52,6 +53,7 @@ public class Sprite {
 	public static Sprite grass = new Sprite(DEFAULT_SIZE, 6, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite brick = new Sprite(DEFAULT_SIZE, 7, 0, SpriteSheet.alltiles, 16, 16);
 	public static Sprite wall = new Sprite(DEFAULT_SIZE, 5, 0, SpriteSheet.alltiles, 16, 16);
+	public static Sprite glass = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.glass, 16, 16);
 	//public static Sprite portal = new Sprite(DEFAULT_SIZE, 4, 0, SpriteSheet.alltiles, 14, 14);
 
 	/*

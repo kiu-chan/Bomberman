@@ -19,6 +19,7 @@ public class SpriteSheet {
 
 	public static SpriteSheet tiles = new SpriteSheet("/Images/Map_set.png", 112);
 	public static SpriteSheet alltiles = new SpriteSheet("/textures/classic.png", 256);
+	public static SpriteSheet glass = new SpriteSheet("Images/glass.png", 16);
 	public SpriteSheet(String path, int size) {
 		_path = path;
 		SIZE = size;

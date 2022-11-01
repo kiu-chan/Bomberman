@@ -30,7 +30,7 @@ public class BombermanGame extends Application {
     public static final int WIDTH = 35;
     public static final int HEIGHT = 17;
     private boolean win = false;
-    private static final int MAX_LEVEL = 2;
+    private static final int MAX_LEVEL = 3;
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
     public int level = 1;
@@ -157,19 +157,19 @@ public class BombermanGame extends Application {
 
     public void createTextHeart() {
         textHeart1 = new Text(" : 1" );
-        textHeart1.setFont(Font.font(null, FontWeight.BOLD, 22));
+        textHeart1.setFont(Font.font(null, FontWeight.BOLD, 25));
         //Setting the color of the text
         textHeart1.setFill(Color.CRIMSON);
         //setting the position of the text
-        textHeart1.setX(25);
-        textHeart1.setY(25);
+        textHeart1.setX(35);
+        textHeart1.setY(540);
         textHeart2 = new Text(" : 2");
-        textHeart2.setFont(Font.font(null, FontWeight.BOLD, 22));
+        textHeart2.setFont(Font.font(null, FontWeight.BOLD, 25));
         //Setting the color of the text
         textHeart2.setFill(Color.CRIMSON);
         //setting the position of the text
-        textHeart2.setX(25);
-        textHeart2.setY(25);
+        textHeart2.setX(35);
+        textHeart2.setY(540);
 
     }
 
@@ -329,7 +329,7 @@ public class BombermanGame extends Application {
     public void nextLevel(Stage stage) {
       //  timer.stop();
         Group root = new Group();
-        Text text = new Text("Level " +(this.level+1) );
+        Text text = new Text("Level " +(this.level));
         text.setFont(Font.font(null, FontWeight.BOLD, 50));
         text.setFill(Color.WHITE);
         text.setX((WIDTH * Sprite.SCALED_SIZE)/2 - 150);
@@ -403,7 +403,7 @@ public class BombermanGame extends Application {
         Menu.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
             clear();
             win = false;
-            this.level = 0;
+            this.level = 1;
             root.getChildren().clear();
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);

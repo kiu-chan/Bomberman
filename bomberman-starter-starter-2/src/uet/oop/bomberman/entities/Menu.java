@@ -41,26 +41,24 @@ public class Menu {
 
     public Menu()  {
         instructionButton.setX(200);
-        instructionButton.setY(320);
-        quitButton.setX(200);
-        quitButton.setY(400);
+        instructionButton.setY(380);
         playButton.setX(200);
-        playButton.setY(250);
+        playButton.setY(300);
         quitButton.setX(200);
-        quitButton.setY(390);
-        playAgainButton.setX(100);
-        playAgainButton.setY(330);
-        quit2Button.setX(600);
-        quit2Button.setY(330);
+        quitButton.setY(460);
+        playAgainButton.setX(150);
+        playAgainButton.setY(400);
+        quit2Button.setX(850);
+        quit2Button.setY(400);
         heartPlayer.setX(5);
-        heartPlayer.setY(5);
+        heartPlayer.setY(520);
         backButton.setY(5);
         backButton.setX(5);
-        volumOnButton.setX(840);
+        volumOnButton.setX(1040);
         volumOnButton.setY(5);
-        volumOffButton.setX(840);
+        volumOffButton.setX(1040);
         volumOffButton.setY(5);
-        homeButton.setX(825);
+        homeButton.setX(1025);
         homeButton.setY(10);
     }
 

@@ -90,6 +90,7 @@ public class BombermanGame extends Application {
     }
     public void playGame(Stage stage) {
         clear();
+        loseGame = false;
         Group root = new Group();
         root.getChildren().add(canvas);
         // Tao scene
@@ -401,6 +402,7 @@ public class BombermanGame extends Application {
         });
         Menu.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
             clear();
+            win = false;
             this.level = 0;
             root.getChildren().clear();
             audio.playAudio(Audio.audio.buttonClick.value);
@@ -409,6 +411,8 @@ public class BombermanGame extends Application {
             playGame(stage);
         });
         Menu.getHomeButton().setOnMouseClicked(mouseEvent -> {
+            win = false;
+            level = 0;
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             mainMenu(stage);

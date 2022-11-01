@@ -15,7 +15,6 @@ public class StopWatch {
             start = System.currentTimeMillis();
         }
         end = System.currentTimeMillis();
-        System.out.println(end - start);
         if (end - start >= TIME) {
             check_end = true;
         }

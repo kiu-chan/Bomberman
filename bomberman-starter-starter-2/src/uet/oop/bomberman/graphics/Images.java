@@ -45,7 +45,6 @@ public class Images {
             }
         }
     }
-
     public void readMap(String path, Images image, int width, int height) {
         this.image = image;
         this.width = width;

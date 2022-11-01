@@ -28,7 +28,7 @@ import java.util.List;
 public class BombermanGame extends Application {
 
     public static final int WIDTH = 35;
-    public static final int HEIGHT = 16;
+    public static final int HEIGHT = 17;
     private boolean win = false;
     private static final int MAX_LEVEL = 2;
 
@@ -182,22 +182,22 @@ public class BombermanGame extends Application {
 
     public void load() throws FileNotFoundException {
         padding.loadImage();
-        padding.createPadding(padding, WIDTH, HEIGHT);
+        padding.createPadding(padding, WIDTH, HEIGHT-1);
         listPadding.addAll(padding.getStillObjects()); //tạm thời lấy mỗi cỏ
 
         map.loadImage();
-        map.readMap(Map + this.level + ".txt", map, WIDTH, HEIGHT);
+        map.readMap(Map + this.level + ".txt", map, WIDTH, HEIGHT - 1);
         map.createMap();
         stillObjects.addAll(map.getStillObjects());
 
         item.loadImage();
-        //item.readMap(mapItem, item, WIDTH, HEIGHT);
-        item.randomItem(mapItem, item, WIDTH, HEIGHT);
+        //item.readMap(mapItem, item, WIDTH, HEIGHT - 1);
+        item.randomItem(mapItem, item, WIDTH, HEIGHT - 1);
         item.createItem();
         listItem.addAll(item.getStillObjects());
 
         monster.loadImage();
-        monster.readMap(mapMonster + this.level + ".txt", monster, WIDTH, HEIGHT);
+        monster.readMap(mapMonster + this.level + ".txt", monster, WIDTH, HEIGHT - 1);
         monster.createEntity();
         entities.addAll(monster.getStillObjects());
     }

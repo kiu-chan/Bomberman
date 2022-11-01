@@ -70,8 +70,6 @@ public class Images {
                     left = right + 1;
                 }
             }
-
-
             reader.close();
         }
         catch (Exception e) {

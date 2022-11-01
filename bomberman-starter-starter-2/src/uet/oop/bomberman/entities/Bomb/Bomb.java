@@ -180,7 +180,7 @@ public class Bomb extends Entity {
         if (way == 3) {
             for (int j = 1; j <= r; j++) {
                 if (j == r)
-                    explotionList.add(new Explotion(this.x - 32*j, this.y, way, true));
+                    explotionList.add(new Explotion(this.x - 32 * j, this.y, way, true));
                 else
                     explotionList.add(new Explotion(this.x - 32*j, this.y , way, false));
             }
@@ -207,26 +207,26 @@ public class Bomb extends Entity {
         if (checkWall(way)) {
             if (way == 1) {
                 BombermanGame.map.setMap(toadoX, toadoY - r - 1, 0);
-                if (BombermanGame.stillObjects.get(toadoX * 13 + toadoY -r -1) instanceof Brick) {
-                    ((Brick) BombermanGame.stillObjects.get(toadoX * 13 + toadoY -r -1)).setExploted();
+                if (BombermanGame.stillObjects.get(toadoX * (BombermanGame.HEIGHT -1) + toadoY -r -1) instanceof Brick) {
+                    ((Brick) BombermanGame.stillObjects.get(toadoX * (BombermanGame.HEIGHT -1) + toadoY -r -1)).setExploted();
                 }
             }
             if (way == 2) {
                 BombermanGame.map.setMap(toadoX, toadoY + r + 1, 0);
-                if (BombermanGame.stillObjects.get(toadoX * 13 + toadoY + r +1) instanceof Brick) {
-                    ((Brick) BombermanGame.stillObjects.get(toadoX * 13 + toadoY + r + 1)).setExploted();
+                if (BombermanGame.stillObjects.get(toadoX * (BombermanGame.HEIGHT -1) + toadoY + r +1) instanceof Brick) {
+                    ((Brick) BombermanGame.stillObjects.get(toadoX * (BombermanGame.HEIGHT -1) + toadoY + r + 1)).setExploted();
                 }
             }
             if (way == 3) {
                 BombermanGame.map.setMap(toadoX - 1 - r, toadoY, 0);
-                if (BombermanGame.stillObjects.get((toadoX - r - 1) * 13 + toadoY) instanceof Brick) {
-                    ((Brick) BombermanGame.stillObjects.get((toadoX - r - 1) * 13 + toadoY)).setExploted();
+                if (BombermanGame.stillObjects.get((toadoX - r - 1) * (BombermanGame.HEIGHT -1) + toadoY) instanceof Brick) {
+                    ((Brick) BombermanGame.stillObjects.get((toadoX - r - 1) * (BombermanGame.HEIGHT -1) + toadoY)).setExploted();
                 }
             }
             if (way == 4) {
                 BombermanGame.map.setMap(toadoX + 1 + r, toadoY, 0);
-                if (BombermanGame.stillObjects.get((toadoX + r + 1) * 13 + toadoY) instanceof Brick) {
-                    ((Brick) BombermanGame.stillObjects.get((toadoX + r + 1) * 13 + toadoY)).setExploted();
+                if (BombermanGame.stillObjects.get((toadoX + r + 1) * (BombermanGame.HEIGHT -1) + toadoY) instanceof Brick) {
+                    ((Brick) BombermanGame.stillObjects.get((toadoX + r + 1) * (BombermanGame.HEIGHT -1) + toadoY)).setExploted();
                 }
             }
         }

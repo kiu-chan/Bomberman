@@ -33,6 +33,8 @@ public class Menu {
 
     private Image heart = new Image("MenuImage/HeartPlayer.png");
     private Image winImage = new Image("MenuImage/win.jpg");
+    private Image home = new Image("MenuImage/home.jpg");
+    private ImageView homeButton = new ImageView(home);
 
     private ImageView winImg = new ImageView(winImage);
     private ImageView heartPlayer = new ImageView(heart);
@@ -48,7 +50,7 @@ public class Menu {
         quitButton.setY(390);
         playAgainButton.setX(100);
         playAgainButton.setY(330);
-        quit2Button.setX(700);
+        quit2Button.setX(600);
         quit2Button.setY(330);
         heartPlayer.setX(5);
         heartPlayer.setY(5);
@@ -58,6 +60,8 @@ public class Menu {
         volumOnButton.setY(5);
         volumOffButton.setX(840);
         volumOffButton.setY(5);
+        homeButton.setX(825);
+        homeButton.setY(10);
     }
 
     public ImageView getBackButton() {
@@ -114,6 +118,10 @@ public class Menu {
     }
     public ImageView getQuit2Button() {
         return quit2Button;
+    }
+
+    public ImageView getHomeButton() {
+        return homeButton;
     }
 }
 

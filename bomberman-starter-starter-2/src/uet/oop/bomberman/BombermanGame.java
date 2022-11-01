@@ -27,13 +27,13 @@ import java.util.List;
 
 public class BombermanGame extends Application {
 
-    public static final int WIDTH = 31;
-    public static final int HEIGHT = 13;
+    public static final int WIDTH = 35;
+    public static final int HEIGHT = 16;
     private boolean win = false;
     private static final int MAX_LEVEL = 2;
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-    public int level = 0;
+    public int level = 1;
     private GraphicsContext gc = canvas.getGraphicsContext2D();
     public boolean check_play = false;
     private int isPlay = 0;

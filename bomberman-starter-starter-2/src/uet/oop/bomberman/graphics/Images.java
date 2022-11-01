@@ -53,7 +53,6 @@ public class Images {
         try {
             File file = new File(path);
             FileReader fileReader = new FileReader(file);
-
             BufferedReader reader = new BufferedReader(fileReader);
 
             for (int i = 0; i < height; i++) {

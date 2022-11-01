@@ -70,7 +70,7 @@ public class BombermanGame extends Application {
     private StopWatch cntLose = new StopWatch(1987);
     private Text textHeart = new Text (":");
     private Text textTime = new Text("time");
-    private Text textLevel;
+    private Text textLevel = new Text("Level:");
     private List<Text> textList = new ArrayList<>();
     private Menu Menu = new Menu();
     AnimationTimer timer;
@@ -100,6 +100,7 @@ public class BombermanGame extends Application {
         root.getChildren().add(Menu.getHeartPlayer());
         root.getChildren().add(textHeart);
         root.getChildren().add(textTime);
+        root.getChildren().add(textLevel);
         // Tao scene
         Scene scene = new Scene(root);
         // Them scene vao stage
@@ -160,6 +161,10 @@ public class BombermanGame extends Application {
         textTime.setX(200);
         textTime.setY(540);
         textTime.setFill(Color.BLUE);
+        textLevel.setFont(Font.font(null, FontWeight.BOLD, 25));
+        textLevel.setX(450);
+        textLevel.setY(540);
+        textLevel.setFill(Color.YELLOWGREEN);
     }
 
     public List<Entity> updateEntity() {
@@ -220,6 +225,7 @@ public class BombermanGame extends Application {
         timeReal = time / 50;
         textTime.setText("Time: " + timeReal);
         textHeart.setText(": " + bomberman.getHeart());
+        textLevel.setText("Level: " + this.level );
         if (isPlay % 2 == 0) {
             if (bomberman.getHeart() <= 0) {
                 loseGame = true;

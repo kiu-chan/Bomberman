@@ -1,5 +1,6 @@
 package uet.oop.bomberman.entities.Move;
 
+import javafx.util.Pair;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Interaction.Collision;
@@ -7,6 +8,9 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import javafx.scene.image.Image;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
 import java.util.Random;
 
 /**
@@ -25,6 +29,7 @@ public class AutoMove extends MoveEntity {
     private long timeDead = 0;
 
     private int cntDelay = 0;
+    private int saveWay = 5;
 
     public static final long TIME_DELAY = 2;
     public static final long timeWay = 500;
@@ -37,10 +42,13 @@ public class AutoMove extends MoveEntity {
     private int player_y;
     private int check_direction = 0;
 
-    public static final double RANGE = 3 * Sprite.SCALED_SIZE;
+    public static final double RANGE = 20 * Sprite.SCALED_SIZE;
     private Collision collision = new Collision();
 
     Bomber bomber;
+
+    int[] toX = {0, 0, -1, 1};  //up->down->left->right
+    int[] toY = {-1, 1, 0, 0};
 
     public enum move {
         UP(0), DOWN(1), LEFT(2), RIGHT(3), STOP(4);
@@ -98,7 +106,7 @@ public class AutoMove extends MoveEntity {
         canMove(way);
 
         if(checkPlayer()) {
-            direction(SimpleMoveToPlayer());
+            direction(AIMoveToPlayer());
         }
         else {
             check_direction = 0;
@@ -306,6 +314,78 @@ public class AutoMove extends MoveEntity {
             }
         }
 
+        return way;
+    }
+
+    public int AIMoveToPlayer() {
+        int way = 5;
+        boolean[][] visit = new boolean[100][100];
+        int[][] distance = new int[100][100];
+        int[][] map = BombermanGame.map.getLogic_map();
+        Queue<Pair<Integer, Integer>> queue = new ArrayDeque<>();
+        int player_x = BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE;
+        int player_y = BombermanGame.bomberman.getY() / Sprite.SCALED_SIZE;
+
+        queue.add(new Pair<>(player_x, player_y));
+        visit[player_x][player_y] = true;
+        while (!queue.isEmpty()) {
+            Pair<Integer, Integer> value = queue.element();
+            int _x = value.getKey();
+            int _y = value.getValue();
+            queue.poll();
+
+            for (int i = 0; i < 4; ++i) {
+                int check_x = _x + toX[i];
+                int check_y = _y + toY[i];
+
+                if (check_x > BombermanGame.WIDTH || check_x < 1) continue;
+                if (check_y > BombermanGame.HEIGHT || check_y < 1) continue;
+                if (map[check_y][check_x] == 1) {
+                    continue;
+                }
+
+                if(!visit[check_y][check_x]) {
+                    distance[check_y][check_x] = distance[_y][_x] + 1;
+                    visit[check_y][check_x] = true;
+                    queue.add(new Pair<>(check_x, check_y));
+                }
+            }
+        }
+
+        for (int i = 0; i < 4; ++i) {
+            int check_x = x / Sprite.SCALED_SIZE + toX[i];
+            int check_y = y / Sprite.SCALED_SIZE + toY[i];
+            if (check_x > 0 && check_y > 0 && check_x < BombermanGame.WIDTH && check_y < BombermanGame.HEIGHT) {//System.out.println(map[check_y][check_x]);
+                if (map[check_y][check_x] == 1) {//System.out.println("true");
+                    continue;
+                }
+                if (distance[check_y][check_x] == distance[y / Sprite.SCALED_SIZE][x / Sprite.SCALED_SIZE] - 1 && y % Sprite.SCALED_SIZE == 0 && x % Sprite.SCALED_SIZE == 0) {
+                    System.out.println(x + " " + y);
+                    if (i == move.UP.value) {
+                        saveWay = move.UP.value;
+                        System.out.println("up");
+                    }
+                    if (i == move.DOWN.value) {
+                        saveWay = move.DOWN.value;
+                        System.out.println("down");
+                    }
+                    if (i == move.LEFT.value) {
+                        saveWay = move.LEFT.value;
+                        System.out.println("left");
+                    }
+                    if (i == move.RIGHT.value) {
+                        saveWay = move.RIGHT.value;
+                        System.out.println("right");
+                    }
+                }
+            }
+        }
+        way=saveWay;
+        for (int i = 0; i < BombermanGame.HEIGHT; i++) {
+            for (int j = 0; j < BombermanGame.WIDTH; j++) {
+                System.out.print(distance[i][j] + " ");
+            }System.out.println();
+        }System.out.println("true");
         return way;
     }
 

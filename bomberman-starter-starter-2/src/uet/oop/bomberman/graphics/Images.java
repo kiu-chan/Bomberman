@@ -26,6 +26,7 @@ public class Images {
     private int width;
     private int height;
     private int[][] map = new int[100][100];
+    private int [][] logic_map = new int[100][100];
     private int[] item = new int[20];
     SpriteSheet sheet;
     Images image;
@@ -199,9 +200,6 @@ public class Images {
         return map;
     }
 
-    public void setRealImg(int i, int width, int height) {
-        //list.set
-    }
 
     public List<Sprite> getList() {
         return list;
@@ -225,6 +223,23 @@ public class Images {
 
     public int[][] getMap() {
         return map;
+    }
+
+    public int[][] getLogic_map() {
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                if (map[i][j] > 0) {
+                    logic_map[j][i] = 1;
+                }
+            }
+        }
+
+        /*for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                System.out.print(logic_map[i][j] + " ");
+            }System.out.println();
+        }*/
+        return logic_map;
     }
     public Images getImage() {
         return this.image;

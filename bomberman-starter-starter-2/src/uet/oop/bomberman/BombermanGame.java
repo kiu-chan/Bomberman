@@ -28,12 +28,13 @@ import java.util.List;
 public class BombermanGame extends Application {
 
     public static final int WIDTH = 35;
-    public static final int HEIGHT = 17;
+    public static final int HEIGHT = 16;
+    public static final int MENU_FRAME = 1;
     private boolean win = false;
     private static final int MAX_LEVEL = 3;
 
-    private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-    public int level = 1;
+    private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * (HEIGHT + MENU_FRAME));
+    public int level = 0;
     private GraphicsContext gc = canvas.getGraphicsContext2D();
     public boolean check_play = false;
     private int isPlay = 0;
@@ -176,22 +177,22 @@ public class BombermanGame extends Application {
 
     public void load() throws FileNotFoundException {
         padding.loadImage();
-        padding.createPadding(padding, WIDTH, HEIGHT - 1);
+        padding.createPadding(padding, WIDTH, HEIGHT);
         listPadding.addAll(padding.getStillObjects()); //tạm thời lấy mỗi cỏ
 
         map.loadImage();
-        map.readMap(Map + this.level + ".txt", map, WIDTH, HEIGHT - 1);
+        map.readMap(Map + this.level + ".txt", map, WIDTH, HEIGHT);
         map.createMap();
-        stillObjects.addAll(map.getStillObjects());
+        stillObjects.addAll(map.getStillObjects());map.getLogic_map();
 
         item.loadImage();
         //item.readMap(mapItem, item, WIDTH, HEIGHT - 1);
-        item.randomItem(mapItem, item, WIDTH, HEIGHT - 1);
+        item.randomItem(mapItem, item, WIDTH, HEIGHT);
         item.createItem();
         listItem.addAll(item.getStillObjects());
 
         monster.loadImage();
-        monster.readMap(mapMonster + this.level + ".txt", monster, WIDTH, HEIGHT - 1);
+        monster.readMap(mapMonster + this.level + ".txt", monster, WIDTH, HEIGHT);
         monster.createEntity();
         entities.addAll(monster.getStillObjects());
     }

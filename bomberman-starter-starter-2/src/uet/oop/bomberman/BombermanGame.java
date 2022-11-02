@@ -84,6 +84,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        setText();
         //   stage1 = stage;
         mainMenu(stage);
     }
@@ -97,7 +98,7 @@ public class BombermanGame extends Application {
         entities.add(bomberman);
         Group root = new Group();
         root.getChildren().add(canvas);
-        setText();
+      //  setText();
         root.getChildren().add(Menu.getHeartPlayer());
         root.getChildren().add(textHeart);
         root.getChildren().add(textTime);

@@ -228,7 +228,7 @@ public class Images {
     public int[][] getLogic_map() {
             for (int i = 0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
-                if (map[i][j] > 0) {
+                if (this.getMap()[i][j] > 0) {
                     logic_map[j][i] = 1;
                 }
             }

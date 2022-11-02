@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.Move;
 
 import javafx.util.Pair;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.StopWatch;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Interaction.Collision;
 import uet.oop.bomberman.graphics.Sprite;
@@ -18,6 +19,8 @@ import java.util.Random;
  */
 public class AutoMove extends MoveEntity {
     private int start = 5;
+
+    private int newWay;
 
     private long imageTimeAgo = 0;
     private long imageTimeNow = 0;
@@ -42,8 +45,12 @@ public class AutoMove extends MoveEntity {
     private int player_y;
     private int check_direction = 0;
 
+    private boolean check_map = false;
+
     public static final double RANGE = 20 * Sprite.SCALED_SIZE;
     private Collision collision = new Collision();
+
+    private StopWatch time = new StopWatch(300);
 
     Bomber bomber;
 
@@ -318,10 +325,24 @@ public class AutoMove extends MoveEntity {
     }
 
     public int AIMoveToPlayer() {
-        int way = 5;
+        if (time.checkEnd()) {
+            newWay = new Random().nextInt(4);
+            time.setStart();
+        }
+        int way = newWay;
         boolean[][] visit = new boolean[100][100];
         int[][] distance = new int[100][100];
-        int[][] map = BombermanGame.map.getLogic_map();
+        int[][] map1 = BombermanGame.map.getMap();
+        int[][] map = new int[100][100];
+
+        for (int i = 0; i < BombermanGame.WIDTH; i++) {
+            for (int j = 0; j < BombermanGame.HEIGHT; j++) {
+                if (map1[i][j] > 0) {
+                    map[j][i] = 1;
+                }
+            }
+        }
+
         Queue<Pair<Integer, Integer>> queue = new ArrayDeque<>();
         int player_x = BombermanGame.bomberman.getX() / Sprite.SCALED_SIZE;
         int player_y = BombermanGame.bomberman.getY() / Sprite.SCALED_SIZE;
@@ -359,33 +380,38 @@ public class AutoMove extends MoveEntity {
                 if (map[check_y][check_x] == 1) {//System.out.println("true");
                     continue;
                 }
-                if (distance[check_y][check_x] == distance[y / Sprite.SCALED_SIZE][x / Sprite.SCALED_SIZE] - 1 && y % Sprite.SCALED_SIZE == 0 && x % Sprite.SCALED_SIZE == 0) {
-                    System.out.println(x + " " + y);
-                    if (i == move.UP.value) {
-                        saveWay = move.UP.value;
-                        System.out.println("up");
+                if (distance[check_y][check_x] == distance[y / Sprite.SCALED_SIZE][x / Sprite.SCALED_SIZE] - 1) {
+                    //check_map = true;System.out.println(1);
+                    if (y % Sprite.SCALED_SIZE == 0 && x % Sprite.SCALED_SIZE == 0) {
+                        if (i == move.UP.value) {
+                            saveWay = move.UP.value;
+                            System.out.println("up");
+                        }
+                        if (i == move.DOWN.value) {
+                            saveWay = move.DOWN.value;
+                            System.out.println("down");
+                        }
+                        if (i == move.LEFT.value) {
+                            saveWay = move.LEFT.value;
+                            System.out.println("left");
+                        }
+                        if (i == move.RIGHT.value) {
+                            saveWay = move.RIGHT.value;
+                            System.out.println("right");
+                        }
                     }
-                    if (i == move.DOWN.value) {
-                        saveWay = move.DOWN.value;
-                        System.out.println("down");
-                    }
-                    if (i == move.LEFT.value) {
-                        saveWay = move.LEFT.value;
-                        System.out.println("left");
-                    }
-                    if (i == move.RIGHT.value) {
-                        saveWay = move.RIGHT.value;
-                        System.out.println("right");
-                    }
+
                 }
             }
         }
-        way=saveWay;
-        for (int i = 0; i < BombermanGame.HEIGHT; i++) {
+        //if (check_map) {
+            way = saveWay;
+        //}
+        /*for (int i = 0; i < BombermanGame.HEIGHT; i++) {
             for (int j = 0; j < BombermanGame.WIDTH; j++) {
                 System.out.print(distance[i][j] + " ");
             }System.out.println();
-        }System.out.println("true");
+        }System.out.println("true");*/
         return way;
     }
 

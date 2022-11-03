@@ -262,6 +262,7 @@ public class BombermanGame extends Application {
     }
 
     public void mainMenu(Stage stage) {
+        //Point point;
         Group root = new Group();
         root.getChildren().add(Menu.getBackgroundMenu());
         root.getChildren().add(Menu.getPlayButton());

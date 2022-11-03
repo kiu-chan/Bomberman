@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import java.util.List;
 
 public abstract class Entity {
+    protected int point = 0;
     protected int speed;
     //khoảng cách so với tạo độ gôc
     int distance = 0;
@@ -23,6 +24,7 @@ public abstract class Entity {
 
     //thay đổi loại quái
     private boolean swap_monster = false;
+    //số lượng quái đẻ ra
     private int amount = 1;
 
     public void setX(int x) {
@@ -71,6 +73,14 @@ public abstract class Entity {
         this.w = Sprite.SCALED_SIZE;
         this.h = Sprite.SCALED_SIZE;
         this.img = img;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public int getPoint() {
+        return this.point;
     }
 
     public void setAmount(int amount) {

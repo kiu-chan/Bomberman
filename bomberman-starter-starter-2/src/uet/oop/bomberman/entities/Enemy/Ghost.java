@@ -16,6 +16,7 @@ public class Ghost extends AutoMove {
 
     public Ghost(int x, int y, Image img) {
         super( x, y, img, 2, Sprite.ghost);
+        setPoint(100);
     }
 
     @Override

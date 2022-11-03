@@ -47,7 +47,7 @@ public class AutoMove extends MoveEntity {
 
     private boolean check_map = false;
 
-    public static final double RANGE = 20 * Sprite.SCALED_SIZE;
+    public static final double RANGE = 30 * Sprite.SCALED_SIZE;
     private Collision collision = new Collision();
 
     private StopWatch time = new StopWatch(300);
@@ -386,19 +386,19 @@ public class AutoMove extends MoveEntity {
                         check_map = true;
                         if (i == move.UP.value) {
                             saveWay = move.UP.value;
-                            System.out.println("up");
+                            //System.out.println("up");
                         }
                         if (i == move.DOWN.value) {
                             saveWay = move.DOWN.value;
-                            System.out.println("down");
+                            //System.out.println("down");
                         }
                         if (i == move.LEFT.value) {
                             saveWay = move.LEFT.value;
-                            System.out.println("left");
+                            //System.out.println("left");
                         }
                         if (i == move.RIGHT.value) {
                             saveWay = move.RIGHT.value;
-                            System.out.println("right");
+                            //System.out.println("right");
                         }
                     }
                 }
@@ -443,7 +443,9 @@ public class AutoMove extends MoveEntity {
     public void moveUp() {
         cntDelay++;
         if (cntDelay > TIME_DELAY) {
-            y -= speed;
+            if (y - speed > 0) {
+                y -= speed;
+            }
             cntDelay = 0;
         }
     }
@@ -452,7 +454,9 @@ public class AutoMove extends MoveEntity {
     public void moveDown() {
         cntDelay++;
         if (cntDelay > TIME_DELAY) {
-            y += speed;
+            if (y + speed < BombermanGame.HEIGHT * Sprite.SCALED_SIZE) {
+                y += speed;
+            }
             cntDelay = 0;
         }
     }
@@ -461,7 +465,9 @@ public class AutoMove extends MoveEntity {
     public void moveLeft() {
         cntDelay++;
         if (cntDelay > TIME_DELAY) {
-            x -= speed;
+            if (x - speed > 0) {
+                x -= speed;
+            }
             cntDelay = 0;
         }
     }
@@ -470,7 +476,9 @@ public class AutoMove extends MoveEntity {
     public void moveRight() {
         cntDelay++;
         if (cntDelay > TIME_DELAY) {
-            x += speed;
+            if (x + speed < BombermanGame.WIDTH * Sprite.SCALED_SIZE) {
+                x += speed;
+            }
             cntDelay = 0;
         }
     }
@@ -491,6 +499,7 @@ public class AutoMove extends MoveEntity {
         }
         return false;
     }
+
     public void DEAD() {
         checkView = view.DIED.value;
         moveStop();
@@ -566,8 +575,6 @@ public class AutoMove extends MoveEntity {
             }
         }
     }
-
-
 
     @Override
     public void update() {

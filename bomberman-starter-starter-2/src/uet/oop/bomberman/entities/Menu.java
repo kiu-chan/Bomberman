@@ -14,7 +14,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 
 public class Menu {
-    private boolean playMusic = true;
+    private int cntPause = 0;
     private Image backgroundMenuImage = new Image("MenuImage/background.png");
     private ImageView backgroundMenu = new ImageView(backgroundMenuImage);
     private Image playImage = new Image("MenuImage/button_play.png");
@@ -42,17 +42,24 @@ public class Menu {
     private Image volumOff = new Image("MenuImage/button_music2.png");
     private ImageView volumOnButton = new ImageView(volumOn);
     private ImageView volumOffButton = new ImageView(volumOff);
-  //  private Image bg = new Image("MenuImage/buttonPlayer.png");
-  //  private ImageView gbPlay = new ImageView(bg);
+    private Image continueIMG = new Image("MenuImage/con.png");
 
-    private Image heart = new Image("MenuImage/HeartPlayer.png");
+    private Image pauseIMG = new Image("MenuImage/pau.png");
+    private ImageView pauseButton = new ImageView(continueIMG);
+    private Image heart = new Image("MenuImage/green.png");
     private Image winImage = new Image("MenuImage/win.jpg");
     private Image home = new Image("MenuImage/home.jpg");
     private ImageView homeButton = new ImageView(home);
     private Image hd2 = new Image("MenuImage/q1.png");
     private Image hd3 = new Image("MenuImage/q2.png");
     private ImageView hd2Img = new ImageView(hd2);
+    private Image soundOnPlay = new Image("MenuImage/soundon.jpg");
 
+    private Image soundOffPlay = new Image("MenuImage/soundoff.jpg");
+    private Image pauseIMGScreen = new Image("MenuImage/pause.jpg");
+    private ImageView pauseScreen = new ImageView(pauseIMGScreen);
+
+    private ImageView soundPlayButton = new ImageView(soundOnPlay);
     private ImageView hd3Img = new ImageView(hd3);
     private ImageView winImg = new ImageView(winImage);
     private ImageView heartPlayer = new ImageView(heart);
@@ -68,8 +75,8 @@ public class Menu {
         playAgainButton.setY(400);
         quit2Button.setX(850);
         quit2Button.setY(400);
-        heartPlayer.setX(5);
-        heartPlayer.setY(520);
+        heartPlayer.setX(10);
+        heartPlayer.setY(525);
         backButton.setY(5);
         backButton.setX(5);
         nextButton.setY(5);
@@ -80,10 +87,18 @@ public class Menu {
         volumOffButton.setY(5);
         homeButton.setX(1025);
         homeButton.setY(10);
+        soundPlayButton.setX(1050);
+        soundPlayButton.setY(515);
+        pauseButton.setX(980);
+        pauseButton.setY(515);
     }
 
     public ImageView getBackButton() {
         return backButton;
+    }
+
+    public ImageView getSoundPlayButton() {
+        return soundPlayButton;
     }
 
     public ImageView getVolumOffButton() {
@@ -152,6 +167,37 @@ public class Menu {
 
     public ImageView getHd3Img() {
         return hd3Img;
+    }
+
+    public ImageView getPauseButton() {
+        return pauseButton;
+    }
+
+    public void setSound() {
+        soundPlayButton.setOnMouseClicked(mouseEvent -> {
+            BombermanGame.cntSound++;
+        });
+        if (BombermanGame.cntSound % 2 == 0) {
+            soundPlayButton.setImage(soundOnPlay);
+        } else {
+            soundPlayButton.setImage(soundOffPlay);
+        }
+    }
+    public void setPause(Group group) {
+        pauseButton.setOnMouseClicked(mouseEvent -> {
+            BombermanGame.cntPlay++;
+        });
+        if (BombermanGame.cntPlay % 2 == 0) {
+            group.getChildren().remove(pauseScreen);
+            pauseButton.setImage(continueIMG);
+            cntPause = 0;
+        } else {
+            if (cntPause < 1) {
+                group.getChildren().add(pauseScreen);
+                cntPause++;
+            }
+            pauseButton.setImage(pauseIMG);
+        }
     }
 }
 

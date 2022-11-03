@@ -322,9 +322,9 @@ public class Bomber extends MoveEntity {
 
     public void moveIMG() {
         imageTimeNow = System.currentTimeMillis();
-
-        BombermanGame.audio.playAudio(Audio.audio.bobDropped.value);
-
+        if (BombermanGame.cntSound % 2 == 0) {
+            BombermanGame.audio.playAudio(Audio.audio.bobDropped.value);
+        }
         if (act == status.DEAD.value) {
             if (imageTimeNow - imageTimeAgo > TIME_DEAD) {
                 cntDead++;

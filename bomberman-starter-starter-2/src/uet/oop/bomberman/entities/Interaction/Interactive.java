@@ -32,9 +32,10 @@ public class Interactive {
                             item.setStart(System.currentTimeMillis());
                             listItem.add(item);
                             list.remove(i);
-
                             BombermanGame.audio.stopAudio(Audio.audio.powerUp.value);
-                            BombermanGame.audio.playAudio(Audio.audio.powerUp.value);
+                            if (BombermanGame.cntSound % 2 == 0) {
+                                BombermanGame.audio.playAudio(Audio.audio.powerUp.value);
+                            }
 
                         } else {
                             swapMap(monster, list, i);

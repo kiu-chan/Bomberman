@@ -32,13 +32,14 @@ public class BombermanGame extends Application {
     public static final int HEIGHT = 16;
     public static final int MENU_FRAME = 1;
     private boolean win = false;
-    private static final int MAX_LEVEL = 1;
+    private static final int MAX_LEVEL = 2;
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * (HEIGHT + MENU_FRAME));
     public int level = 0;
+    public static int cntSound = 0;
     private GraphicsContext gc = canvas.getGraphicsContext2D();
     public boolean check_play = false;
-    private int isPlay = 0;
+    public static int cntPlay = 0;
     private boolean playMusic = true;
     private boolean loseGame = false;
 
@@ -103,6 +104,8 @@ public class BombermanGame extends Application {
         root.getChildren().add(textHeart);
         root.getChildren().add(textTime);
         root.getChildren().add(textLevel);
+        root.getChildren().add(Menu.getSoundPlayButton());
+        root.getChildren().add(Menu.getPauseButton());
         // Tao scene
         Scene scene = new Scene(root);
         // Them scene vao stage
@@ -124,8 +127,6 @@ public class BombermanGame extends Application {
                 }
                 render();
                 update();
-                /*textTime.setText("Time: " + timeReal);
-                textHeart.setText(": " + bomberman.getHeart());*/
                 if (loseGame) {
                     audio.playAudio(Audio.audio.playerDead.value);
                     if (cntLose.checkEnd()) {
@@ -143,6 +144,8 @@ public class BombermanGame extends Application {
                 if (canNextLevel) {
                     nextLevel(stage);
                 }
+                Menu.setSound();
+                Menu.setPause(root);
             }
         };
         timer.start();
@@ -150,20 +153,20 @@ public class BombermanGame extends Application {
     }
 
     public void setText() {
-        textHeart.setFont(Font.font(null, FontWeight.BOLD, 25));
+        textHeart.setFont(Font.font(null, FontWeight.BOLD, 30));
         //Setting the color of the text
-        textHeart.setFill(Color.LIMEGREEN);
+        textHeart.setFill(Color.GREEN);
         //setting the position of the text
-        textHeart.setX(35);
-        textHeart.setY(540);
-        textTime.setFont(Font.font(null, FontWeight.BOLD, 25));
+        textHeart.setX(45);
+        textHeart.setY(550);
+        textTime.setFont(Font.font(null, FontWeight.BOLD, 30));
         textTime.setX(200);
-        textTime.setY(540);
+        textTime.setY(550);
         textTime.setFill(Color.BLUE);
-        textLevel.setFont(Font.font(null, FontWeight.BOLD, 25));
+        textLevel.setFont(Font.font(null, FontWeight.BOLD, 30));
         textLevel.setX(450);
-        textLevel.setY(540);
-        textLevel.setFill(Color.YELLOWGREEN);
+        textLevel.setY(550);
+        textLevel.setFill(Color.BLACK);
     }
 
     public List<Entity> updateEntity() {
@@ -220,12 +223,12 @@ public class BombermanGame extends Application {
     }
 
     public void update() {
-        time++;
-        timeReal = time / 50;
-        textTime.setText("Time: " + timeReal);
-        textHeart.setText(": " + bomberman.getHeart());
-        textLevel.setText("Level: " + this.level );
-        if (isPlay % 2 == 0) {
+        if (cntPlay % 2 == 0) {
+            time++;
+            timeReal = time / 50;
+            textTime.setText("Time: " + timeReal);
+            textHeart.setText(": " + bomberman.getHeart());
+            textLevel.setText("Level: " + this.level );
             if (bomberman.getHeart() <= 0) {
                 loseGame = true;
             }
@@ -378,7 +381,6 @@ public class BombermanGame extends Application {
     }
 
     public void nextLevel(Stage stage) {
-        timer.stop();
         Group root = new Group();
         Text text = new Text("Level " + (this.level));
         text.setFont(Font.font(null, FontWeight.BOLD, 50));
@@ -403,6 +405,7 @@ public class BombermanGame extends Application {
         }
 
         if (endLevel - startLevel >= TIME_NEXT_LEVEL) {
+            timer.stop();
             canNextLevel = false;
             startLevel = 0;
             root.getChildren().clear();

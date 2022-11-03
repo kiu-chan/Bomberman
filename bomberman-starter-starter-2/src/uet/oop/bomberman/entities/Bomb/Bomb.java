@@ -86,7 +86,9 @@ public class Bomb extends Entity {
                 return true;
             }
         }
-        BombermanGame.audio.playAudio(Audio.audio.bomSet.value);
+        if (BombermanGame.cntSound % 2 == 0) {
+            BombermanGame.audio.playAudio(Audio.audio.bomSet.value);
+        }
         return false;
     }
 
@@ -256,7 +258,9 @@ public class Bomb extends Entity {
             if (timeToExplode > 0) {
                 timeToExplode--;
             } else {
-                BombermanGame.audio.playAudio(Audio.audio.bomExplode.value);
+                if (BombermanGame.cntSound % 2 == 0) {
+                    BombermanGame.audio.playAudio(Audio.audio.bomExplode.value);
+                }
                 isExplotion = true;
                 if (cntMakeWall == 0) {
                     for(int i = 1; i <=4 ; i++) {

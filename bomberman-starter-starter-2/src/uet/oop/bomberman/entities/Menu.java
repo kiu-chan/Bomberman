@@ -42,7 +42,7 @@ public class Menu {
     private Image volumOff = new Image("MenuImage/button_music2.png");
     private ImageView volumOnButton = new ImageView(volumOn);
     private ImageView volumOffButton = new ImageView(volumOff);
-    private Image continueIMG = new Image("MenuImage/con.png");
+    private Image continueIMG = new Image("MenuImage/continue.png");
 
     private Image pauseIMG = new Image("MenuImage/pau.png");
     private ImageView pauseButton = new ImageView(continueIMG);

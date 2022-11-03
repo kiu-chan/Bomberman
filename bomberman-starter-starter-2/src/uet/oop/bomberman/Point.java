@@ -13,13 +13,11 @@ import java.util.logging.Logger;
 public class Point {
     public static final int TOP = 3;
     public int score = 0;
-    public String name;
     public int time;
     public Point() {
     }
 
-    public Point(String name, int score, int time) {
-        this.name = name;
+    public Point(int score, int time) {
         this.score = score;
         this.time = time;
     }
@@ -34,55 +32,55 @@ public class Point {
         return this.score;
     }
 
-    public String getName() {
-        return this.name;
-    }
 
+    public void setTime(int time) {
+        this.time = time;
+    }
     public int getTime() {
         return this.time;
     }
 
-    public void topScore(String path) {
+    public void addList(String path) {
         try {
             File file = new File(path);
             FileReader fileReader = new FileReader(file);
             BufferedReader reader = new BufferedReader(fileReader);
 
             for (int i = 0; i < TOP; i++) {
-                String _name;
                 int _score;
                 int _time;
-                _name = reader.readLine();
                 _score = Integer.parseInt(reader.readLine());
                 _time = Integer.parseInt(reader.readLine());
-                list.add(new Point(_name, _score, _time));
-                //list.add(this);
-                //sortScore();
+                list.add(new Point(_score, _time));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        /*for (int i = 0; i < TOP; i++) {
-            writeScore(path, list.get(i).getName() + "/n");
-            writeScore(path, list.get(i).getScore() + "/n");
-            writeScore(path, list.get(i).getTime() + "/n");
+    public void topScore(String path) {
+        list.add(new Point(this.score, this.time));
+        sortScore();
+        String s = "";
+        for (int i = 0; i < TOP; i++) {
+            s = s + list.get(i).getScore() + "\n" + list.get(i).getTime() + "\n";
         }
+        writeScore(path, s);
 
         for (int i = 0; i < TOP; i++) {
-            System.out.println(list.get(i).getName());
-        }*/
+            System.out.println(list.get(i).getScore());
+        }
     }
 
     public void sortScore() {
         Collections.sort(list, new Comparator<Point>() {
             @Override
             public int compare(Point o1, Point o2) {
-                if (o1.getScore() > o2.getScore()){
+                if (o1.getScore() < o2.getScore()){
                     return 1;
                 }
 
-                if (o1.getScore() < o2.getScore()) {
+                if (o1.getScore() > o2.getScore()) {
                     return -1;
                 }
 
@@ -91,14 +89,6 @@ public class Point {
                 }
 
                 if (o1.getTime() < o2.getTime()) {
-                    return -1;
-                }
-
-                if (o1.getName().compareTo(o2.getName()) > 0) {
-                    return 1;
-                }
-
-                if (o1.getName().compareTo(o2.getName()) < 0) {
                     return -1;
                 }
 
@@ -115,5 +105,10 @@ public class Point {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void clear() {
+        this.score = 0;
+        this.time = 0;
     }
 }

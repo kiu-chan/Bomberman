@@ -70,12 +70,15 @@ public class BombermanGame extends Application {
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
 
+    public static final String score = "bomberman-starter-starter-2/res/Point/score.txt";
+
     private StopWatch cntLose = new StopWatch(1987);
     private Text textHeart = new Text (":");
     private Text textTime = new Text("time");
     private Text textLevel = new Text("Level:");
     private List<Text> textList = new ArrayList<>();
     private Menu Menu = new Menu();
+    private Point point = new Point();
     AnimationTimer timer;
 
     // private Stage stage1;
@@ -262,7 +265,10 @@ public class BombermanGame extends Application {
     }
 
     public void mainMenu(Stage stage) {
-        //Point point;
+        point.addList(score);
+        point.addScore(111);
+        point.setTime(0);
+        point.topScore(score);
         Group root = new Group();
         root.getChildren().add(Menu.getBackgroundMenu());
         root.getChildren().add(Menu.getPlayButton());

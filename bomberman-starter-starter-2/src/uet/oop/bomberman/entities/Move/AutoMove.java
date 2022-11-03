@@ -165,7 +165,7 @@ public class AutoMove extends MoveEntity {
             timeAgo = System.currentTimeMillis();
             start = 5;
         }
-        if(timeNow - timeAgo >= timeWay) {
+        if(timeNow - timeAgo >= timeWay  && x % Sprite.SCALED_SIZE == 0 && y % Sprite.SCALED_SIZE == 0) {
             timeAgo = timeNow;
             start = way;
             return true;
@@ -323,9 +323,9 @@ public class AutoMove extends MoveEntity {
 
         return way;
     }
-
+    private boolean check = false;
     public int AIMoveToPlayer() {
-        if (time.checkEnd()) {
+        if (time.checkEnd() && x % Sprite.SCALED_SIZE == 0 && y % Sprite.SCALED_SIZE == 0) {
             newWay = new Random().nextInt(4);
             time.setStart();
         }
@@ -381,8 +381,9 @@ public class AutoMove extends MoveEntity {
                     continue;
                 }
                 if (distance[check_y][check_x] == distance[y / Sprite.SCALED_SIZE][x / Sprite.SCALED_SIZE] - 1) {
-                    //check_map = true;System.out.println(1);
+                    check = true;
                     if (y % Sprite.SCALED_SIZE == 0 && x % Sprite.SCALED_SIZE == 0) {
+                        check_map = true;
                         if (i == move.UP.value) {
                             saveWay = move.UP.value;
                             System.out.println("up");
@@ -400,13 +401,20 @@ public class AutoMove extends MoveEntity {
                             System.out.println("right");
                         }
                     }
-
                 }
             }
         }
-        //if (check_map) {
+        if (check_map) {
             way = saveWay;
-        //}
+        }
+        if (check && !check_map) {
+            if (x % Sprite.SCALED_SIZE != 0) {
+                way = move.RIGHT.value;
+            }
+            if (y % Sprite.SCALED_SIZE != 0) {
+                way = move.UP.value;
+            }
+        }
         /*for (int i = 0; i < BombermanGame.HEIGHT; i++) {
             for (int j = 0; j < BombermanGame.WIDTH; j++) {
                 System.out.print(distance[i][j] + " ");

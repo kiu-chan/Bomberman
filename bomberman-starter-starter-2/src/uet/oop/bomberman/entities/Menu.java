@@ -1,16 +1,9 @@
 package uet.oop.bomberman.entities;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.graphics.Sprite;
 
 
 public class Menu {
@@ -23,7 +16,7 @@ public class Menu {
     private ImageView instructionButton = new ImageView(instructionImage);
     private Image quit = new Image("MenuImage/button_quit.png");
     private ImageView quitButton = new ImageView(quit);
-    private Image guideImage = new Image("MenuImage/hduong.jpg");
+    private Image guideImage = new Image("MenuImage/huongdan.png");
     private ImageView instruction = new ImageView(guideImage);
     private Button Pause = new Button("Pause");
     private Image endGameImage = new Image("MenuImage/end.png");
@@ -36,7 +29,7 @@ public class Menu {
     private ImageView level = new ImageView(levelimg);
     private Image back = new Image("MenuImage/button_back.png");
     private ImageView backButton = new ImageView(back);
-    private Image next = new Image("MenuImage/next.jpg");
+    private Image next = new Image("MenuImage/next.png");
     private ImageView nextButton = new ImageView(next);
     private Image volumOn = new Image("MenuImage/button_music1.png");
     private Image volumOff = new Image("MenuImage/button_music2.png");

@@ -78,7 +78,7 @@ public class BombermanGame extends Application {
     private Text textLevel = new Text("Level:");
     private List<Text> textList = new ArrayList<>();
     private Menu Menu = new Menu();
-    private Point point = new Point();
+    public static Point point = new Point();
     AnimationTimer timer;
 
     // private Stage stage1;

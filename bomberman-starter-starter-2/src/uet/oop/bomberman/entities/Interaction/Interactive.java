@@ -19,7 +19,6 @@ import java.util.List;
  * Chuyên tương tác giữa các thành phần(xóa, thực hiện chức năng).
  */
 public class Interactive {
-    public long score = 0;
     public boolean check_swapMap = false;
     public List<Item> listItem = new ArrayList<>();
     Collision collision = new Collision();
@@ -84,7 +83,7 @@ public class Interactive {
 
                     list.addAll(addMinvo(monster_x, monster_y, amount));
                 } else {
-                    score += list.get(i).getPoint();System.out.println(score);
+                    BombermanGame.point.addScore(list.get(i).getPoint());
                     list.remove(i);
                 }
             }
@@ -143,9 +142,6 @@ public class Interactive {
         }
     }
 
-    public long getScore() {
-        return this.score;
-    }
     public boolean getSwapMap() {
         return this.check_swapMap;
     }

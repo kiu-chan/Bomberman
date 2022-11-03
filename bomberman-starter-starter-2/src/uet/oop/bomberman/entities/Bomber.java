@@ -60,7 +60,6 @@ public class Bomber extends MoveEntity {
         maxBomb++;
     }
 
-    public static int bombRadius = 1;
     private List<Bomb> bombs = new ArrayList<>();
 
     public Bomber(int x, int y, Image img, int speed) {
@@ -159,9 +158,6 @@ public class Bomber extends MoveEntity {
         }
     }
 
-    public void checkBomberDead() {
-
-    }
 
     private void addBomb() {
         if (getBomberControl.bomberSpace == true && bombs.size() < maxBomb) {

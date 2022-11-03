@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 public class BombermanGame extends Application {
 
@@ -31,7 +32,7 @@ public class BombermanGame extends Application {
     public static final int HEIGHT = 16;
     public static final int MENU_FRAME = 1;
     private boolean win = false;
-    private static final int MAX_LEVEL = 3;
+    private static final int MAX_LEVEL = 1;
 
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * (HEIGHT + MENU_FRAME));
     public int level = 0;
@@ -85,8 +86,7 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage stage) {
         setText();
-        //   stage1 = stage;
-        mainMenu(stage);
+      mainMenu(stage);
     }
 
     public void playGame(Stage stage) {
@@ -131,25 +131,22 @@ public class BombermanGame extends Application {
                     if (cntLose.checkEnd()) {
                         audio.stopAudio(Audio.audio.playerDead.value);
                         root.getChildren().clear();
-                        timer.stop();
                         endGame(stage);
                         cntLose.setStart();
                     }
                 }
                 if (canNextLevel && win == false) {
-                    nextLevel(stage);
                 }
                 if (win == true || level > MAX_LEVEL) {
                     winGame(stage);
-                    timer.stop();
                 }
                 if (canNextLevel) {
-                    //timer.stop();
                     nextLevel(stage);
                 }
             }
         };
         timer.start();
+        System.out.println("da goi cau lenh nay");
     }
 
     public void setText() {
@@ -239,6 +236,7 @@ public class BombermanGame extends Application {
             listItem = interactive.removeItem(bomberman, listItem, entities);
 
             if (interactive.getSwapMap()) {
+                bomberman.getBombs().clear();
                 ++this.level;
                 if (this.level > MAX_LEVEL) {
                     win = true;
@@ -314,6 +312,7 @@ public class BombermanGame extends Application {
         Group root = new Group();
         root.getChildren().add(Menu.getInstruction());
         root.getChildren().add(Menu.getBackButton());
+        root.getChildren().add(Menu.getNextButton());
         // Tao scene
         Scene scene = new Scene(root);
         // Them scene vao stage
@@ -325,10 +324,61 @@ public class BombermanGame extends Application {
             root.getChildren().clear();
             mainMenu(stage);
         });
+        Menu.getNextButton().setOnMouseClicked(mouseEvent -> {
+            audio.playAudio(Audio.audio.buttonClick.value);
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            guide2(stage);
+        });
+    }
+    public void guide2(Stage stage) {
+        Group root = new Group();
+        root.getChildren().add(Menu.getHd2Img());
+        root.getChildren().add(Menu.getBackButton());
+        root.getChildren().add(Menu.getNextButton());
+        // Tao scene
+        Scene scene = new Scene(root);
+        // Them scene vao stage
+        stage.setScene(scene);
+        stage.show();
+        Menu.getBackButton().setOnMouseClicked(mouseEvent -> {
+            BombermanGame.audio.playAudio(Audio.audio.buttonClick.value);
+            BombermanGame.audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            guideMenu(stage);
+        });
+        Menu.getNextButton().setOnMouseClicked(mouseEvent -> {
+            BombermanGame.audio.playAudio(Audio.audio.buttonClick.value);
+            BombermanGame.audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            guide3(stage);
+        });
+    }
+    public void guide3(Stage stage) {
+        Group root = new Group();
+        root.getChildren().add(Menu.getHd3Img());
+        root.getChildren().add(Menu.getBackButton());
+        root.getChildren().add(Menu.getHomeButton());
+        // Tao scene
+        Scene scene = new Scene(root);
+        // Them scene vao stage
+        stage.setScene(scene);
+        stage.show();
+        Menu.getBackButton().setOnMouseClicked(mouseEvent -> {
+            BombermanGame.audio.playAudio(Audio.audio.buttonClick.value);
+            BombermanGame.audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            guide2(stage);
+        });
+        Menu.getHomeButton().setOnMouseClicked(mouseEvent -> {
+            BombermanGame.audio.playAudio(Audio.audio.buttonClick.value);
+            BombermanGame.audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            mainMenu(stage);
+        });
     }
 
     public void nextLevel(Stage stage) {
-        //  timer.stop();
+        timer.stop();
         Group root = new Group();
         Text text = new Text("Level " + (this.level));
         text.setFont(Font.font(null, FontWeight.BOLD, 50));
@@ -353,7 +403,6 @@ public class BombermanGame extends Application {
         }
 
         if (endLevel - startLevel >= TIME_NEXT_LEVEL) {
-            timer.stop();
             canNextLevel = false;
             startLevel = 0;
             root.getChildren().clear();
@@ -393,6 +442,7 @@ public class BombermanGame extends Application {
     }
 
     public void winGame(Stage stage) {
+        timer.stop();
         Group root = new Group();
         root.getChildren().add(Menu.getWinImg());
         root.getChildren().add(Menu.getQuit2Button());
@@ -408,7 +458,7 @@ public class BombermanGame extends Application {
             time = 0;
             clear();
             win = false;
-            this.level = 1;
+            this.level = 0;
             root.getChildren().clear();
             audio.playAudio(Audio.audio.buttonClick.value);
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);

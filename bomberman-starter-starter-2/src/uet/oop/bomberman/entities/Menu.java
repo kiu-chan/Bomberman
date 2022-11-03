@@ -1,8 +1,20 @@
 package uet.oop.bomberman.entities;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.graphics.Sprite;
+
+
 public class Menu {
+    private boolean playMusic = true;
     private Image backgroundMenuImage = new Image("MenuImage/background.png");
     private ImageView backgroundMenu = new ImageView(backgroundMenuImage);
     private Image playImage = new Image("MenuImage/button_play.png");
@@ -24,6 +36,8 @@ public class Menu {
     private ImageView level = new ImageView(levelimg);
     private Image back = new Image("MenuImage/button_back.png");
     private ImageView backButton = new ImageView(back);
+    private Image next = new Image("MenuImage/next.jpg");
+    private ImageView nextButton = new ImageView(next);
     private Image volumOn = new Image("MenuImage/button_music1.png");
     private Image volumOff = new Image("MenuImage/button_music2.png");
     private ImageView volumOnButton = new ImageView(volumOn);
@@ -35,7 +49,11 @@ public class Menu {
     private Image winImage = new Image("MenuImage/win.jpg");
     private Image home = new Image("MenuImage/home.jpg");
     private ImageView homeButton = new ImageView(home);
+    private Image hd2 = new Image("MenuImage/q1.png");
+    private Image hd3 = new Image("MenuImage/q2.png");
+    private ImageView hd2Img = new ImageView(hd2);
 
+    private ImageView hd3Img = new ImageView(hd3);
     private ImageView winImg = new ImageView(winImage);
     private ImageView heartPlayer = new ImageView(heart);
 
@@ -54,6 +72,8 @@ public class Menu {
         heartPlayer.setY(520);
         backButton.setY(5);
         backButton.setX(5);
+        nextButton.setY(5);
+        nextButton.setX(1040);
         volumOnButton.setX(1040);
         volumOnButton.setY(5);
         volumOffButton.setX(1040);
@@ -121,5 +141,18 @@ public class Menu {
     public ImageView getHomeButton() {
         return homeButton;
     }
+
+    public ImageView getHd2Img() {
+        return hd2Img;
+    }
+
+    public ImageView getNextButton() {
+        return nextButton;
+    }
+
+    public ImageView getHd3Img() {
+        return hd3Img;
+    }
 }
+
 

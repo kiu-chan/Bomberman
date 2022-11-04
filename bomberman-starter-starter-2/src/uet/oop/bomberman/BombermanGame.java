@@ -1,6 +1,5 @@
 package uet.oop.bomberman;
 
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -9,7 +8,6 @@ import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.entities.Interaction.Interactive;
 import uet.oop.bomberman.graphics.Images;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.entities.Menu;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -19,33 +17,28 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 public class BombermanGame extends Application {
 
     public static final int WIDTH = 35;
     public static final int HEIGHT = 16;
     public static final int MENU_FRAME = 1;
-    private boolean win = false;
-    private static final int MAX_LEVEL = 2;
-
     private Canvas canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * (HEIGHT + MENU_FRAME));
-    public int level = 0;
-    public static int cntSound = 0;
     private GraphicsContext gc = canvas.getGraphicsContext2D();
-    public boolean check_play = false;
-    public static int cntPlay = 0;
+    private boolean win = false;
     private boolean playMusic = true;
     private boolean loseGame = false;
-
+    private boolean canNextLevel = false;
+    public static final int MAX_LEVEL = 3;
+    public int level = 0;
+    public static int cntSound = 0;
+    public static int cntPlay = 0;
+    private int cntWin = ;
     private long startLevel = 0;
     private static final long TIME_NEXT_LEVEL = 1500;
-    private boolean canNextLevel = false;
     private long time = 0;
     private long timeReal;
     public static Audio audio = new Audio();
@@ -62,24 +55,23 @@ public class BombermanGame extends Application {
     public static Images item = new Images("/Images/item.png", 4, 4);
     //lớp đệm của map như cỏ
     public static Images padding = new Images("/Images/Padding.png", 1, 1);
-
-
-    public static Bomber bomberman;
-
     public static final String Map = "bomberman-starter-starter-2/res/TileMap/Map";
     public static final String mapMonster = "bomberman-starter-starter-2/res/TileMap/Tile_monster";
     public static final String mapItem = "bomberman-starter-starter-2/res/TileMap/Tile_item.txt";
-
-    public static final String score = "bomberman-starter-starter-2/res/Point/score.txt";
+    public static final String scoreFile = "bomberman-starter-starter-2/res/Point/score.txt";
+    public static Bomber bomberman;
 
     private StopWatch cntLose = new StopWatch(1987);
-    private Text textHeart = new Text (":");
+    private Text textHeart = new Text(":");
     private Text textTime = new Text("time");
     private Text textLevel = new Text("Level:");
-    private List<Text> textList = new ArrayList<>();
+    private Text textScore = new Text("Score :");
+    private Text textHighScoreList[] = new Text[Point.TOPSCORE];
     private Menu Menu = new Menu();
-    public static Point point = new Point();
+    public static Point point = new Point(0, 0);
+    private Point highestScore;
     AnimationTimer timer;
+    private int cntAddScore = 0;
 
     // private Stage stage1;
 
@@ -90,11 +82,13 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage stage) {
         setText();
-      mainMenu(stage);
+        mainMenu(stage);
     }
 
     public void playGame(Stage stage) {
+        cntAddScore = 0;
         clear();
+        highestScore = point.getListPoint().get(0);
         loseGame = false;
         player.loadImage();
         bomberman = new Bomber(1, 1, player.getList().get(1).getFxImage(), 2);
@@ -102,11 +96,12 @@ public class BombermanGame extends Application {
         entities.add(bomberman);
         Group root = new Group();
         root.getChildren().add(canvas);
-      //  setText();
+        //  setText();
         root.getChildren().add(Menu.getHeartPlayer());
         root.getChildren().add(textHeart);
         root.getChildren().add(textTime);
         root.getChildren().add(textLevel);
+        root.getChildren().add(textScore);
         root.getChildren().add(Menu.getSoundPlayButton());
         root.getChildren().add(Menu.getPauseButton());
         // Tao scene
@@ -131,31 +126,75 @@ public class BombermanGame extends Application {
                 render();
                 update();
                 if (loseGame) {
-                    audio.playAudio(Audio.audio.playerDead.value);
+                    if (cntSound % 2 == 0) {
+                        audio.playAudio(Audio.audio.playerDead.value);
+                    }
+                    if (point.compare(highestScore) == 1) {
+                        if (cntAddScore < 1) {
+                            Menu.chucmung(root);
+                            audio.stopAudio(Audio.audio.playerDead.value);
+                            point.addList(scoreFile);
+                            point.topScore(scoreFile);
+                            ++cntAddScore;
+                        }
+                    } else {
+                        point.addList(scoreFile);
+                        point.topScore(scoreFile);
+                    }
                     if (cntLose.checkEnd()) {
+                        Menu.setChucmung();
                         audio.stopAudio(Audio.audio.playerDead.value);
                         root.getChildren().clear();
-                        endGame(stage);
                         cntLose.setStart();
+                        endGame(stage);
+                        //  cntLose.setStart();
                     }
                 }
                 if (canNextLevel && win == false) {
-                }
-                if (win == true || level > MAX_LEVEL) {
-                    winGame(stage);
-                }
-                if (canNextLevel) {
                     nextLevel(stage);
                 }
+                if (win == true || level > MAX_LEVEL) {
+                    if (point.compare(highestScore) == 1) {
+                        Menu.chucmung(root);
+                        point.addList(scoreFile);
+                        point.topScore(scoreFile);
+                    }
+                    ++cntWin;
+                    winGame(stage);
+                }
+             /*   if (canNextLevel) {
+                    nextLevel(stage);
+                }*/
                 Menu.setSound();
                 Menu.setPause(root);
             }
         };
         timer.start();
-        System.out.println("da goi cau lenh nay");
     }
 
     public void setText() {
+        textHighScoreList[0] = new Text("11");
+        textHighScoreList[1] = new Text("22");
+        textHighScoreList[2] = new Text("33");
+        textHighScoreList[0].setFont(Font.font(null, FontWeight.LIGHT, 50));
+        //Setting the color of the text
+        textHighScoreList[0].setFill(Color.WHITE);
+        //setting the position of the text
+        textHighScoreList[0].setX(200);
+        textHighScoreList[0].setY(260);
+        textHighScoreList[1].setFont(Font.font(null, FontWeight.LIGHT, 50));
+        //Setting the color of the text
+        textHighScoreList[1].setFill(Color.WHITE);
+        //setting the position of the text
+        textHighScoreList[1].setX(200);
+        textHighScoreList[1].setY(370);
+        textHighScoreList[2].setFont(Font.font(null, FontWeight.LIGHT, 50));
+        //Setting the color of the text
+        textHighScoreList[2].setFill(Color.WHITE);
+        //setting the position of the text
+        textHighScoreList[2].setX(200);
+        textHighScoreList[2].setY(480);
+
         textHeart.setFont(Font.font(null, FontWeight.BOLD, 30));
         //Setting the color of the text
         textHeart.setFill(Color.GREEN);
@@ -170,6 +209,10 @@ public class BombermanGame extends Application {
         textLevel.setX(450);
         textLevel.setY(550);
         textLevel.setFill(Color.BLACK);
+        textScore.setFont(Font.font(null, FontWeight.BOLD, 30));
+        textScore.setX(650);
+        textScore.setY(550);
+        textScore.setFill(Color.GREY);
     }
 
     public List<Entity> updateEntity() {
@@ -187,10 +230,11 @@ public class BombermanGame extends Application {
         map.loadImage();
         map.readMap(Map + this.level + ".txt", map, WIDTH, HEIGHT);
         map.createMap();
-        stillObjects.addAll(map.getStillObjects());map.getLogic_map();
+        stillObjects.addAll(map.getStillObjects());
+        map.getLogic_map();
 
         item.loadImage();
-        //item.readMap(mapItem, item, WIDTH, HEIGHT - 1);
+        //item.readMap(mapItem, item, WIDTH, HEIGHT );
         item.randomItem(mapItem, item, WIDTH, HEIGHT);
         item.createItem();
         listItem.addAll(item.getStillObjects());
@@ -228,10 +272,12 @@ public class BombermanGame extends Application {
     public void update() {
         if (cntPlay % 2 == 0) {
             time++;
-            timeReal = time / 50;
+            timeReal = time / 60;
+            point.setTime(timeReal);
             textTime.setText("Time: " + timeReal);
             textHeart.setText(": " + bomberman.getHeart());
-            textLevel.setText("Level: " + this.level );
+            textLevel.setText("Level: " + this.level);
+            textScore.setText("Score: " + point.getScore());
             if (bomberman.getHeart() <= 0) {
                 loseGame = true;
             }
@@ -250,7 +296,6 @@ public class BombermanGame extends Application {
                 interactive.setSwapMap(false);
                 bomberman.setPosition();
                 clear();
-                //  entities.add(bomberman);
                 canNextLevel = true;
             }
         }
@@ -265,16 +310,17 @@ public class BombermanGame extends Application {
     }
 
     public void mainMenu(Stage stage) {
-        point.addList(score);
-        point.addScore(111);
-        point.setTime(0);
-        point.topScore(score);
+        point.addList(scoreFile);
         Group root = new Group();
         root.getChildren().add(Menu.getBackgroundMenu());
         root.getChildren().add(Menu.getPlayButton());
         root.getChildren().add(Menu.getInstructionButton());
         root.getChildren().add(Menu.getQuitButton());
         root.getChildren().add(Menu.getVolumOnButton());
+        root.getChildren().add(Menu.getHighscoreButtonMain());
+        if (cntWin > 0) {
+            root.getChildren().add(Menu.getChooselevelButton());
+        }
         // Tao scene
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -285,7 +331,9 @@ public class BombermanGame extends Application {
         Menu.getVolumOnButton().setOnMouseClicked(mouseEvent -> {
             root.getChildren().remove(Menu.getVolumOnButton());
             root.getChildren().add(Menu.getVolumOffButton());
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             playMusic = false;
             audio.stopAudio(Audio.audio.backgroundMusic.value);
@@ -293,28 +341,52 @@ public class BombermanGame extends Application {
         Menu.getVolumOffButton().setOnMouseClicked(mouseEvent -> {
             root.getChildren().remove(Menu.getVolumOffButton());
             root.getChildren().add(Menu.getVolumOnButton());
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             playMusic = true;
             audio.playAudio(Audio.audio.backgroundMusic.value);
         });
         Menu.getPlayButton().setOnMouseClicked(mouseEvent -> {
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             playGame(stage);
         });
         Menu.getInstructionButton().setOnMouseClicked(mouseEvent -> {
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             guideMenu(stage);
         });
         Menu.getQuitButton().setOnMouseClicked(mouseEvent -> {
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             stage.close();
+        });
+        Menu.getHighscoreButtonMain().setOnMouseClicked(mouseEvent -> {
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            highScore(stage);
+        });
+        Menu.getChooselevelButton().setOnMouseClicked(mouseEvent ->  {
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            chooseLevel(stage);
         });
     }
 
@@ -329,17 +401,22 @@ public class BombermanGame extends Application {
         stage.setScene(scene);
         stage.show();
         Menu.getBackButton().setOnMouseClicked(mouseEvent -> {
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             mainMenu(stage);
         });
         Menu.getNextButton().setOnMouseClicked(mouseEvent -> {
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             guide2(stage);
         });
     }
+
     public void guide2(Stage stage) {
         Group root = new Group();
         root.getChildren().add(Menu.getHd2Img());
@@ -351,18 +428,23 @@ public class BombermanGame extends Application {
         stage.setScene(scene);
         stage.show();
         Menu.getBackButton().setOnMouseClicked(mouseEvent -> {
-            BombermanGame.audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             BombermanGame.audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             guideMenu(stage);
         });
         Menu.getNextButton().setOnMouseClicked(mouseEvent -> {
-            BombermanGame.audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             BombermanGame.audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             guide3(stage);
         });
     }
+
     public void guide3(Stage stage) {
         Group root = new Group();
         root.getChildren().add(Menu.getHd3Img());
@@ -374,13 +456,17 @@ public class BombermanGame extends Application {
         stage.setScene(scene);
         stage.show();
         Menu.getBackButton().setOnMouseClicked(mouseEvent -> {
-            BombermanGame.audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             BombermanGame.audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             guide2(stage);
         });
         Menu.getHomeButton().setOnMouseClicked(mouseEvent -> {
-            BombermanGame.audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             BombermanGame.audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
             mainMenu(stage);
@@ -406,7 +492,7 @@ public class BombermanGame extends Application {
         }
 
         long endLevel = System.currentTimeMillis();
-        if (this.level >= MAX_LEVEL) {
+        if (this.level > MAX_LEVEL) {
             canNextLevel = false;
             win = true;
         }
@@ -421,33 +507,52 @@ public class BombermanGame extends Application {
     }
 
     public void endGame(Stage stage) {
+        if (timer == null) {
+            System.out.println("null ma");
+        }
         timer.stop();
         Group root = new Group();
         root.getChildren().add(Menu.getEndGameMenu());
         root.getChildren().add(Menu.getPlayAgainButton());
         root.getChildren().add(Menu.getQuit2Button());
         root.getChildren().add(Menu.getHomeButton());
+        root.getChildren().add(Menu.getHighscoreButton());
         Scene scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
         Menu.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
-            time = 0;
+            //time = 0;
             loseGame = false;
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
+            timer.start();
             playGame(stage);
         });
         Menu.getQuit2Button().setOnMouseClicked(mouseEvent -> {
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             stage.close();
         });
         Menu.getHomeButton().setOnMouseClicked(mouseEvent -> {
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             mainMenu(stage);
+        });
+        Menu.getHighscoreButton().setOnMouseClicked(mouseEvent -> {
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            highScore(stage);
         });
     }
 
@@ -461,6 +566,7 @@ public class BombermanGame extends Application {
         Scene scene = new Scene(root);
         // Them scene vao stage
         stage.setScene(scene);
+        stage.show();
         Menu.getQuit2Button().setOnMouseClicked(mouseEvent -> {
             stage.close();
         });
@@ -469,19 +575,82 @@ public class BombermanGame extends Application {
             clear();
             win = false;
             this.level = 0;
+            cntAddScore = 0;
+            point.clear();
             root.getChildren().clear();
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             root.getChildren().clear();
+            timer.start();
             playGame(stage);
         });
         Menu.getHomeButton().setOnMouseClicked(mouseEvent -> {
             time = 0;
             win = false;
             level = 0;
-            audio.playAudio(Audio.audio.buttonClick.value);
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
             audio.audioStopTime(Audio.audio.buttonClick.value, 70);
             mainMenu(stage);
+        });
+    }
+
+    public void highScore(Stage stage) {
+        point.addList(scoreFile);
+        // point.topScore(scoreFile);
+        Group root = new Group();
+        textHighScoreList[0].setText(point.getListScoreString().get(0));
+        textHighScoreList[1].setText(point.getListScoreString().get(1));
+        textHighScoreList[2].setText(point.getListScoreString().get(2));
+        root.getChildren().add(Menu.getHighScoreScreen());
+        root.getChildren().add(Menu.getBackButton());
+        root.getChildren().add(textHighScoreList[0]);
+        root.getChildren().add(textHighScoreList[1]);
+        root.getChildren().add(textHighScoreList[2]);
+        Scene scene = new Scene(root);
+        // Them scene vao stage
+        stage.setScene(scene);
+        stage.show();
+        Menu.getBackButton().setOnMouseClicked(mouseEvent -> {
+            if (cntSound % 2 == 0 && playMusic == true) {
+                audio.playAudio(Audio.audio.buttonClick.value);
+            }
+            audio.audioStopTime(Audio.audio.buttonClick.value, 70);
+            root.getChildren().clear();
+            if (loseGame == false) {
+                mainMenu(stage);
+            } else {
+                endGame(stage);
+            }
+        });
+    }
+    public void chooseLevel(Stage stage) {
+        Group root = new Group();
+        root.getChildren().add(Menu.getBackgroundMenu());
+        root.getChildren().add(Menu.getLevel1Button());
+        root.getChildren().add(Menu.getLevel2Button());
+        root.getChildren().add(Menu.getLevel3Button());
+        Scene scene = new Scene(root);
+        // Them scene vao stage
+        stage.setScene(scene);
+        stage.show();
+        Menu.getLevel1Button().setOnMouseClicked(mouseEvent -> {
+            root.getChildren().clear();
+            this.level = 1;
+            playGame(stage);
+        });
+        Menu.getLevel2Button().setOnMouseClicked(mouseEvent -> {
+            root.getChildren().clear();
+            this.level = 2;
+            playGame(stage);
+        });
+        Menu.getLevel3Button().setOnMouseClicked(mouseEvent -> {
+            root.getChildren().clear();
+            this.level = 3;
+            playGame(stage);
         });
     }
 }

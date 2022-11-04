@@ -13,6 +13,7 @@ public class RedMinvoRotate extends AutoMove {
     Random random = new Random();
     public RedMinvoRotate(int x, int y, Image img) {
         super(x,y, img, 1, Sprite.redMinvoRotate);
+        setPoint(100);
         setAmount(random.nextInt(3) + 1);
     }
 

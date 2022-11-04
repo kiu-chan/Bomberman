@@ -14,6 +14,7 @@ public class Minvo extends AutoMove {
     Random random = new Random();
     public Minvo(int x, int y, Image img) {
         super(x,y, img, 2, Sprite.minvo);
+        setPoint(100);
     }
 
     @Override

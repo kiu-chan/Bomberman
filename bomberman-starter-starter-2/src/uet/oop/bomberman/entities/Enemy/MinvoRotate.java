@@ -11,6 +11,7 @@ public class MinvoRotate extends AutoMove {
     public MinvoRotate(int x, int y, Image img) {
         super(x,y, img, 1, Sprite.minvoRotate);
         setAmount(1);
+        setPoint(500);
     }
 
     @Override

@@ -14,6 +14,7 @@ public class Kondoria extends AutoMove {
     Random random = new Random();
     public Kondoria(int x, int y, Image img) {
         super(x, y, img, 1, Sprite.kondoria);
+        setPoint(100);
     }
 
     @Override

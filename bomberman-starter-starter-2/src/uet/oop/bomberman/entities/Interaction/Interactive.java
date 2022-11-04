@@ -84,6 +84,7 @@ public class Interactive {
                     list.addAll(addMinvo(monster_x, monster_y, amount));
                 } else {
                     BombermanGame.point.addScore(list.get(i).getPoint());
+                    System.out.println(BombermanGame.point.getScore());
                     list.remove(i);
                 }
             }
@@ -131,7 +132,7 @@ public class Interactive {
     }
     public void collideWithEnemy(Bomber bomber, List<Entity> enemy) {
         for (int i = 0; i < enemy.size(); i++) {
-            if (enemy.get(i) instanceof Bomber == false) {
+            if (!(enemy.get(i) instanceof Bomber)) {
                 if (collision.CheckCollision(bomber, enemy.get(i))) {
                     bomber.reduceHeart();
                     if (bomber.getHeart() >= 1) {

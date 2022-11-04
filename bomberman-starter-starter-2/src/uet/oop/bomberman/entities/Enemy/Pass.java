@@ -13,6 +13,7 @@ public class Pass extends AutoMove {
     Random random = new Random();
     public Pass(int x, int y, Image img) {
         super(x,y, img, 4, Sprite.pass);
+        setPoint(100);
         setAmount(random.nextInt(3) + 1);
     }
 

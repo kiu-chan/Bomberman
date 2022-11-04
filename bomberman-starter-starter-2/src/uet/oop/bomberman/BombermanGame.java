@@ -277,7 +277,7 @@ public class BombermanGame extends Application {
             textTime.setText("Time: " + timeReal);
             textHeart.setText(": " + bomberman.getHeart());
             textLevel.setText("Level: " + this.level);
-            textScore.setText("Score: " + point.getScore());
+            textScore.setText("Score: " + point.getScore());//System.out.println(point.getScore());
             if (bomberman.getHeart() <= 0) {
                 loseGame = true;
             }
@@ -289,6 +289,7 @@ public class BombermanGame extends Application {
 
             if (interactive.getSwapMap()) {
                 bomberman.getBombs().clear();
+                point.addScore(this.level * 150);
                 ++this.level;
                 if (this.level > MAX_LEVEL) {
                     win = true;
@@ -653,5 +654,6 @@ public class BombermanGame extends Application {
             playGame(stage);
         });
     }
+
 }
 

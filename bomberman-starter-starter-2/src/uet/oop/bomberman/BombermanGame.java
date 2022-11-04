@@ -36,7 +36,7 @@ public class BombermanGame extends Application {
     public int level = 0;
     public static int cntSound = 0;
     public static int cntPlay = 0;
-    private int cntWin = ;
+    private int cntWin = 0;
     private long startLevel = 0;
     private static final long TIME_NEXT_LEVEL = 1500;
     private long time = 0;

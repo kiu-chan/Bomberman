@@ -47,7 +47,7 @@ public class AutoMove extends MoveEntity {
 
     private boolean check_map = false;
 
-    public static final double RANGE = 30 * Sprite.SCALED_SIZE;
+    public static final double RANGE = 5 * Sprite.SCALED_SIZE;
     private Collision collision = new Collision();
 
     private StopWatch time = new StopWatch(300);
@@ -156,7 +156,12 @@ public class AutoMove extends MoveEntity {
     public void movePass(int way) {
         canMove(way);
 
-        direction(start);
+        if (checkPlayer()) {
+            direction(AIMoveToPlayer());
+        } else {
+            check_direction = 0;
+            move(start);
+        }
     }
     @Override
     public boolean canMove(int way) {

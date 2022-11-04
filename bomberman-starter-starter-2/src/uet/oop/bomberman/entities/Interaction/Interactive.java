@@ -71,9 +71,10 @@ public class Interactive {
             }
         }
 
-
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getRemove()) {
+                BombermanGame.point.addScore(list.get(i).getPoint());
+                //System.out.println(BombermanGame.point.getScore());
                 if (list.get(i).getSwapMonster()) {
                     int monster_x = list.get(i).getX() / Sprite.SCALED_SIZE;
                     int monster_y = list.get(i).getY() / Sprite.SCALED_SIZE;
@@ -83,8 +84,6 @@ public class Interactive {
 
                     list.addAll(addMinvo(monster_x, monster_y, amount));
                 } else {
-                    BombermanGame.point.addScore(list.get(i).getPoint());
-                    System.out.println(BombermanGame.point.getScore());
                     list.remove(i);
                 }
             }

@@ -17,7 +17,7 @@ public class Balloom extends AutoMove {
 
 
     public Balloom(int x, int y, Image img) {
-        super( x, y, img, 2, Sprite.balloom);
+        super( x, y, img, 1, Sprite.balloom);
         setPoint(100);
     }
 

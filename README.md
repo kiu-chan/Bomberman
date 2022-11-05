@@ -47,7 +47,7 @@ Người chơi có nhiệm vụ di chuyển bomber đi khắp bản đồ để 
 ### II, Các đối tượng của trò chơi
 
 #### 1, Đối tượng tĩnh
-- ![](res/IMG/map/images/map_01.png) Grass là đối tượng mà Bomber và Enemy có thể di chuyển xuyên qua, và cho phép đặt Bomb lên vị trí của nó
+- ![](bomberman-starter-starter-2/res/IMG/map/images/map_01.png) Grass là đối tượng mà Bomber và Enemy có thể di chuyển xuyên qua, và cho phép đặt Bomb lên vị trí của nó
 - ![](res/IMG/map/images/map_02.png) Wall là đối tượng cố định, không thể phá hủy bằng Bomb cũng như không thể đặt Bomb lên được, Bomber và Enemy không thể di chuyển vào đối tượng này
 - ![](res/IMG/map/images/map_03.png) Brick là đối tượng được đặt lên các ô Grass, không cho phép đặt Bomb lên nhưng có thể bị phá hủy bởi Bomb được đặt gần đó. Bomber và Enemy thông thường không thể di chuyển vào vị trí Brick khi nó chưa bị phá hủy.
 - ![](res/IMG/map/images/map_07.png) Portal là đối tượng được giấu phía sau một đối tượng Brick. Khi Brick đó bị phá hủy, Portal sẽ hiện ra và nếu tất cả Enemy đã bị tiêu diệt thì người chơi có thể qua Level khác bằng cách di chuyển vào vị trí của Portal.

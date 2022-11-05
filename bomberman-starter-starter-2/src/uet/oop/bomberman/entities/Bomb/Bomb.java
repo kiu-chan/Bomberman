@@ -20,7 +20,7 @@ public class Bomb extends Entity {
     private boolean isExplotion = false;
     private boolean remove = false;
     public static int radiusBomb = 1;
-    private int timeToExplode = 120;
+    private int timeToExplode = 100;
     private int timeAfterExplode = 60;
     private List<Explotion> explotionList = new ArrayList<>();
     private Collision collision = new Collision();

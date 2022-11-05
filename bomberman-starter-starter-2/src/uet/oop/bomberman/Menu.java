@@ -30,7 +30,6 @@ public class Menu {
     private ImageView quitButton = new ImageView(quit);
     private Image guideImage = new Image("MenuImage/huongdan.png");
     private ImageView instruction = new ImageView(guideImage);
-    private Button Pause = new Button("Pause");
     private Image endGameImage = new Image("MenuImage/end.png");
     private ImageView endGameMenu = new ImageView(endGameImage);
     private Image playAgain = new Image("MenuImage/playag.png");
@@ -100,7 +99,7 @@ public class Menu {
         backButton.setY(5);
         backButton.setX(5);
         nextButton.setY(5);
-        nextButton.setX(1040);
+        nextButton.setX(1060);
         volumOnButton.setX(1040);
         volumOnButton.setY(5);
         volumOffButton.setX(1040);
@@ -113,6 +112,14 @@ public class Menu {
         pauseButton.setY(515);
         highscoreButton.setX(500);
         highscoreButton.setY(400);
+    }
+
+    public Image getVolumOff() {
+        return volumOff;
+    }
+
+    public Image getVolumOn() {
+        return volumOn;
     }
 
     public ImageView getHighscoreButtonMain() {

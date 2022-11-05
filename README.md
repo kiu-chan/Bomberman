@@ -48,31 +48,31 @@ Người chơi có nhiệm vụ di chuyển bomber đi khắp bản đồ để 
 
 #### 1, Đối tượng tĩnh
 - ![](bomberman-starter-starter-2/res/IMG/map/images/map_01.png) Grass là đối tượng mà Bomber và Enemy có thể di chuyển xuyên qua, và cho phép đặt Bomb lên vị trí của nó
-- ![](res/IMG/map/images/map_02.png) Wall là đối tượng cố định, không thể phá hủy bằng Bomb cũng như không thể đặt Bomb lên được, Bomber và Enemy không thể di chuyển vào đối tượng này
-- ![](res/IMG/map/images/map_03.png) Brick là đối tượng được đặt lên các ô Grass, không cho phép đặt Bomb lên nhưng có thể bị phá hủy bởi Bomb được đặt gần đó. Bomber và Enemy thông thường không thể di chuyển vào vị trí Brick khi nó chưa bị phá hủy.
-- ![](res/IMG/map/images/map_07.png) Portal là đối tượng được giấu phía sau một đối tượng Brick. Khi Brick đó bị phá hủy, Portal sẽ hiện ra và nếu tất cả Enemy đã bị tiêu diệt thì người chơi có thể qua Level khác bằng cách di chuyển vào vị trí của Portal.
+- ![](bomberman-starter-starter-2/bomberman-starter-starter-2/res/IMG/map/images/map_02.png) Wall là đối tượng cố định, không thể phá hủy bằng Bomb cũng như không thể đặt Bomb lên được, Bomber và Enemy không thể di chuyển vào đối tượng này
+- ![](bomberman-starter-starter-2/res/IMG/map/images/map_03.png) Brick là đối tượng được đặt lên các ô Grass, không cho phép đặt Bomb lên nhưng có thể bị phá hủy bởi Bomb được đặt gần đó. Bomber và Enemy thông thường không thể di chuyển vào vị trí Brick khi nó chưa bị phá hủy.
+- ![](bomberman-starter-starter-2/res/IMG/map/images/map_07.png) Portal là đối tượng được giấu phía sau một đối tượng Brick. Khi Brick đó bị phá hủy, Portal sẽ hiện ra và nếu tất cả Enemy đã bị tiêu diệt thì người chơi có thể qua Level khác bằng cách di chuyển vào vị trí của Portal.
   Các Item cũng được giấu phía sau Brick và chỉ hiện ra khi Brick bị phá hủy. Bomber có thể sử dụng Item bằng cách di chuyển vào vị trí của Item.
 #### 2, Đối tượng động
-- ![](res/IMG/Player/images/Player3_07.png) Bomber là nhân vật chính của trò chơi. Bomber có thể di chuyển theo 4 hướng trái/phải/lên/xuống theo sự điều khiển của người chơi.
+- ![](bomberman-starter-starter-2/res/IMG/Player/images/Player3_07.png) Bomber là nhân vật chính của trò chơi. Bomber có thể di chuyển theo 4 hướng trái/phải/lên/xuống theo sự điều khiển của người chơi.
 - Enemy là các đối tượng mà Bomber phải tiêu diệt hết để có thể qua Level. Enemy có thể di chuyển ngẫu nhiên hoặc tự đuổi theo Bomber tùy theo loại Enemy. Các loại Enemy sẽ được mô tả cụ thể ở phần dưới.
-- ![](res/IMG/images/bom/game_49.png) Bomb là đối tượng mà Bomber sẽ đặt và kích hoạt tại các ô Grass. Khi đã được kích hoạt, Bomber và Enemy không thể di chuyển vào vị trí Bomb. Tuy nhiên ngay khi Bomber vừa đặt và kích hoạt Bomb tại ví trí của mình, Bomber có một lần được đi từ vị trí đặt Bomb ra vị trí bên cạnh. Sau khi kích hoạt 2s, Bomb sẽ tự nổ, các đối tượng Flame được tạo ra.
+- ![](bomberman-starter-starter-2/res/IMG/images/bom/game_49.png) Bomb là đối tượng mà Bomber sẽ đặt và kích hoạt tại các ô Grass. Khi đã được kích hoạt, Bomber và Enemy không thể di chuyển vào vị trí Bomb. Tuy nhiên ngay khi Bomber vừa đặt và kích hoạt Bomb tại ví trí của mình, Bomber có một lần được đi từ vị trí đặt Bomb ra vị trí bên cạnh. Sau khi kích hoạt 2s, Bomb sẽ tự nổ, các đối tượng Flame được tạo ra.
 
 #### 3, Về Enemy và item
-- ![](res/monster/PNG/game_10.png) Balloom: là loại quái di chuyển đơn giản, không thể đi xuyên tường.
-- ![](res/monster/PNG/game_91.png) Kondoria: Di chuyển đơn giản có thể đi xuyên tường.
-- ![](res/monster/PNG/game_89.png) Minvo: Di chuyển bình thường, nhưng có thể đuổi theo người chơi một cách thông minh.
-- ![](res/monster/PNG/game_87.png) Shost: Có thể đi xuyên qua tường và đuổi theo người chơi.
-- ![](res/monster/PNG/game_85.png) Pass: Di chuyển khá nhanh và đuổi theo người chơi một cách thông minh.
-- ![](res/monster/PNG/game_95.png) MinvoRotate: Chỉ đứng yên một chỗ, nhưng khi dính sát thương sẽ chuyển thành minvo.
-- ![](res/monster/PNG/game_93.png) Red Minvo Rotate: Chỉ đứng yên một chỗ, nhưng khi dính sát thương sẽ sinh ra ngẫu nhiên 1-4 minvo.
-- ![](res/monster/PNG/game_12.png) Oneal: Có tốc độ di chuyển thay đổi, lúc nhanh, lúc chậm và đuổi theo người chơi 1 cách đơn giản
-- ![](res/IMG/images/item/game_164.png) PowerupWallpass: Item này giúp người chơi di chuyển qua những đối tượng va chạm(tường) của trò chơi.
-- ![](res/IMG/images/item/game_166.png) PowerupBombpass: Item này giúp người chơi đi xuyên qua bom.
-- ![](res/IMG/images/item/game_163.png) PowerupSpeed: Item này giúp người chơi di chuyển nhanh hơn.
-- ![](res/IMG/images/item/game_167.png) PowerupFlamepass: Item này giúp người chơi miễn nhiễm sát thương từ vụ nổ.
-- ![](res/IMG/images/item/game_168.png) RandomItem: như cái tên, khi ăn item này, người chơi sẽ có hiệu quả của 1 item ngẫu nhiên.
-- ![](res/IMG/images/item/game_161.png) Powerup_Bombs: Item giúp tăng số lượng bom có thể thả cùng lúc.
-- ![](res/IMG/images/item/game_162.png) PowerupFlames: Item giúp tăng phạm vi nổ của quả bom
+- ![](bomberman-starter-starter-2/res/monster/PNG/game_10.png) Balloom: là loại quái di chuyển đơn giản, không thể đi xuyên tường.
+- ![](bomberman-starter-starter-2/res/monster/PNG/game_91.png) Kondoria: Di chuyển đơn giản có thể đi xuyên tường.
+- ![](bomberman-starter-starter-2/res/monster/PNG/game_89.png) Minvo: Di chuyển bình thường, nhưng có thể đuổi theo người chơi một cách thông minh.
+- ![](bomberman-starter-starter-2/res/monster/PNG/game_87.png) Shost: Có thể đi xuyên qua tường và đuổi theo người chơi.
+- ![](bomberman-starter-starter-2/res/monster/PNG/game_85.png) Pass: Di chuyển khá nhanh và đuổi theo người chơi một cách thông minh.
+- ![](bomberman-starter-starter-2/res/monster/PNG/game_95.png) MinvoRotate: Chỉ đứng yên một chỗ, nhưng khi dính sát thương sẽ chuyển thành minvo.
+- ![](bomberman-starter-starter-2/res/monster/PNG/game_93.png) Red Minvo Rotate: Chỉ đứng yên một chỗ, nhưng khi dính sát thương sẽ sinh ra ngẫu nhiên 1-4 minvo.
+- ![](bomberman-starter-starter-2/res/monster/PNG/game_12.png) Oneal: Có tốc độ di chuyển thay đổi, lúc nhanh, lúc chậm và đuổi theo người chơi 1 cách đơn giản
+- ![](bomberman-starter-starter-2/res/IMG/images/item/game_164.png) PowerupWallpass: Item này giúp người chơi di chuyển qua những đối tượng va chạm(tường) của trò chơi.
+- ![](bomberman-starter-starter-2/res/IMG/images/item/game_166.png) PowerupBombpass: Item này giúp người chơi đi xuyên qua bom.
+- ![](bomberman-starter-starter-2/res/IMG/images/item/game_163.png) PowerupSpeed: Item này giúp người chơi di chuyển nhanh hơn.
+- ![](bomberman-starter-starter-2/res/IMG/images/item/game_167.png) PowerupFlamepass: Item này giúp người chơi miễn nhiễm sát thương từ vụ nổ.
+- ![](bomberman-starter-starter-2/res/IMG/images/item/game_168.png) RandomItem: như cái tên, khi ăn item này, người chơi sẽ có hiệu quả của 1 item ngẫu nhiên.
+- ![](bomberman-starter-starter-2/res/IMG/images/item/game_161.png) Powerup_Bombs: Item giúp tăng số lượng bom có thể thả cùng lúc.
+- ![](bomberman-starter-starter-2/res/IMG/images/item/game_162.png) PowerupFlames: Item giúp tăng phạm vi nổ của quả bom
 ### III, Các chức năng của trò chơi
 - Điều khiển nhân vật di chuyển bằng các phím mũi tên và thả bom bằng phím `space`
 - Hệ thống mạng, điểm số, tính thời gian.

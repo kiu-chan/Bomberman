@@ -145,6 +145,7 @@ public class BombermanGame extends Application {
                         }
                     }
                     if (cntLose.checkEnd()) {
+                        audio.stopAudio(Audio.audio.playerDead.value);
                         Menu.setChucmung();
                         root.getChildren().clear();
                         cntLose.setStart();

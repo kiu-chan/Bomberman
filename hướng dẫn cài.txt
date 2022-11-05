@@ -1,8 +1,0 @@
-B1: Tải và cài Intellij theo link sau: https://www.jetbrains.com/idea/download/#section=windows
-B2: clone hoặc Download Zip theo đường dẫn: https://github.com/kiu-chan/Bomberman.git
-B3: Mở project và edit Configurations->add new Configuration -> Application
-    Modify options chọn add VM options
-    VM options thêm --module-path "C:\openjfx-19_windows-x64_bin-sdk\javafx-sdk-19\lib" --add-modules javafx.controls,javafx.fxml,javafx.media
-    Sửa tại path dẫn link javafx tải về từ https://drive.google.com/drive/folders/1IZc6ryn_6FqbuaXiC6zHBLfq8xlXUzda?usp=share_link
-    Các mục còn lại thêm tương ứng
-    Apply và chạy game

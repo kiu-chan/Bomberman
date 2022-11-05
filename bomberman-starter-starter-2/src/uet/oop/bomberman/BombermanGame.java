@@ -585,7 +585,6 @@ public class BombermanGame extends Application {
             stage.close();
         });
         Menu.getPlayAgainButton().setOnMouseClicked(mouseEvent -> {
-            System.out.println("da an ag");
             time = 0;
             clear();
             win = false;
@@ -602,7 +601,6 @@ public class BombermanGame extends Application {
             playGame(stage);
         });
         Menu.getHomeButton().setOnMouseClicked(mouseEvent -> {
-            System.out.println("da an home");
             time = 0;
             win = false;
             level = 0;

@@ -68,7 +68,6 @@ public class Point {
         return this.score;
     }
 
-
     public long getTime() {
         return this.time;
     }

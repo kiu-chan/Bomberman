@@ -1,67 +1,130 @@
-# Bài tập lớn OOP - Bomberman Game
+# Bomberman
+<a name="ve-dau-trang"/>
 
-Trong bài tập lớn này, nhiệm vụ của bạn là viết một phiên bản Java mô phỏng lại trò chơi [Bomberman](https://www.youtube.com/watch?v=mKIOVwqgSXM) kinh điển của NES.
+## Thành viên
+* Hoàng Bảo Khanh - 21020342
+* Ngô Đăng Huy - 21020330
+* Lớp môn học: INT2215 1, nhóm 2
 
-<img src="res/demo.png" alt="drawing" width="400"/>
+##  Mục lục
+* [1. Hướng dẫn cài đặt và chạy game](#cai-dat)
+* [2. Mô tả chung về trò chơi](#mo-ta)
+* [3. Các chức năng của trò chơi](#chuc-nang)
+* [4. Các kĩ thuật lập trình được sử dụng](#ki-thuat)
+* [5. Hỗ trợ](#ho-tro)
+* [6. Kết luận](#ket-luan)
+* [7. Tham Khảo](#tham-khao)
 
-Bạn có thể sử dụng mã nguồn tại repository này để phát triển hoặc tự phát triển từ đầu.
+<a name="cai-dat"/>
 
-## Mô tả về các đối tượng trong trò chơi
-Nếu bạn đã từng chơi Bomberman, bạn sẽ cảm thấy quen thuộc với những đối tượng này. Chúng được được chia làm hai loại chính là nhóm đối tượng động (*Bomber*, *Enemy*, *Bomb*) và nhóm đối tượng tĩnh (*Grass*, *Wall*, *Brick*, *Door*, *Item*).
+## I, Hướng dẫn cài đặt và chạy game
+### B1: Tải project về
+- Cách 1: Trên Github, chọn Code => Download ZIP  
+- Cách 2: Mở terminal tại thư mục muốn lưu project, sử dụng lệnh `git init` để khởi tạo Git, sau đó dùng lệnh `git clone https://github.com/kiu-chan/Bomberman.git` để clone project về máy
+### B2: Cài đặt game
+- Tải và cài đặt Intellij từ đường link sau: [link](https://www.jetbrains.com/idea/download/#section=windows)
+- Mở project và edit Configurations->add new Configuration -> Application
+- Modify options chọn add VM options
+- VM options thêm --module-path "" --add-modules javafx.controls,javafx.fxml,javafx.media
+- Các mục còn lại thêm tương ứng
+- Tại đường dẫn đến path dẫn link đến javafx sdk. 
+- Ví dụ: --module-path "path\javafx-sdk-19\lib" --add-modules javafx.controls,javafx.fxml,javafx.media
+### B3: Chạy game
+Nhấp vô nút run để chạy game
 
-*Hãy thiết kế hệ thống các đối tượng một cách phù hợp để tận dụng tối đa sức mạnh của OOP: tái sử dụng code, dễ dàng maintain.*
+ <a name="mo-ta"/>
 
-- ![](res/sprites/player_down.png) *Bomber* là nhân vật chính của trò chơi. Bomber có thể di chuyển theo 4 hướng trái/phải/lên/xuống theo sự điều khiển của người chơi. 
-- ![](res/sprites/balloom_left1.png) *Enemy* là các đối tượng mà Bomber phải tiêu diệt hết để có thể qua Level. Enemy có thể di chuyển ngẫu nhiên hoặc tự đuổi theo Bomber tùy theo loại Enemy. Các loại Enemy sẽ được mô tả cụ thể ở phần dưới.
-- ![](res/sprites/bomb.png) *Bomb* là đối tượng mà Bomber sẽ đặt và kích hoạt tại các ô Grass. Khi đã được kích hoạt, Bomber và Enemy không thể di chuyển vào vị trí Bomb. Tuy nhiên ngay khi Bomber vừa đặt và kích hoạt Bomb tại ví trí của mình, Bomber có một lần được đi từ vị trí đặt Bomb ra vị trí bên cạnh. Sau khi kích hoạt 2s, Bomb sẽ tự nổ, các đối tượng *Flame* ![](res/sprites/explosion_horizontal.png) được tạo ra.
+## II, Mô tả chung về trò chơi
+**Thể loại:** `Chiến thuật`
 
-
-- ![](res/sprites/grass.png) *Grass* là đối tượng mà Bomber và Enemy có thể di chuyển xuyên qua, và cho phép đặt Bomb lên vị trí của nó
-- ![](res/sprites/wall.png) *Wall* là đối tượng cố định, không thể phá hủy bằng Bomb cũng như không thể đặt Bomb lên được, Bomber và Enemy không thể di chuyển vào đối tượng này
-- ![](res/sprites/brick.png) *Brick* là đối tượng được đặt lên các ô Grass, không cho phép đặt Bomb lên nhưng có thể bị phá hủy bởi Bomb được đặt gần đó. Bomber và Enemy thông thường không thể di chuyển vào vị trí Brick khi nó chưa bị phá hủy.
+### I, Giới thiệu chung về trò chơi.
+Bomberman là một trò chơi kinh điểm của NES.
+Người chơi có nhiệm vụ di chuyển bomber đi khắp bản đồ để tiêu diệt quái vật
 
 
-- ![](res/sprites/portal.png) *Portal* là đối tượng được giấu phía sau một đối tượng Brick. Khi Brick đó bị phá hủy, Portal sẽ hiện ra và nếu tất cả Enemy đã bị tiêu diệt thì người chơi có thể qua Level khác bằng cách di chuyển vào vị trí của Portal.
+<a name = "chuc-nang"/>
 
-Các *Item* cũng được giấu phía sau Brick và chỉ hiện ra khi Brick bị phá hủy. Bomber có thể sử dụng Item bằng cách di chuyển vào vị trí của Item. Thông tin về chức năng của các Item được liệt kê như dưới đây:
-- ![](res/sprites/powerup_speed.png) *SpeedItem* Khi sử dụng Item này, Bomber sẽ được tăng vận tốc di chuyển thêm một giá trị thích hợp
-- ![](res/sprites/powerup_flames.png) *FlameItem* Item này giúp tăng phạm vi ảnh hưởng của Bomb khi nổ (độ dài các Flame lớn hơn)
-- ![](res/sprites/powerup_bombs.png) *BombItem* Thông thường, nếu không có đối tượng Bomb nào đang trong trạng thái kích hoạt, Bomber sẽ được đặt và kích hoạt duy nhất một đối tượng Bomb. Item này giúp tăng số lượng Bomb có thể đặt thêm một.
+### II, Các đối tượng của trò chơi
 
-Có nhiều loại Enemy trong Bomberman, tuy nhiên trong phiên bản này chỉ yêu cầu cài đặt hai loại Enemy dưới đây (nếu cài đặt thêm các loại khác sẽ được cộng thêm điểm):
-- ![](res/sprites/balloom_left1.png) *Balloom* là Enemy đơn giản nhất, di chuyển ngẫu nhiên với vận tốc cố định
-- ![](res/sprites/oneal_left1.png) *Oneal* có tốc độ di chuyển thay đổi, lúc nhanh, lúc chậm và di chuyển "thông minh" hơn so với Balloom (biết đuổi theo Bomber)
+#### 1, Đối tượng tĩnh
+- ![](res/IMG/map/images/map_01.png) Grass là đối tượng mà Bomber và Enemy có thể di chuyển xuyên qua, và cho phép đặt Bomb lên vị trí của nó
+- ![](res/IMG/map/images/map_02.png) Wall là đối tượng cố định, không thể phá hủy bằng Bomb cũng như không thể đặt Bomb lên được, Bomber và Enemy không thể di chuyển vào đối tượng này
+- ![](res/IMG/map/images/map_03.png) Brick là đối tượng được đặt lên các ô Grass, không cho phép đặt Bomb lên nhưng có thể bị phá hủy bởi Bomb được đặt gần đó. Bomber và Enemy thông thường không thể di chuyển vào vị trí Brick khi nó chưa bị phá hủy.
+- ![](res/IMG/map/images/map_07.png) Portal là đối tượng được giấu phía sau một đối tượng Brick. Khi Brick đó bị phá hủy, Portal sẽ hiện ra và nếu tất cả Enemy đã bị tiêu diệt thì người chơi có thể qua Level khác bằng cách di chuyển vào vị trí của Portal.
+  Các Item cũng được giấu phía sau Brick và chỉ hiện ra khi Brick bị phá hủy. Bomber có thể sử dụng Item bằng cách di chuyển vào vị trí của Item.
+#### 2, Đối tượng động
+- ![](res/IMG/Player/images/Player3_07.png) Bomber là nhân vật chính của trò chơi. Bomber có thể di chuyển theo 4 hướng trái/phải/lên/xuống theo sự điều khiển của người chơi.
+- Enemy là các đối tượng mà Bomber phải tiêu diệt hết để có thể qua Level. Enemy có thể di chuyển ngẫu nhiên hoặc tự đuổi theo Bomber tùy theo loại Enemy. Các loại Enemy sẽ được mô tả cụ thể ở phần dưới.
+- ![](res/IMG/images/bom/game_49.png) Bomb là đối tượng mà Bomber sẽ đặt và kích hoạt tại các ô Grass. Khi đã được kích hoạt, Bomber và Enemy không thể di chuyển vào vị trí Bomb. Tuy nhiên ngay khi Bomber vừa đặt và kích hoạt Bomb tại ví trí của mình, Bomber có một lần được đi từ vị trí đặt Bomb ra vị trí bên cạnh. Sau khi kích hoạt 2s, Bomb sẽ tự nổ, các đối tượng Flame được tạo ra.
 
-## Mô tả game play, xử lý va chạm và xử lý bom nổ
-- Trong một màn chơi, Bomber sẽ được người chơi di chuyển, đặt và kích hoạt Bomb với mục tiêu chính là tiêu diệt tất cả Enemy và tìm ra vị trí Portal để có thể qua màn mới
-- Bomber sẽ bị giết khi va chạm với Enemy hoặc thuộc phạm vi Bomb nổ. Lúc đấy trò chơi kết thúc.
-- Enemy bị tiêu diệt khi thuộc phạm vi Bomb nổ
-- Một đối tượng thuộc phạm vi Bomb nổ có nghĩa là đối tượng đó va chạm với một trong các tia lửa được tạo ra tại thời điểm một đối tượng Bomb nổ.
+#### 3, Về Enemy và item
+- ![](res/monster/PNG/game_10.png) Balloom: là loại quái di chuyển đơn giản, không thể đi xuyên tường.
+- ![](res/monster/PNG/game_91.png) Kondoria: Di chuyển đơn giản có thể đi xuyên tường.
+- ![](res/monster/PNG/game_89.png) Minvo: Di chuyển bình thường, nhưng có thể đuổi theo người chơi một cách thông minh.
+- ![](res/monster/PNG/game_87.png) Shost: Có thể đi xuyên qua tường và đuổi theo người chơi.
+- ![](res/monster/PNG/game_85.png) Pass: Di chuyển khá nhanh và đuổi theo người chơi một cách thông minh.
+- ![](res/monster/PNG/game_95.png) MinvoRotate: Chỉ đứng yên một chỗ, nhưng khi dính sát thương sẽ chuyển thành minvo.
+- ![](res/monster/PNG/game_93.png) Red Minvo Rotate: Chỉ đứng yên một chỗ, nhưng khi dính sát thương sẽ sinh ra ngẫu nhiên 1-4 minvo.
+- ![](res/monster/PNG/game_12.png) Oneal: Có tốc độ di chuyển thay đổi, lúc nhanh, lúc chậm và đuổi theo người chơi 1 cách đơn giản
+- ![](res/IMG/images/item/game_164.png) PowerupWallpass: Item này giúp người chơi di chuyển qua những đối tượng va chạm(tường) của trò chơi.
+- ![](res/IMG/images/item/game_166.png) PowerupBombpass: Item này giúp người chơi đi xuyên qua bom.
+- ![](res/IMG/images/item/game_163.png) PowerupSpeed: Item này giúp người chơi di chuyển nhanh hơn.
+- ![](res/IMG/images/item/game_167.png) PowerupFlamepass: Item này giúp người chơi miễn nhiễm sát thương từ vụ nổ.
+- ![](res/IMG/images/item/game_168.png) RandomItem: như cái tên, khi ăn item này, người chơi sẽ có hiệu quả của 1 item ngẫu nhiên.
+- ![](res/IMG/images/item/game_161.png) Powerup_Bombs: Item giúp tăng số lượng bom có thể thả cùng lúc.
+- ![](res/IMG/images/item/game_162.png) PowerupFlames: Item giúp tăng phạm vi nổ của quả bom
+### III, Các chức năng của trò chơi
+- Điều khiển nhân vật di chuyển bằng các phím mũi tên và thả bom bằng phím `space`
+- Hệ thống mạng, điểm số, tính thời gian.
+- Quái vật tự đuổi theo người chơi khi vào phạm vi và tấn công
+- Menu, bảng điểm, hướng dẫn chơi, người chơi có thể chơi lại khi nhân vật chết
+- Có thể lựa chọn level sau khi chiến thắng màn cuối cùng của trò chơi.
+- Trong thời gian chơi có thể tạm dừng game.
+- Âm thanh có thể bật tắt.
+- Để tiện cho việc diệt quái có thể nhấn nút 'enter' để tiêu diệt hết quái (tiện hơn cho việc test)
+<a name = "ki-thuat"/>
 
-- Khi Bomb nổ, một Flame trung tâm![](res/sprites/bomb_exploded.png) tại vị trí Bomb nổ và bốn Flame tại bốn vị trí ô đơn vị xung quanh vị trí của Bomb xuất hiện theo bốn hướng trên![](res/sprites/explosion_vertical.png)/dưới![](res/sprites/explosion_vertical.png)/trái![](res/sprites/explosion_horizontal.png)/phải![](res/sprites/explosion_horizontal.png). Độ dài bốn Flame xung quanh mặc định là 1 đơn vị, được tăng lên khi Bomber sử dụng các FlameItem.
-- Khi các Flame xuất hiện, nếu có một đối tượng thuộc loại Brick/Wall nằm trên vị trí một trong các Flame thì độ dài Flame đó sẽ được giảm đi để sao cho Flame chỉ xuất hiện đến vị trí đối tượng Brick/Wall theo hướng xuất hiện. Lúc đó chỉ có đối tượng Brick/Wall bị ảnh hưởng bởi Flame, các đối tượng tiếp theo không bị ảnh hưởng. Còn nếu vật cản Flame là một đối tượng Bomb khác thì đối tượng Bomb đó cũng sẽ nổ ngay lập tức.
+### IV, Các kỹ thuật lập trình được sử dụng
+#### 1, Map
+Bao gồm nhiều map xếp chồng lên nhau, mỗi map có 1 chức năng riêng theo thứ tự:
+- Map nền: Quy định các đối tượng bất biến như hoa, cỏ. Map này có chức năng là trang trí cho game.
+- Map item: Quy định vị trí của item. Do đã đổi sang random vị trí nên map này dùng để chứa số lượng item trong 1 map.
+- Map di chuyển: chứa các đối tượng là tường và vật chắn. Map này dùng để xử lý va chạm.
+- Map quái vật: Quy định vị trí bắt đầu của quái vật.
+#### 2, Xử lý hình ảnh.
+- Lưu hình ảnh vào các đối tượng và trong list.
+- Animation với việc thay đổi hình ảnh liên tục(Sử dụng list và hình ảnh được sắp xếp sẵn).
+#### 3, Xử lý va chạm.
+Bao gồm 2 hàm chính mỗi hàm có 1 chức năng riêng để tiết kiệm thời gian sử lý.
+- Xử lý va chạm giữa 2 đối tượng. Kiểm tra xem giữa 2 đối tượng có sự va chạm với nhau không.
+- Xử lý va chạm giữa đối tượng và map. Lấy toạ độ của đối tượng trong map để kiểm tra xem vị trí hiện tại hoặc tương lai đối tượng có va chạm với map không. Cách này có ưu điểm là nhanh và chỉ cần kiểm tra 1 lần với mỗi đối tượng.
+#### 4, Di chuyển của Enemy
+- Kiểm tra phạm vi: Sử dụng vecto trong hệ toạ độ để tính khoảng cách của enemy với người chơi, khi đã vào phạm vi thì enemy bắt đầu đuổi theo người chơi.
+Bao gồm 3 cách di chuyển chính:
+- Random: Sử dụng lớp Random để sinh số ngẫu nhiên trong phạm vi để lấy giá trị di chuyển cho enemy.
+- Tấn công đơn giản: Di chuyển đến vị trí player khi đi vào phạm vi tấn công.
+- Tìm đường: Sử dụng BFS để tìm đường đi ngắn nhất đến người chơi.
+#### 5, Các tính chất của OOP
+- Đóng gói
+- Kế thừa
+- Trừu tượng
+- Đa hình
 
-## Mô tả starter project
-Xem comment ở starter project
+<a name = "ho-tro"/>
 
-## Yêu cầu chung
-- Có thể chơi được ít nhất cho một màn chơi (chiến thắng một màn chơi)
-- Có thể thay đổi được tệp cấu hình khác cho màn chơi (tương tự mẫu cho trước)
+### V, Hỗ trợ
+- Sử dụng Photoshop để edit ảnh
+- Sử dụng pyxelEdit để làm map
 
-## Nhiệm vụ của bạn
-- Gói bắt buộc (+8đ)
-1. Thiết kế cây thừa kế cho các đối tượng game +2đ
-2. Xây dựng bản đồ màn chơi từ tệp cấu hình (có mẫu tệp cấu hình, xem [tại đây](https://raw.githubusercontent.com/bqcuong/bomberman-starter/starter-2/res/levels/Level1.txt)) +1đ
-3. Di chuyển Bomber theo sự điều khiển từ người chơi +1đ
-4. Tự động di chuyển các Enemy +1đ
-5. Xử lý va chạm cho các đối tượng Bomber, Enemy, Wall, Brick, Bomb +1đ
-6. Xử lý bom nổ +1đ
-7. Xử lý khi Bomber sử dụng các Item và khi đi vào vị trí Portal +1đ
+<a name = "ket-luan"/>
 
-- Gói tùy chọn (tối đa +2đ)
-1. Nâng cấp thuật toán tìm đường cho Enemy +0.5đ
-   Cài đặt thêm các loại Enemy khác: +0.25đ cho mỗi loại enemy
-2. Cài đặt thuật toán AI cho Bomber (tự chơi) +1đ
-3. Xử lý hiệu ứng âm thanh (thêm music & sound effects) +1đ
-4. Phát triển hệ thống server-client để nhiều người có thể cùng chơi qua mạng LAN hoặc Internet +1đ
-5. Những ý tưởng khác sẽ được đánh giá và cộng điểm theo mức tương ứng
+### VI, Kết luận
+Dự kiến phát triển:
+- Thêm boss
+
+ <a name = "tham-khao"/>
+
+### VII, Tham khảo
+- [Làm map](https://www.youtube.com/watch?v=5f-g87aGbBc)
+
+[về đầu trang](#ve-dau-trang)

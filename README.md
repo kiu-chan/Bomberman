@@ -4,7 +4,7 @@
 ## Thành viên
 * Hoàng Bảo Khanh - 21020342
 * Ngô Đăng Huy - 21020330
-* Lớp môn học: INT2215 1, nhóm 2
+* Lớp môn học: INT2215 1, nhóm 1
 
 ##  Mục lục
 * [1. Hướng dẫn cài đặt và chạy game](#cai-dat)

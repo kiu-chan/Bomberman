@@ -56,6 +56,7 @@ Người chơi có nhiệm vụ di chuyển bomber đi khắp bản đồ để 
 - ![](bomberman-starter-starter-2/res/EditIMG/bomb1.png) Bomber là nhân vật chính của trò chơi. Bomber có thể di chuyển theo 4 hướng trái/phải/lên/xuống theo sự điều khiển của người chơi.
 - Enemy là các đối tượng mà Bomber phải tiêu diệt hết để có thể qua Level. Enemy có thể di chuyển ngẫu nhiên hoặc tự đuổi theo Bomber tùy theo loại Enemy. Các loại Enemy sẽ được mô tả cụ thể ở phần dưới.
 - ![](bomberman-starter-starter-2/res/IMG/images/bom/game_49.png) Bomb là đối tượng mà Bomber sẽ đặt và kích hoạt tại các ô Grass. Khi đã được kích hoạt, Bomber và Enemy không thể di chuyển vào vị trí Bomb. Tuy nhiên ngay khi Bomber vừa đặt và kích hoạt Bomb tại ví trí của mình, Bomber có một lần được đi từ vị trí đặt Bomb ra vị trí bên cạnh. Sau khi kích hoạt 2s, Bomb sẽ tự nổ, các đối tượng Flame được tạo ra.
+Nếu 1 quả bom trong tầm nổ quả bom khác, nổ sẽ bị kích nổ theo khi quả kia nổ.
 
 #### 3, Về Enemy và item
 - ![](bomberman-starter-starter-2/res/monster/PNG/game_10.png) Balloom: là loại quái di chuyển đơn giản, không thể đi xuyên tường.
@@ -130,3 +131,4 @@ Dự kiến phát triển:
 - [Làm map](https://www.youtube.com/watch?v=5f-g87aGbBc)
 
 [về đầu trang](#ve-dau-trang)
+Nếu cần liên hệ trợ giúp để chơi game, xin hãy mail mình: 21020330@vnu.edu.

@@ -80,7 +80,9 @@ Người chơi có nhiệm vụ di chuyển bomber đi khắp bản đồ để 
 - Menu, bảng điểm, hướng dẫn chơi, người chơi có thể chơi lại khi nhân vật chết
 - Có thể lựa chọn level sau khi chiến thắng màn cuối cùng của trò chơi.
 - Trong thời gian chơi có thể tạm dừng game.
-- Âm thanh có thể bật tắt.
+- Âm thanh nền có thể bật tắt ở màn hình menu.
+- Âm thanh hiệu ứng game như bom nổ, người chết, di chuyển, đặt bom có thể tắt khi chơi game.
+- Có hiện và lưu lại điểm người chơi điểm cao. Khi điểm cao sẽ hiện ra màn hình chúc mừng trước khi trở về màn hình chính.
 - Để tiện cho việc diệt quái có thể nhấn nút 'enter' để tiêu diệt hết quái (tiện hơn cho việc test)
 <a name = "ki-thuat"/>
 

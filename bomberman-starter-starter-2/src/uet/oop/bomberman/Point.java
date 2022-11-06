@@ -104,31 +104,30 @@ public class Point {
         }
         writeScore(path, s);
     }
+        public void sortScore() {
+            Collections.sort(listPoint, new Comparator<Point>() {
+                @Override
+                public int compare(Point o1, Point o2) {
+                    if (o1.getScore() < o2.getScore()){
+                        return 1;
+                    }
 
-    public void sortScore() {
-        Collections.sort(listPoint, new Comparator<Point>() {
-            @Override
-            public int compare(Point o1, Point o2) {
-                if (o1.getScore() < o2.getScore()){
-                    return 1;
+                    if (o1.getScore() > o2.getScore()) {
+                        return -1;
+                    }
+
+                    if (o1.getTime() > o2.getTime()) {
+                        return 1;
+                    }
+
+                    if (o1.getTime() < o2.getTime()) {
+                        return -1;
+                    }
+
+                    return 0;
                 }
-
-                if (o1.getScore() > o2.getScore()) {
-                    return -1;
-                }
-
-                if (o1.getTime() > o2.getTime()) {
-                    return 1;
-                }
-
-                if (o1.getTime() < o2.getTime()) {
-                    return -1;
-                }
-
-                return 0;
-            }
-        });
-    }
+            });
+        }
 
     public void writeScore(String path, String text) {
         try {

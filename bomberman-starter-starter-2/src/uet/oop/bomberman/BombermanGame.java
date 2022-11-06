@@ -513,7 +513,6 @@ public class BombermanGame extends Application {
         }
 
         if (endLevel - startLevel >= TIME_NEXT_LEVEL) {
-            timer.stop();
             canNextLevel = false;
             startLevel = 0;
             root.getChildren().clear();
@@ -522,9 +521,6 @@ public class BombermanGame extends Application {
     }
 
     public void endGame(Stage stage) {
-        if (timer == null) {
-            System.out.println("null ma");
-        }
         timer.stop();
         Group root = new Group();
         root.getChildren().add(Menu.getEndGameMenu());
@@ -655,16 +651,19 @@ public class BombermanGame extends Application {
         Menu.getLevel1Button().setOnMouseClicked(mouseEvent -> {
             root.getChildren().clear();
             this.level = 1;
+            timer.start();
             playGame(stage);
         });
         Menu.getLevel2Button().setOnMouseClicked(mouseEvent -> {
             root.getChildren().clear();
             this.level = 2;
+            timer.start();
             playGame(stage);
         });
         Menu.getLevel3Button().setOnMouseClicked(mouseEvent -> {
             root.getChildren().clear();
             this.level = 3;
+            timer.start();
             playGame(stage);
         });
     }
